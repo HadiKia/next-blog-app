@@ -12,7 +12,6 @@ const PostList = async () => {
     data: { posts },
   } = await res.json();
 
-  console.log(posts);
 
   return posts.length > 0 ? (
     <div className="flex flex-col sm:grid grid-cols-12 gap-8">
