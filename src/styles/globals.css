@@ -133,12 +133,13 @@
   }
 
   .spinner {
-    margin: 3.2rem auto 1.6rem;
+    margin: 0 auto;
     width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid rgb(var(--color-primary-900));
-    border-right-color: rgb(var(--color-primary-200));
+    border-top: 5px solid rgb(var(--color-primary-600));
+    border-right: 5px solid transparent;
+    box-sizing: border-box;
     animation: rotate 1s infinite linear;
   }
 
@@ -147,7 +148,8 @@
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid rgb(var(--color-primary-900));
+    border-top: 2px solid rgb(var(--color-primary-600));
+    border-right: 2px solid transparent;
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
