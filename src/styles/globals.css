@@ -121,7 +121,7 @@
     @apply flex flex-col gap-y-8 bg-secondary-0 p-4 rounded-xl w-full max-w-lg;
   }
   .textField__input {
-    @apply w-full py-3 px-4 rounded-xl text-secondary-900 border border-secondary-100 bg-secondary-100 hover:border-primary-500 focus:border-primary-500 focus:bg-secondary-0 transition-all duration-300 ease-out focus:shadow-lg focus:shadow-primary-200 dark:focus:shadow-secondary-200;
+    @apply w-full py-2 lg:py-2.5 px-4 rounded-lg text-secondary-900 border border-secondary-300 hover:border-primary-600 outline outline-transparent focus:outline-primary-100 focus:border-primary-600 focus:bg-secondary-0 transition-all duration-300 ease-out bg-transparent placeholder:text-secondary-400 text-base;
   }
   .btn {
     @apply px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-x-2;
