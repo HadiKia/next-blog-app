@@ -50,7 +50,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <h2 className="text-primary-900 text-xl lg:text-2xl mb-6 font-bold ">
+      <h2 className="text-primary-900 text-xl lg:text-2xl mb-6 font-bold text-center">
         ایجاد حساب کاربری
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
