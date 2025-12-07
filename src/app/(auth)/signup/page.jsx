@@ -4,10 +4,8 @@ import RHFTextField from "@/ui/RHFTextFiled";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signupApi } from "@/services/authService";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const schema = yup
   .object({
@@ -43,16 +41,10 @@ const SignUp = () => {
     mode: "onTouched",
   });
 
-  const router = useRouter();
+  const { signup } = useAuth();
 
   const onSubmit = async (values) => {
-    try {
-      const { message } = await signupApi(values);
-      toast.success(message);
-      router.push("/profile");
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+    await signup(values);
   };
 
   return (
@@ -93,16 +85,16 @@ const SignUp = () => {
         <Button disabled={!isValid} variant="primary" className="mt-4">
           ثبت نام
         </Button>
-        <div className="flex items-center justify-center gap-x-3 text-base mt-4">
-          <span className="text-secondary-500">حساب کاربری دارید؟</span>
-          <Link
-            href="/signin"
-            className="text-primary-800 font-semibold hover:text-primary-900 duration-300 ease-out"
-          >
-            ورود
-          </Link>
-        </div>
       </form>
+      <div className="flex items-center justify-center gap-x-3 text-base mt-8">
+        <span className="text-secondary-500">حساب کاربری دارید؟</span>
+        <Link
+          href="/signin"
+          className="text-primary-800 font-semibold hover:text-primary-900 duration-300 ease-out"
+        >
+          ورود
+        </Link>
+      </div>
     </div>
   );
 };
