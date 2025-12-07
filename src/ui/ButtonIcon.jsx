@@ -4,15 +4,14 @@ const btnType = {
   secondary:
     "bg-secondary-200 text-secondary-500 hover:bg-secondary-500 hover-text-secondary-0",
   outline:
-    "border border-secondary-200 text-secondary-500 hover:bg-secondary-100",
-  red: "bg-error-100 text-error-500 hover:bg-error-500 hover:text-white",
-  danger: "border border-error-200 text-error-400 hover:bg-error-50 ",
+    "border border-secondary-200 text-secondary-700 hover:bg-secondary-100",
+  red: "border border-error-200 text-error-500 dark:text-error-400 hover:bg-error-50",
 };
 
-const ButtonIcon = ({ children, onclick, className, variant, ...rest }) => {
+const ButtonIcon = ({ children, onClick, className, variant, ...rest }) => {
   return (
     <button
-      onClick={onclick}
+      onClick={onClick}
       className={`${btnType[variant]}
         ${className}
         flex items-center justify-center gap-x-1 rounded-md p-1 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:text-inherit text-xs lg:text-sm transition-all duration-300 ease-linear`}
