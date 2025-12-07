@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import SpinnerMini from "@/ui/SpinnerMini";
 
 const schema = yup
   .object({
@@ -82,8 +83,12 @@ const SignUp = () => {
           dir="ltr"
           showPasswordChecks={true}
         />
-        <Button disabled={!isValid} variant="primary" className="mt-4">
-          ثبت نام
+        <Button
+          disabled={!isValid || isLoading}
+          variant="primary"
+          className="mt-4"
+        >
+          {isLoading ? <SpinnerMini /> : " ثبت نام"}
         </Button>
       </form>
       <div className="flex items-center justify-center gap-x-3 text-base mt-8">

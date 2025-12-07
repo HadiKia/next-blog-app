@@ -207,7 +207,7 @@
   }
 
   .spinner-mini {
-    margin: 0 auto;
+    margin: 2px auto;
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
