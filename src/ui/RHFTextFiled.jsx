@@ -17,6 +17,7 @@ const RHFTextField = ({
   errors,
   watch,
   validationSchema = {},
+  showPasswordChecks = false,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -106,7 +107,7 @@ const RHFTextField = ({
         </span>
       )}
 
-      {isPasswordField && (
+      {isPasswordField && showPasswordChecks && (
         <div className="mt-3 space-y-2">
           {passwordChecks.map((rule, index) => {
             const isValid = rule.check(passwordValue);

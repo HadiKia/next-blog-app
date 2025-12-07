@@ -4,18 +4,13 @@ import RHFTextField from "@/ui/RHFTextFiled";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signupApi } from "@/services/authService";
+import { signinApi } from "@/services/authService";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const schema = yup
   .object({
-    name: yup
-      .string()
-      .min(5, "نام و نام خانوادگی باید حداقل ۵ کاراکتر باشد.")
-      .max(30, "نام و نام خانوادگی باید کمتر از ۳۰ کاراکتر باشد.")
-      .required("نام و نام‌ خانوادگی الزامی است."),
     email: yup
       .string()
       .email("ایمیل وارد شده نامعتبر است.")
@@ -23,15 +18,11 @@ const schema = yup
     password: yup
       .string()
       .required("رمز عبور الزامی است.")
-      .min(8, "حداقل ۸ کاراکتر لازم است.")
-      .matches(/[A-Z]/, "باید یک حرف بزرگ A تا Z داشته باشد.")
-      .matches(/[a-z]/, "باید یک حرف کوچک a تا z داشته باشد.")
-      .matches(/\d/, "باید یک عدد ۰ تا ۹ داشته باشد.")
-      .matches(/[@#$!%?]/, "باید یک سیمبل(@#$!%?) داشته باشد."),
+      .min(8, "حداقل ۸ کاراکتر لازم است."),
   })
   .required();
 
-const SignUp = () => {
+const SignIn = () => {
   const {
     register,
     handleSubmit,
@@ -47,9 +38,9 @@ const SignUp = () => {
 
   const onSubmit = async (values) => {
     try {
-      const { message } = await signupApi(values);
+      const { message } = await signinApi(values);
       toast.success(message);
-      router.push("/profile");
+      // router.push("/profile");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -58,17 +49,9 @@ const SignUp = () => {
   return (
     <div>
       <h2 className="text-primary-900 text-xl lg:text-2xl mb-6 font-bold ">
-        ایجاد حساب کاربری
+        ورود به حساب کاربری
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <RHFTextField
-          name="name"
-          label="نام و نام خانوادگی"
-          isRequired
-          register={register}
-          errors={errors}
-          placeholder="نام و نام خانوادگی خود را وارد کنید"
-        />
         <RHFTextField
           name="email"
           label="ایمیل"
@@ -88,18 +71,18 @@ const SignUp = () => {
           placeholder="رمز عبور خود را وارد کنید"
           type="password"
           dir="ltr"
-          showPasswordChecks={true}
         />
         <Button disabled={!isValid} variant="primary" className="mt-4">
-          ثبت نام
+          ورود
         </Button>
+
         <div className="flex items-center justify-center gap-x-3 text-base mt-4">
-          <span className="text-secondary-500">حساب کاربری دارید؟</span>
+          <span className="text-secondary-500">حساب کاربری ندارید؟</span>
           <Link
-            href="/signin"
+            href="/signup"
             className="text-primary-800 font-semibold hover:text-primary-900 duration-300 ease-out"
           >
-            ورود
+            ثبت نام
           </Link>
         </div>
       </form>
@@ -107,4 +90,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
