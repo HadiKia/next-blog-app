@@ -2,13 +2,43 @@
 import Button from "@/ui/Button";
 import RHFTextField from "@/ui/RHFTextFiled";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-// export const metadata = {
-//   title: "ثبت نام",
-// };
+const schema = yup
+  .object({
+    name: yup
+      .string()
+      .min(5, "نام و نام خانوادگی باید حداقل ۵ کاراکتر باشد.")
+      .max(30, "نام و نام خانوادگی باید کمتر از ۳۰ کاراکتر باشد.")
+      .required("نام و نام‌ خانوادگی الزامی است."),
+    email: yup
+      .string()
+      .email("ایمیل وارد شده نامعتبر است.")
+      .required("ایمیل الزامی است."),
+    password: yup
+      .string()
+      .required("رمز عبور الزامی است.")
+      .min(8, "حداقل ۸ کاراکتر لازم است.")
+      .matches(/[A-Z]/, "باید یک حرف بزرگ A تا Z داشته باشد.")
+      .matches(/[a-z]/, "باید یک حرف کوچک a تا z داشته باشد.")
+      .matches(/\d/, "باید یک عدد ۰ تا ۹ داشته باشد.")
+      .matches(/[@#$!%?]/, "باید یک سیمبل(@#$!%?) داشته باشد."),
+  })
+  .required();
 
 const SignUp = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+
+    formState: { errors, isLoading, isValid },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onTouched",
+  });
+
   const onSubmit = (values) => {
     console.log(values);
   };
@@ -24,6 +54,7 @@ const SignUp = () => {
           label="نام و نام خانوادگی"
           isRequired
           register={register}
+          errors={errors}
           placeholder="نام و نام خانوادگی خود را وارد کنید"
         />
         <RHFTextField
@@ -31,21 +62,22 @@ const SignUp = () => {
           label="ایمیل"
           isRequired
           register={register}
+          errors={errors}
           placeholder="ایمیل خود را وارد کنید"
           dir="ltr"
-          className="placeholder:text-right"
         />
         <RHFTextField
           name="password"
           label="رمز عبور"
           isRequired
           register={register}
+          errors={errors}
+          watch={watch}
           placeholder="رمز عبور خود را وارد کنید"
           type="password"
           dir="ltr"
-          className="placeholder:text-right"
         />
-        <Button variant="primary" className="mt-2">
+        <Button disabled={!isValid} variant="primary" className="mt-2">
           ثبت نام
         </Button>
       </form>

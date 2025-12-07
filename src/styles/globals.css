@@ -33,10 +33,6 @@
       --color-secondary-50: 248, 248, 250;
       --color-secondary-0: 255, 255, 255;
 
-      /* System */
-      --color-success: 46, 197, 145;
-      --color-warning: 255, 170, 0;
-
       /* ERROR — Light Mode */
       --color-error-900: 94, 18, 19;
       --color-error-800: 128, 26, 30;
@@ -48,6 +44,30 @@
       --color-error-200: 247, 198, 201;
       --color-error-100: 252, 227, 229;
       --color-error-50: 255, 243, 244;
+
+      /* SUCCESS — Light Mode */
+      --color-success-900: 14, 84, 55;
+      --color-success-800: 20, 110, 70;
+      --color-success-700: 28, 135, 87;
+      --color-success-600: 36, 160, 100;
+      --color-success-500: 46, 197, 145;
+      --color-success-400: 92, 217, 170;
+      --color-success-300: 150, 235, 200;
+      --color-success-200: 199, 245, 223;
+      --color-success-100: 225, 250, 235;
+      --color-success-50: 240, 253, 247;
+
+      /* WARNING — Light Mode */
+      --color-warning-900: 120, 75, 0;
+      --color-warning-800: 150, 95, 0;
+      --color-warning-700: 180, 115, 0;
+      --color-warning-600: 210, 140, 0;
+      --color-warning-500: 255, 170, 0;
+      --color-warning-400: 255, 190, 70;
+      --color-warning-300: 255, 210, 130;
+      --color-warning-200: 255, 225, 170;
+      --color-warning-100: 255, 240, 210;
+      --color-warning-50: 255, 248, 235;
     }
     &.dark-mode {
       --background-app-rgb: 14, 16, 18;
@@ -76,9 +96,6 @@
       --color-secondary-50: 20, 22, 25;
       --color-secondary-0: 16, 18, 21;
 
-      --color-success: 46, 197, 145;
-      --color-warning: 255, 170, 0;
-
       /* ERROR — Dark Mode */
       --color-error-900: 255, 220, 221;
       --color-error-800: 252, 196, 198;
@@ -90,6 +107,30 @@
       --color-error-200: 135, 48, 51;
       --color-error-100: 96, 39, 42;
       --color-error-50: 60, 27, 29;
+
+      /* SUCCESS — Dark Mode */
+      --color-success-900: 230, 250, 240;
+      --color-success-800: 200, 240, 225;
+      --color-success-700: 165, 225, 205;
+      --color-success-600: 130, 210, 180;
+      --color-success-500: 100, 195, 160;
+      --color-success-400: 70, 175, 140;
+      --color-success-300: 50, 150, 120;
+      --color-success-200: 35, 120, 95;
+      --color-success-100: 25, 95, 75;
+      --color-success-50: 18, 70, 55;
+
+      /* WARNING — Dark Mode */
+      --color-warning-900: 255, 248, 230;
+      --color-warning-800: 255, 240, 200;
+      --color-warning-700: 255, 225, 170;
+      --color-warning-600: 255, 205, 130;
+      --color-warning-500: 255, 185, 90;
+      --color-warning-400: 220, 155, 70;
+      --color-warning-300: 180, 125, 50;
+      --color-warning-200: 140, 95, 35;
+      --color-warning-100: 100, 70, 25;
+      --color-warning-50: 75, 50, 18;
 
       --backdrop-color: 0, 0, 0;
     }
@@ -208,7 +249,7 @@ button {
 }
 button:disabled {
   cursor: not-allowed;
-  background-color: rgb(var(--color-secondary-300), 0.5);
+  background-color: rgb(var(--color-primary-200), 0.5);
   color: rgb(var(--color-secondary-700), 0.5);
   pointer-events: none;
   box-shadow: none;
