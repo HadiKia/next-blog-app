@@ -11,7 +11,8 @@ export const generateStaticParams = async () => {
 };
 
 export const generateMetadata = async ({ params }) => {
-  const post = await getPostBySlug(params.slug);
+  const routeParams = await params;
+  const post = await getPostBySlug(routeParams.slug);
 
   return {
     title: `پست ${post.title}`,
@@ -19,9 +20,10 @@ export const generateMetadata = async ({ params }) => {
 };
 
 const SinglePost = async ({ params }) => {
+  const routeParams = await params;
   await new Promise((res) => setTimeout(() => res(), 1000));
 
-  const post = await getPostBySlug(params.slug);
+  const post = await getPostBySlug(routeParams.slug);
 
   if (!post) notFound();
 

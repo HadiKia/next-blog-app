@@ -4,7 +4,7 @@ import setCookieOnReq from "@/utils/setCookieOnReq";
 import { getPosts } from "@/services/postServices";
 
 const BlogPage = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const options = setCookieOnReq(cookieStore);
   const posts = await getPosts(options);
   return (

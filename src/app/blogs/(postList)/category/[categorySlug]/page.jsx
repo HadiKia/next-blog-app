@@ -1,7 +1,7 @@
 import PostList from "app/blogs/_components/PostList";
 
 const Category = async ({ params }) => {
-  const { categorySlug } = params;
+  const { categorySlug } = await params;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/post/list?categorySlug=${categorySlug}`
