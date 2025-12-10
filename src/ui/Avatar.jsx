@@ -6,7 +6,7 @@ const Avatar = ({ src, width = 24 }) => {
       src={src || "/images/avatar.png"}
       width={width}
       height={width}
-      alt={src}
+      alt={src || "avatar"}
       className="rounded-full ring-1 ring-secondary-300"
     />
   );

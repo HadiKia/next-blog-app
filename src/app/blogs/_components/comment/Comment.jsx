@@ -8,7 +8,7 @@ const Comment = ({ comment, onAddComment }) => {
       <div className="flex items-center justify-between mb-5 border-b border-secondary-200 pb-2">
         <div className="flex items-center gap-x-2">
           <Avatar
-            width={24}
+            width={32}
             alt={comment.user?.name || "-"}
             src={comment.user.avatarUrl}
           />
@@ -22,7 +22,7 @@ const Comment = ({ comment, onAddComment }) => {
         <div>
           {comment.openToComment && (
             <Button
-            onClick={onAddComment}
+              onClick={onAddComment}
               variant="secondary"
               className="text-xs"
             >

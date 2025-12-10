@@ -29,7 +29,11 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
         title={parent ? "پاسخ به نظر" : "نظر جدید"}
         description={parent ? parent.user.name : "نظر خود را وارد کنید."}
       >
-        <CommentForm />
+        <CommentForm
+          parentId={parent ? parent._id : null}
+          postId={postId}
+          onClose={() => setIsOpen(false)}
+        />
       </Modal>
       <div className="flex flex-col items-center justify-between gap-y-6 ">
         <div className="w-full flex items-center justify-between">

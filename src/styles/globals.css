@@ -247,7 +247,8 @@ button {
   cursor: pointer;
   outline: none;
 }
-button:disabled {
+button:disabled,
+button:disabled:hover {
   cursor: not-allowed;
   background-color: rgb(var(--color-primary-200), 0.5);
   color: rgb(var(--color-secondary-700), 0.5);
@@ -308,7 +309,7 @@ table td {
 .post-comments .post-comments__answer::before {
   content: "";
   display: block;
-  height: 69%;
+  height: 100%;
   position: absolute;
   right: -15px;
   top: -13px;

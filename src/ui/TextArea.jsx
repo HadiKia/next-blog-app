@@ -6,7 +6,8 @@ const TextArea = ({
   onChange,
   isRequired = false,
   className,
-  placeholder
+  placeholder,
+  error
 }) => {
   return (
     <div className="textField">
@@ -28,6 +29,7 @@ const TextArea = ({
         onChange={onChange}
         placeholder={placeholder}
       ></textarea>
+      {error && <span className="text-error-500 text-xs">{error}</span>}
     </div>
   );
 };
