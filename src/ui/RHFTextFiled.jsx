@@ -72,7 +72,7 @@ const RHFTextField = ({
         className="text-secondary-600 text-sm inline-block mb-2"
       >
         {label}
-        {isRequired && <span className="text-error-500">*</span>}
+        {isRequired && <span className="text-error-500 ms-1">*</span>}
       </label>
 
       <div className="relative">

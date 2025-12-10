@@ -22,7 +22,7 @@ const Comment = ({ comment, onAddComment }) => {
         <div>
           {comment.openToComment && (
             <Button
-            // onClick={onAddComment}
+            onClick={onAddComment}
               variant="secondary"
               className="text-xs"
             >

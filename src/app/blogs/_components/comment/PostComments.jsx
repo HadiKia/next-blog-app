@@ -6,19 +6,30 @@ import Comment from "./Comment";
 import classNames from "classnames";
 import Modal from "@/ui/Modal";
 import { useState } from "react";
+import CommentForm from "./CommentForm";
+import { useAuth } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 
 const PostComments = ({ post: { comments, _id: postId } }) => {
   const [open, setIsOpen] = useState(false);
+  const [parent, setParent] = useState(null);
+  const { user } = useAuth();
+  const addNewCommentHandler = (parent) => {
+    if (!user) return toast.error("برای ثبت نظر وارد حساب کاربری خود شوید.");
+
+    setParent(parent);
+    setIsOpen(true);
+  };
 
   return (
     <div className="my-20">
       <Modal
         open={open}
         onClose={() => setIsOpen(false)}
-        title="عنوان مودال"
-        description="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ"
+        title={parent ? "پاسخ به نظر" : "نظر جدید"}
+        description={parent ? parent.user.name : "نظر خود را وارد کنید."}
       >
-        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ،
+        <CommentForm />
       </Modal>
       <div className="flex flex-col items-center justify-between gap-y-6 ">
         <div className="w-full flex items-center justify-between">
@@ -26,7 +37,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
           <Button
             variant="outline"
             className="flex items-center gap-x-2 py-2"
-            onClick={() => setIsOpen(true)}
+            onClick={() => addNewCommentHandler(null)}
           >
             <QuestionMarkCircleIcon className="w-5 h-5 mb-0.5" />
             <span>ثبت نظر جدید</span>
@@ -39,7 +50,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
                 <div className="bg-secondary-50 border border-secondary-200 rounded-lg p-4 mb-3">
                   <Comment
                     comment={comment}
-                    // onAddComment={() => addNewCommentHandler(comment)}
+                    onAddComment={() => addNewCommentHandler(comment)}
                   />
                 </div>
                 <div className="post-comments__answer ms-auto w-[95%] space-y-3">
