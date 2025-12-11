@@ -24,7 +24,7 @@ const Search = () => {
   return (
     <form
       onSubmit={formSubmit}
-      className="flex flex-row items-center relative min-w-full lg:min-w-max lg:max-w-sm"
+      className="flex flex-row items-center relative flex-1"
     >
       <input
         className="textField__input pe-10 q"

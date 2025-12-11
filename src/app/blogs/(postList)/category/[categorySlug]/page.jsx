@@ -1,5 +1,5 @@
 import { getPosts } from "@/services/postServices";
-import setCookieOnReq from "@/utils/setC ookieOnReq";
+import setCookieOnReq from "@/utils/setCookieOnReq";
 import PostList from "app/blogs/_components/PostList";
 import { cookies } from "next/headers";
 import queryString from "query-string";
