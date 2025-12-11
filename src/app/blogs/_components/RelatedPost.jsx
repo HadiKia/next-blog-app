@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Author from "./Author";
 import CoverImage from "./CoverImage";
+import { TagIcon } from "@heroicons/react/24/outline";
 
 const RelatedPost = ({ posts }) => {
   return (
@@ -14,13 +15,16 @@ const RelatedPost = ({ posts }) => {
           >
             <CoverImage {...post} />
             <div className="p-4">
-              <div className="flex items-center justify-between gap-x-2 mb-4">
+              <div className="flex items-center justify-between gap-x-2 mb-6">
                 <Link href={`/blogs/${post.slug}`}>
-                  <h2 className=" font-bold text-base text-secondary-700 truncate max-w-48 lg:max-w-36">
+                  <h2 className=" font-bold text-lg text-secondary-700 hover:text-secondary-800 duration-300 ease-out">
                     {post.title}
                   </h2>
                 </Link>
-                <span className="text-sm text-secondary-600">{post.category.title}</span>
+                <div className="flex items-center gap-x-1 px-2 py-0.5 text-xs rounded-lg border border-secondary-200 bg-secondary-100 text-secondary-700 ">
+                  <TagIcon className="w-4 h-4 stroke-secondary-600 mb-0.5" />
+                  <span>{post.category.title}</span>
+                </div>
               </div>
 
               <Author {...post.author} />
