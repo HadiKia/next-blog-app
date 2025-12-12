@@ -70,7 +70,7 @@ const SignIn = () => {
           variant="primary"
           className="mt-4"
         >
-          {isLoading ? <SpinnerMini /> : " ثبت نام"}
+          {isLoading ? <SpinnerMini /> : " ورود"}
         </Button>
       </form>
       <div className="flex items-center justify-center gap-x-3 text-base mt-8">

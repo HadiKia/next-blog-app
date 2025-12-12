@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import vazirFont from "@/constants/localFont";
 import AuthProvider from "@/context/AuthContext";
 import "@/styles/globals.css";
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Toaster />
           <Header />
-          <div className="container xl:max-w-screen-xl">{children}</div> 
+          <div className="container xl:max-w-screen-xl mt-6">{children}</div>
         </AuthProvider>
       </body>
     </html>
