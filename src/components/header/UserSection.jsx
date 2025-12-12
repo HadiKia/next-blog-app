@@ -9,9 +9,9 @@ const UserSection = ({ onClick }) => {
 
   if (isLoading)
     return (
-      <div className="-mx-2 lg:mx-0 px-2 lg:px-0 py-2 lg:py-4 flex items-center gap-x-2 blur-sm">
-        <UserIcon className="w-5 h-5 mb-1" />
-        <span>نام و نام خانوادگی</span>
+      <div className="flex items-center text-base lg:text-lg gap-x-2 py-2 lg:py-4 blur-sm">
+        <UserIcon className="w-5 h-5 mb-1 lg:mb-0" />
+        <span>نام کاربری</span>
       </div>
     );
 
@@ -23,11 +23,10 @@ const UserSection = ({ onClick }) => {
     );
   }
   return (
-    <div className="flex flex-col gap-y-2 lg:flex-row lg:items-center lg:gap-x-6">
+    <div className="flex flex-col gap-y-2 lg:flex-row lg:items-center lg:gap-x-10">
       <NavLink path="/signin" icon={UserIcon} onClick={onClick}>
         ورود
       </NavLink>
-      <span className="hidden lg:block h-10 w-[1px] bg-secondary-300 rounded-full"></span>
       <NavLink path="/signup" icon={UserPlusIcon} onClick={onClick}>
         ثبت نام
       </NavLink>

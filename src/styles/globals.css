@@ -68,6 +68,11 @@
       --color-warning-200: 255, 225, 170;
       --color-warning-100: 255, 240, 210;
       --color-warning-50: 255, 248, 235;
+
+      .notification-badge {
+        background-color: rgb(20, 20, 22);
+        color: rgb(225, 226, 228);
+      }
     }
     &.dark-mode {
       --background-app-rgb: 14, 16, 18;
@@ -133,6 +138,11 @@
       --color-warning-50: 75, 50, 18;
 
       --backdrop-color: 0, 0, 0;
+
+      .notification-badge {
+        background-color: rgb(14, 16, 18);
+        color: rgb(200, 202, 205);
+      }
     }
   }
 }

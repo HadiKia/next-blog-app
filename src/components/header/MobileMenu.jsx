@@ -14,7 +14,7 @@ const MobileMenu = () => {
       <button
         aria-label="openMenu"
         onClick={() => setOpen(true)}
-        className="-ms-2 p-2 cursor-pointer text-secondary-400 lg:hidden"
+        className="-ms-2 p-2 cursor-pointer text-secondary-500 lg:hidden"
       >
         <Bars3Icon className="w-6 h-6" />
       </button>
@@ -47,7 +47,7 @@ const MobileMenu = () => {
           </div>
           <button
             onClick={() => setOpen(false)}
-            className=" flex cursor-pointer items-center justify-center rounded-md p-2 text-gray-400"
+            className=" flex cursor-pointer items-center justify-center rounded-md p-2 text-secondary-500"
             aria-label="closeMenu"
           >
             <XMarkIcon className="w-6 h-6" />

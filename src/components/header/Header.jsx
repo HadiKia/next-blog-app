@@ -2,15 +2,16 @@ import { navLinks } from "./navLinksData";
 import MobileMenu from "./MobileMenuLoader";
 import NavLink from "./NavLink";
 import UserSection from "./UserSection";
+import ThemeSwitcher from "@/components/themeSwitcher/ThemeSwitcherLoader";
 
 const Header = () => {
   return (
     <>
-      <div className="flex h-10 items-center justify-center bg-secondary-900 text-sm font-medium text-secondary-100">
+      <div className="flex h-10 items-center justify-center  text-sm font-medium notification-badge">
         وب اپلیکیشن مدیریت بلاگ
       </div>
 
-      <header className="z-[1] sticky top-0 bg-secondary-100  border-b border-secondary-200 duration-300 ease-linear">
+      <header className="z-[1] sticky top-0 bg-secondary-100 border-b border-secondary-200 duration-300 ease-linear">
         <div className="container xl:max-w-screen-xl flex items-center gap-x-2 lg:gap-x-10 text-secondary-400 h-14 lg:h-16 overflow-hidden">
           <MobileMenu />
 
@@ -25,7 +26,7 @@ const Header = () => {
           </div>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex gap-x-8">
+          <nav className="hidden lg:flex gap-x-10">
             {navLinks.map(({ id, path, children }) => (
               <NavLink key={id} path={path}>
                 {children}
@@ -33,8 +34,12 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="hidden lg:block lg:ms-auto">
-            <UserSection />
+          <div className="ms-auto flex items-center lg:gap-x-8">
+            <ThemeSwitcher />
+            <span className="hidden lg:block h-10 w-[1px] bg-secondary-300 rounded-full"></span>
+            <div className="hidden lg:block">
+              <UserSection />
+            </div>
           </div>
         </div>
       </header>
