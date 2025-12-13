@@ -2,12 +2,12 @@
 
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const Search = () => {
+const Search = ({ onSubmitComplete }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathName = usePathname();
+  const pathname = usePathname();
 
   const currentSearch = searchParams.get("search") || "";
   const [searchValue, setSearchValue] = useState(currentSearch);
@@ -16,28 +16,30 @@ const Search = () => {
     setSearchValue(currentSearch);
   }, [currentSearch]);
 
+  const updateSearchParam = (value) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) {
+      params.set("search", value);
+    } else {
+      params.delete("search");
+    }
+
+    router.push(`${pathname}?${params.toString()}`, {
+      scroll: false,
+    });
+
+    onSubmitComplete?.();
+  };
+
   const formSubmit = (e) => {
     e.preventDefault();
-    const newParams = new URLSearchParams(searchParams.toString());
-    if (searchValue) {
-      newParams.set("search", searchValue);
-    } else {
-      newParams.delete("search");
-    }
-    router.push(`${pathName}?${newParams.toString()}`, {
-      scroll: false,
-      shallow: true,
-    });
+    updateSearchParam(searchValue);
   };
 
   const clearSearch = () => {
     setSearchValue("");
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.delete("search");
-    router.push(`${pathName}?${newParams.toString()}`, {
-      scroll: false,
-      shallow: true,
-    });
+    updateSearchParam("");
   };
 
   return (
@@ -60,6 +62,7 @@ const Search = () => {
           type="button"
           className="absolute end-[1px] top-[1px] bottom-[1px] pe-4 ps-2 rounded-e-lg"
           onClick={clearSearch}
+          aria-label="clear search"
         >
           <XMarkIcon className="w-5 h-5 text-secondary-400" />
         </button>
@@ -67,6 +70,7 @@ const Search = () => {
         <button
           type="submit"
           className="absolute end-[1px] top-[1px] bottom-[1px] pe-4 ps-2 rounded-e-lg"
+          aria-label="submit search"
         >
           <MagnifyingGlassIcon className="w-5 h-5 text-secondary-400" />
         </button>

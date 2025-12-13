@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           <AuthProvider>
             <Toaster />
             <Header />
-            <div className="container xl:max-w-screen-xl py-6 lg:py-8 min-h-screen">
+            <div className="container xl:max-w-screen-xl min-h-screen">
               {children}
             </div>
             <Footer />

@@ -28,7 +28,7 @@ const sortOptions = [
 
 const BlogSort = () => {
   const searchParams = useSearchParams();
-  const [sort, setSort] = useState(searchParams.get("sort") || "");
+  const sort = searchParams.get("sort") || "";
 
   const router = useRouter();
   const pathname = usePathname();
@@ -52,8 +52,10 @@ const BlogSort = () => {
   return (
     <Select
       onChange={(e) => {
-        setSort(e.target.value);
-        router.push(`${pathname}?${createQueryString("sort", e.target.value)}`);
+        router.push(
+          `${pathname}?${createQueryString("sort", e.target.value)}`,
+          { scroll: false }
+        );
       }}
       value={sort}
       options={sortOptions}
