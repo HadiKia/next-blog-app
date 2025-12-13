@@ -11,7 +11,7 @@ const UserSection = ({ onClick }) => {
     return (
       <div className="flex items-center text-base lg:text-lg gap-x-2 py-2 lg:py-4 blur-sm">
         <UserIcon className="w-5 h-5 mb-1 lg:mb-0" />
-        <span>نام کاربری</span>
+        <span>حساب کاربری</span>
       </div>
     );
 

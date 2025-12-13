@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import vazirFont from "@/constants/localFont";
 import AuthProvider from "@/context/AuthContext";
@@ -21,7 +22,10 @@ export default function RootLayout({ children }) {
           <AuthProvider>
             <Toaster />
             <Header />
-            <div className="container xl:max-w-screen-xl mt-6">{children}</div>
+            <div className="container xl:max-w-screen-xl py-6 lg:py-8 min-h-screen">
+              {children}
+            </div>
+            <Footer />
           </AuthProvider>
         </DarkModeProvider>
       </body>

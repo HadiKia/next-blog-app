@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavLink from "./NavLink";
-import { navLinks } from "./navLinksData";
 import UserSection from "./UserSection";
+import { navLinks } from "@/constants/navLinksData";
 
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);

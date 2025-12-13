@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavLink = ({ path, icon: Icon, children, onClick }) => {
+const NavLink = ({ path, icon: Icon, children, onClick, className }) => {
   const pathname = usePathname();
   const isActive = pathname === path;
 
@@ -17,7 +17,7 @@ const NavLink = ({ path, icon: Icon, children, onClick }) => {
     <Link
       href={path}
       onClick={onClick}
-      className={`${baseClass} ${activeClass}`}
+      className={`${baseClass} ${activeClass} ${className}`}
     >
       {Icon && <Icon className="w-5 h-5 lg:w-6 lg:h-6 mb-1 lg:mb-0" />}
       <span>{children}</span>

@@ -140,7 +140,7 @@
       --backdrop-color: 0, 0, 0;
 
       .notification-badge {
-        background-color: rgb(14, 16, 18);
+        background-color: rgb(20, 22, 25);
         color: rgb(200, 202, 205);
       }
     }

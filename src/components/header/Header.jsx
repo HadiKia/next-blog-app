@@ -1,4 +1,4 @@
-import { navLinks } from "./navLinksData";
+import { navLinks } from "../../constants/navLinksData";
 import MobileMenu from "./MobileMenuLoader";
 import NavLink from "./NavLink";
 import UserSection from "./UserSection";
