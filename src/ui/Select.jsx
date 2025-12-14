@@ -23,7 +23,7 @@ const Select = ({ value, onChange, options }) => {
       </button>
 
       <ul
-        className={`absolute top-full mt-2 end-0 w-44  bg-secondary-0 rounded-lg border border-secondary-200 overflow-hidden shadow-lg z-[2] text-secondary-500 transition-all duration-300 ease-linear py-1 ${
+        className={`absolute top-full mt-2 end-0 w-44  bg-secondary-0 rounded-lg border border-secondary-200 overflow-hidden shadow-lg z-[2] transition-all duration-300 ease-linear py-1 ${
           open ? "max-h-96 opacity-100" : "max-h-0 opacity-0 mt-0 py-0"
         }`}
       >
@@ -32,10 +32,10 @@ const Select = ({ value, onChange, options }) => {
             onChange({ target: { value: "" } });
             setOpen(false);
           }}
-          className={`px-4 py-2 cursor-pointer flex items-center justify-between gap-x-2 hover:bg-secondary-100 hover:text-secondary-900 transition-all duration-300 ease-linear leading-5 ${
+          className={`px-4 py-2 cursor-pointer flex items-center justify-between gap-x-2 hover:bg-secondary-100 hover:text-primary-800 transition-all duration-300 ease-linear leading-5 ${
             value === ""
-              ? "text-secondary-900 font-semibold text-sm"
-              : "text-xs"
+              ? "text-primary-800 font-semibold text-sm"
+              : "text-secondary-500 text-xs"
           }`}
         >
           پیش‌فرض
@@ -51,8 +51,10 @@ const Select = ({ value, onChange, options }) => {
                 onChange({ target: { value: item.value } });
                 setOpen(false);
               }}
-              className={`px-4 py-2 cursor-pointer flex items-center justify-between gap-x-2 hover:bg-secondary-100 hover:text-secondary-900 transition-all duration-300 ease-linear leading-5 ${
-                active ? "text-secondary-900 font-semibold text-sm" : "text-xs"
+              className={`px-4 py-2 cursor-pointer flex items-center justify-between gap-x-2 hover:bg-secondary-100 hover:text-primary-800 transition-all duration-300 ease-linear leading-5 ${
+                active
+                  ? "text-primary-800 font-semibold text-sm"
+                  : "text-secondary-500 text-xs"
               }`}
             >
               {item.label}

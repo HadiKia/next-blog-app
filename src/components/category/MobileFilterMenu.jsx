@@ -38,7 +38,7 @@ const MobileFilterMenu = ({ categories }) => {
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between py-4 mb-7 border-b border-secondary-200">
-          <h6 className="text-primary-800 font-semibold text-lg">فیلتر ها</h6>
+          <h6 className="text-secondary-700 font-semibold text-lg">فیلتر ها</h6>
           <button
             onClick={handleClose}
             className=" flex cursor-pointer items-center justify-center rounded-md p-2 text-secondary-500"
