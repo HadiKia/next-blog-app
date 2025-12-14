@@ -10,7 +10,7 @@ const Modal = ({ children, title, description, open, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const ref = useOutsideClick(() => {
-    onClose?.();
+    if (open) onClose?.();
   });
 
   useEffect(() => {

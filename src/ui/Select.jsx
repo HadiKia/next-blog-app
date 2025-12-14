@@ -1,13 +1,15 @@
 "use client";
 
 import useOutsideClick from "@/hooks/useOutsideClick";
-import { ChevronDownIcon, FunnelIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 const Select = ({ value, onChange, options }) => {
   const [open, setOpen] = useState(false);
 
-  const ref = useOutsideClick(() => setOpen(false));
+  const ref = useOutsideClick(() => {
+    if (open) setOpen(false);
+  });
 
   return (
     <div className="relative" ref={ref}>
