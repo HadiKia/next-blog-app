@@ -1,5 +1,3 @@
-import Footer from "@/components/footer/Footer";
-import Header from "@/components/header/Header";
 import vazirFont from "@/constants/localFont";
 import AuthProvider from "@/context/AuthContext";
 import { DarkModeProvider } from "@/context/DarkModeContext";
@@ -19,14 +17,8 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl" className="light-mode">
       <body className={`${vazirFont.variable} font-sans min-h-screen`}>
         <DarkModeProvider>
-          <AuthProvider>
-            <Toaster />
-            <Header />
-            <div className="container xl:max-w-screen-xl min-h-screen">
-              {children}
-            </div>
-            <Footer />
-          </AuthProvider>
+          <Toaster />
+          <AuthProvider>{children}</AuthProvider>
         </DarkModeProvider>
       </body>
     </html>

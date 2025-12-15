@@ -3,13 +3,13 @@ import Header from "@/components/header/Header";
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <div>
       <Header />
-      <div className="container xl:max-w-screen-xl grid place-items-center mt-20 mb-40">
-        <div className="w-full max-w-md">{children}</div>
+      <div className="container xl:max-w-screen-xl min-h-screen">
+        {children}
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

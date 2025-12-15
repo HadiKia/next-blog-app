@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FunnelIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Search from "@/ui/Search";
-import CategoryList from "app/blogs/_components/CategoryList";
+import CategoryList from "app/(blogs)/blogs/_components/CategoryList";
 
 const MobileFilterMenu = ({ categories }) => {
   const [open, setOpen] = useState(false);
