@@ -26,3 +26,9 @@ export async function likePostApi(postId) {
 export async function bookmarkPostApi(postId) {
   return http.post(`/post/bookmark/${postId}`).then(({ data }) => data.data);
 }
+
+export async function getPostsByIds(ids) {
+  if (!ids || !Array.isArray(ids) || ids.length === 0) return [];
+  const res = await http.post("/post/list-by-ids", { ids }).then(({ data }) => data.data.posts);
+  return res;
+}
