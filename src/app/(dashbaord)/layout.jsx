@@ -1,11 +1,11 @@
-import Header from "./_components/layout/Header";
-import Navbar from "./_components/layout/Navbar";
+import Header from "./_components/header/Header";
+import Sidebar from "./_components/sidebar/Sidebar";
 
-const Layout = ({ children }) => {
+export default function DashboardLayout({ children }) {
   return (
     <div className="grid grid-cols-12 lg:bg-secondary-100 ">
       <aside className="lg:col-span-2 sticky top-0 z-[2] lg:bg-secondary-100">
-        <Navbar />
+        <Sidebar />
       </aside>
       <main className="col-span-12 lg:col-span-10">
         <Header />
@@ -15,6 +15,4 @@ const Layout = ({ children }) => {
       </main>
     </div>
   );
-};
-
-export default Layout;
+}

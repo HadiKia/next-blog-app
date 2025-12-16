@@ -6,11 +6,10 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { sidebarUserLinks } from "@/constants/sidebarUserLinks";
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/solid";
 
-const Navbar = () => {
+const SidebarLinks = ({ links }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -35,7 +34,7 @@ const Navbar = () => {
           ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!open}
       >
-        <div className="flex items-center justify-between py-3 lg:py-5 mb-7 border-b border-secondary-200  ">
+        <div className="flex items-center justify-between py-3 lg:py-5 mb-7 border-b border-secondary-200">
           <Link
             href="/"
             className="flex items-center gap-x-2 pt-3 pb-2 lg:py-2 text-lg lg:text-xl font-semibold text-secondary-700"
@@ -53,7 +52,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col gap-y-3 lg:gap-y-0">
-          {sidebarUserLinks.map(({ id, path, children, Icon }) => (
+          {links.map(({ id, path, children, Icon }) => (
             <NavLink
               key={id}
               path={path}
@@ -79,4 +78,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default SidebarLinks;

@@ -9,9 +9,7 @@ const UserSection = ({ onClick }) => {
 
   if (isLoading)
     return (
-      <div className="flex items-center text-base lg:text-lg gap-x-2 py-2 lg:py-4 blur-sm">
-        <UserIcon className="w-5 h-5 mb-1 lg:mb-0" />
-        <span>حساب کاربری</span>
+      <div className="w-32 h-10 bg-secondary-100 lg:bg-secondary-200 rounded-md animate-pulse">
       </div>
     );
 
