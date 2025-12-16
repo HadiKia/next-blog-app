@@ -73,6 +73,10 @@
         background-color: rgb(20, 20, 22);
         color: rgb(225, 226, 228);
       }
+
+      .bg-app {
+        background-color: rgb(250, 250, 250);
+      }
     }
     &.dark-mode {
       --background-app-rgb: 14, 16, 18;
@@ -142,6 +146,10 @@
       .notification-badge {
         background-color: rgb(20, 22, 25);
         color: rgb(200, 202, 205);
+      }
+
+      .bg-app {
+        background-color: rgb(14, 16, 18);
       }
     }
   }

@@ -2,7 +2,7 @@ import { navLinks } from "../../constants/navLinksData";
 import MobileMenu from "./MobileMenuLoader";
 import NavLink from "./NavLink";
 import UserSection from "./UserSection";
-import ThemeSwitcher from "@/components/header/themeSwitcher/ThemeSwitcherLoader";
+import ThemeSwitcher from "@/components/themeSwitcher/ThemeSwitcherLoader";
 
 const Header = () => {
   return (

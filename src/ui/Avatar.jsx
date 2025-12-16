@@ -7,7 +7,7 @@ const Avatar = ({ src, width = 24 }) => {
       width={width}
       height={width}
       alt={src || "avatar"}
-      className="rounded-full ring-1 ring-secondary-300"
+      className="rounded-full"
     />
   );
 };
