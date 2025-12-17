@@ -12,9 +12,22 @@ export const metadata = {
   description: "وب اپلیکیشن مدیریت بلاگ",
 };
 
+export const viewport = {
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "rgb(240, 241, 243)",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "rgb(30, 32, 35)",
+    },
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="fa" dir="rtl" className="light-mode">
+    <html lang="fa" dir="rtl">
       <body className={`${vazirFont.variable} font-sans min-h-screen`}>
         <DarkModeProvider>
           <Toaster />
