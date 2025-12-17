@@ -1,14 +1,13 @@
 import Image from "next/image";
 
-const Avatar = ({ src, width = 24 }) => {
+const Avatar = ({ src, width = 24, fill = false }) => {
   return (
     <Image
-      src={src || "/images/avatar.png"}
-      width={width}
-      height={width}
-      alt={src || "avatar"}
-      className="rounded-full"
-    />
+        src={src || "/images/avatar.png"}
+        alt="avatar"
+        className="rounded-full"
+        {...(fill ? { fill: true } : { width, height: width })}
+      />
   );
 };
 

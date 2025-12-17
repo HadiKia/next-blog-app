@@ -51,7 +51,7 @@ const SidebarLinks = ({ links }) => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-y-3 lg:gap-y-0">
+        <div className="flex flex-col gap-y-3 lg:gap-y-0 pb-8 lg:pb-0">
           {links.map(({ id, path, children, Icon }) => (
             <NavLink
               key={id}

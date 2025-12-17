@@ -3,20 +3,23 @@
 import { useAuth } from "@/context/AuthContext";
 import NavLink from "./NavLink";
 import { UserIcon, UserPlusIcon } from "@heroicons/react/24/outline";
+import Avatar from "@/ui/Avatar";
 
 const UserSection = ({ onClick }) => {
   const { user, isLoading } = useAuth();
 
   if (isLoading)
     return (
-      <div className="w-32 h-10 bg-secondary-100 lg:bg-secondary-200 rounded-md animate-pulse">
-      </div>
+      <div className="w-32 h-10 bg-secondary-100 lg:bg-secondary-200 rounded-md animate-pulse"></div>
     );
 
   if (user) {
     return (
-      <NavLink path="/profile" icon={UserIcon} onClick={onClick}>
-        {user.name}
+      <NavLink path="/profile" onClick={onClick}>
+        <div className="relative w-5 h-5 lg:w-6 lg:h-6 mb-1 lg:mb-0">
+          <Avatar fill alt={user?.name || "-"} src={user.avatarUrl} />
+        </div>
+        <span>{user.name}</span>
       </NavLink>
     );
   }
