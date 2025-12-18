@@ -1,11 +1,10 @@
 "use client";
 
-import { Bars3Icon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 
 const MobileMenu = dynamic(() => import("./MobileMenu"), {
   ssr: false,
-  loading: () => <div className="-ms-2 p-2 blur-sm lg:hidden"><Bars3Icon className="w-6 h-6" /></div>,
+  loading: () =>  <div className="me-2 p-2 w-6 h-6 rounded-md bg-secondary-200 lg:hidden animate-pulse"></div>,
 });
 
 export default MobileMenu;

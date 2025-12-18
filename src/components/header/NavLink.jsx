@@ -19,7 +19,7 @@ const NavLink = ({ path, icon: Icon, children, onClick, className }) => {
       onClick={onClick}
       className={`${baseClass} ${activeClass} ${className}`}
     >
-      {Icon && <Icon className="w-5 h-5 lg:w-6 lg:h-6 mb-1 lg:mb-0" />}
+      {Icon && <Icon className="w-5 h-5 lg:w-6 lg:h-6" />}
       {children}
     </Link>
   );

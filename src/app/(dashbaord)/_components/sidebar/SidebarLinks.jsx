@@ -69,7 +69,7 @@ const SidebarLinks = ({ links }) => {
             type="button"
             className="flex items-center gap-x-2 py-2 lg:py-4 text-base lg:text-lg text-secondary-500 hover:text-secondary-700 transition-colors duration-300 ease-linear"
           >
-            <ArrowLeftStartOnRectangleIcon className="w-5 h-5 lg:w-6 lg:h-6 mb-1 lg:mb-0" />
+            <ArrowLeftStartOnRectangleIcon className="w-5 h-5 lg:w-6 lg:h-6" />
             خروج
           </button>
         </div>

@@ -8,6 +8,10 @@ export async function signinApi(data) {
   return http.post("/user/signin", data).then(({ data }) => data.data);
 }
 
-export async function getUserApi(data) {
-  return http.get("/user/profile", data).then(({ data }) => data.data);
+export async function getUserApi() {
+  return http.get("/user/profile").then(({ data }) => data.data);
+}
+
+export async function getAllUsersApi(option) {
+  return http.get("/user/list", option).then(({ data }) => data.data);
 }
