@@ -15,7 +15,7 @@ const Card = ({ title, value, type }) => {
   const Icon = iconMap[type];
   return (
     <div className="rounded-xl flex flex-col ">
-      <div className="flex items-center justify-center gap-x-1 p-4 lg:py-6 text-secondary-500 font-medium">
+      <div className="flex items-center justify-center gap-x-1 mb-4 lg:mb-6 text-secondary-500 font-medium">
         {Icon ? <Icon className="w-5 h-5 lg:w-6 lg:h-6" /> : null}
         <h3 className="text-base lg:text-lg ">{title}</h3>
       </div>

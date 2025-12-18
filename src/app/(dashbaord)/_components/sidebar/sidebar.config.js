@@ -4,7 +4,7 @@ export const sidebarConfig = {
   admin: [
     { id: 1, children: "پروفایل", path: "/profile", Icon: UserIcon },
     { id: 2, children: "پنل ادمین", path: "/admin", Icon: RectangleGroupIcon },
-    { id: 3, children: "پست ها", path: "/admin/posts", Icon: DocumentTextIcon },
+    { id: 3, children: "بلاگ ها", path: "/admin/posts", Icon: DocumentTextIcon },
     { id: 4, children: "نظرات", path: "/admin/comments", Icon: ChatBubbleBottomCenterIcon },
     { id: 5, children: "دسته‌بندی ها", path: "/admin/category", Icon: Squares2X2Icon },
     { id: 6, children: "کاربران", path: "/admin/users", Icon: UserGroupIcon },
