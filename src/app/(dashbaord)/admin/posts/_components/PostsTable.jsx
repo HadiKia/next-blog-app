@@ -2,14 +2,14 @@ import { getPosts } from "@/services/postServices";
 import Table from "@/ui/Table";
 import PostRow from "./PostRow";
 
-const PostsTable = async () => {
-  const posts = await getPosts();
+const PostsTable = async ({query = ""}) => {
+  const posts = await getPosts(query);
 
   if (!posts.length) return <p>empty</p>;
   return (
     <Table>
       <Table.Header>
-        <th>شماره</th>
+        <th>#</th>
         <th>عنوان</th>
         <th>دسته‌بندی</th>
         <th>نویسنده</th>

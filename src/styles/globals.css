@@ -317,6 +317,17 @@ table td {
   padding: 1rem;
   color: rgb(var(--color-secondary-600));
 }
+
+table tr {
+  border-bottom: 1px solid rgb(var(--color-secondary-200));
+  transition: background-color 0.2s ease-out;
+
+}
+
+table tr:hover {
+  background-color: rgb(var(--color-secondary-100));
+}
+
 table tr:last-child {
   border: none;
 }
