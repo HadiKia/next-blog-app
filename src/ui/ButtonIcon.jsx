@@ -4,8 +4,9 @@ const btnType = {
   secondary:
     "bg-secondary-200 text-secondary-500 hover:bg-secondary-500 hover-text-secondary-0",
   outline:
-    "border border-secondary-200 text-secondary-700 hover:bg-secondary-100",
-  red: "border border-error-200 text-error-500 dark:text-error-400 hover:bg-error-50",
+    "border border-secondary-300 text-secondary-700 hover:bg-secondary-100",
+  error:
+    "border border-error-200 text-error-400 hover:bg-error-50",
 };
 
 const ButtonIcon = ({ children, onClick, className, variant, ...rest }) => {

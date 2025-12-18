@@ -48,7 +48,7 @@ const PostInteraction = ({ post }) => {
         )}
       </ButtonIcon>
       <ButtonIcon
-        variant="red"
+        variant="error"
         onClick={() => likeHandler(post._id)}
         className={post.isLiked ? "" : ""}
       >
