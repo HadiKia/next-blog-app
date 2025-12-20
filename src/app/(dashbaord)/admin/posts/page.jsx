@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import PostsTable from "./_components/PostsTable";
+import PostTableSkeleton from "./_components/PostTableSkeleton";
 
 const Posts = () => {
   return (
@@ -7,7 +8,7 @@ const Posts = () => {
       <h2 className="text-2xl font-bold text-secondary-700 mb-6 lg:mb-8">
         همه بلاگ ها
       </h2>
-      <Suspense fallback={<p>درحال بارگزاری جدول</p>}>
+      <Suspense fallback={<PostTableSkeleton />}>
         <PostsTable />
       </Suspense>
     </div>
