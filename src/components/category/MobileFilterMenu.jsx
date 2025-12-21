@@ -33,7 +33,7 @@ const MobileFilterMenu = ({ categories }) => {
 
       {/* Drawer */}
       <div
-        className={`fixed end-0 inset-y-0 w-full max-w-xs bg-secondary-0 flex flex-col px-4 shadow-xl rounded-tr-xl transform transition-transform duration-300 ease-linear z-40 lg:hidden
+        className={`fixed end-0 inset-y-0 w-full max-w-xs bg-secondary-0 flex flex-col px-4 shadow-xl rounded-tr-xl transform transition-transform duration-300 ease-linear z-40 lg:hidden overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
           ${open ? "translate-x-0" : "-translate-x-full"}`}
         aria-hidden={!open}
       >

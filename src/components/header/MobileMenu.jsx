@@ -31,7 +31,7 @@ const MobileMenu = () => {
 
       {/* Aside / Drawer */}
       <aside
-        className={`fixed start-0 inset-y-0 w-full max-w-xs bg-secondary-0 flex flex-col px-4 shadow-xl ltr:rounded-tr-xl rtl:rounded-tl-xl transform transition-transform duration-300 ease-linear z-40 lg:hidden
+        className={`fixed start-0 inset-y-0 w-full max-w-xs bg-secondary-0 flex flex-col px-4 shadow-xl ltr:rounded-tr-xl rtl:rounded-tl-xl transform transition-transform duration-300 ease-linear z-40 lg:hidden overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
           ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!open}
       >

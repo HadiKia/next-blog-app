@@ -1,6 +1,6 @@
 const CardSkeleton = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-14 lg:mb-20">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-14 pb-14 border-b border-secondary-200">
       {[...Array(3)].map((_, index) => (
         <div key={index} className="animate-pulse">
           <div className="flex items-center justify-center gap-x-1 mb-4 lg:mb-7">
