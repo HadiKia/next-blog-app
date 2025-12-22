@@ -25,7 +25,7 @@ export default function Pagination({ totalPages }) {
   const allPages = generatePagination(currentPage, totalPages);
 
   return (
-    <div className="flex items-center justify-center gap-x-2 lg:gap-x-3">
+    <div className="flex items-center justify-center gap-x-2">
       {totalPages ? (
         <PaginationArrow
           direction="right"
@@ -34,7 +34,7 @@ export default function Pagination({ totalPages }) {
         />
       ) : null}
 
-      <div className="flex items-center">
+      <div className="flex items-center gap-x-1">
         {allPages.map((page, index) => {
           // let position: "first" | "last" | "single" | "middle" | undefined;
           let position;
@@ -67,17 +67,13 @@ export default function Pagination({ totalPages }) {
 }
 
 // position?: "first" | "last" | "middle" | "single",
-
 function PaginationNumber({ page, href, isActive, position }) {
   const className = classNames(
-    "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 text-sm lg:text-base duration-300 ease-linear",
+    "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 text-sm lg:text-base duration-300 ease-linear rounded-full pt-0.5 lg:pt-1",
     {
-      "rounded-s-md": position === "first" || position === "single",
-      "rounded-e-md": position === "last" || position === "single",
-      "z-10 bg-primary-900 text-secondary-100 ": isActive,
-      "hover:bg-secondary-200 border border-secondary-300 text-secondary-700":
-        !isActive && position !== "middle",
-      "border border-secondary-300 text-secondary-700": position === "middle",
+      "z-10 bg-primary-900 text-secondary-100 font-medium": isActive,
+      "!text-secondary-700": !isActive && position !== "middle",
+      "text-secondary-700": position === "middle",
     }
   );
 
@@ -92,11 +88,10 @@ function PaginationNumber({ page, href, isActive, position }) {
 
 function PaginationArrow({ href, direction, isDisabled }) {
   const className = classNames(
-    "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 rounded-md duration-300 ease-linear",
+    "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 rounded-full duration-300 ease-linear text-secondary-700",
     {
-      "pointer-events-none bg-primary-200 text-secondary-700 opacity-50":
-        isDisabled,
-      "bg-primary-900 hover:bg-primary-800 text-secondary-100": !isDisabled,
+      "pointer-events-none opacity-40": isDisabled,
+      "hover:bg-secondary-200 text-secondary-100 ": !isDisabled,
     }
   );
 
