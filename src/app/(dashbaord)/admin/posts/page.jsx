@@ -4,10 +4,13 @@ import PostTableSkeleton from "./_components/PostTableSkeleton";
 import Search from "@/ui/Search";
 import { CreatePost } from "./_components/Buttons";
 import queryString from "query-string";
+import { getPosts } from "@/services/postServices";
+import Pagination from "@/ui/Pagination";
 
 const Posts = async ({ searchParams }) => {
   const params = await searchParams;
   const query = queryString.stringify(params);
+  const { totalPages } = await getPosts(query);
 
   return (
     <div className="px-4 py-8 lg:px-8 lg:py-10">
@@ -21,6 +24,10 @@ const Posts = async ({ searchParams }) => {
       <Suspense fallback={<PostTableSkeleton />} key={query}>
         <PostsTable query={query} />
       </Suspense>
+
+      <div className="mt-10 ">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
 };

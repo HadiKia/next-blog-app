@@ -2,8 +2,8 @@ import { getPosts } from "@/services/postServices";
 import Table from "@/ui/Table";
 import PostRow from "./PostRow";
 
-const PostsTable = async ({query = ""}) => {
-  const posts = await getPosts(query);
+const PostsTable = async ({ query = "" }) => {
+  const { posts } = await getPosts(query);
 
   if (!posts.length) return <p>empty</p>;
   return (

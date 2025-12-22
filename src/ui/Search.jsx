@@ -20,8 +20,10 @@ const Search = ({ onSubmitComplete }) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (value) {
+      params.set("page", "1");
       params.set("search", value);
     } else {
+      params.delete("page");
       params.delete("search");
     }
 
