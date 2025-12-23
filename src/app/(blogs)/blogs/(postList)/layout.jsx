@@ -35,7 +35,7 @@ const Layout = async ({ children }) => {
           <CategoryList categories={categories} />
         </div>
 
-        <div className="lg:col-span-8 xl:col-span-9 text-secondary-500 space-y-4">
+        <div className="lg:col-span-8 xl:col-span-9 text-secondary-500">
           {children}
         </div>
       </div>

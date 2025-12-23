@@ -4,6 +4,7 @@ import setCookieOnReq from "@/utils/setCookieOnReq";
 import { getPosts } from "@/services/postServices";
 import queryString from "query-string";
 import { toPersianDigits } from "@/utils/numberFormatter";
+import Pagination from "@/ui/Pagination";
 
 const BlogPage = async ({ searchParams }) => {
   const params = await searchParams;
@@ -11,7 +12,7 @@ const BlogPage = async ({ searchParams }) => {
 
   const cookieStore = await cookies();
   const options = setCookieOnReq(cookieStore);
-  const { posts } = await getPosts(queries, options);
+  const { posts, totalPages } = await getPosts(queries, options);
 
   const { search } = params;
 
@@ -26,6 +27,10 @@ const BlogPage = async ({ searchParams }) => {
         </p>
       ) : null}
       <PostList posts={posts} />
+
+      <div className="my-8 lg:my-10">
+        <Pagination totalPages={totalPages} />
+      </div>
     </>
   );
 };

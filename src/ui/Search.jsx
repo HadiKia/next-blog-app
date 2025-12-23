@@ -24,6 +24,7 @@ const Search = ({ onSubmitComplete }) => {
       params.set("search", value);
     } else {
       params.delete("page");
+      params.delete("limit");
       params.delete("search");
     }
 
