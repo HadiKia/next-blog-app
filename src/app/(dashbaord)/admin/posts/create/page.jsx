@@ -1,4 +1,5 @@
 import Breadcrumbs from "@/ui/BreadCrumbs";
+import CreatePostForm from "./_/CreatePostForm";
 
 const Page = () => {
   return (
@@ -17,6 +18,8 @@ const Page = () => {
           },
         ]}
       />
+
+      <CreatePostForm />
     </div>
   );
 };

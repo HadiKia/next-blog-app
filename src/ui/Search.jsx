@@ -51,7 +51,7 @@ const Search = ({ onSubmitComplete }) => {
       className="flex flex-row items-center relative flex-1"
     >
       <input
-        className="textField__input pe-10 q"
+        className="textField__input pe-10"
         placeholder="جستجو"
         autoComplete="off"
         type="text"

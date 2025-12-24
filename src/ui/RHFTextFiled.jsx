@@ -59,7 +59,7 @@ const RHFTextField = ({
     dir === "ltr" ? "text-left placeholder:text-right" : "text-right",
     isPasswordField && "ps-10",
     hasError &&
-      "focus:outline-error-100 hover:border-error-500 focus:border-error-500 border-error-300",
+      "focus:ring-error-100 hover:border-error-500 focus:border-error-500 border-error-300",
     className,
   ]
     .filter(Boolean)
