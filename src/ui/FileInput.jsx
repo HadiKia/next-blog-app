@@ -37,19 +37,25 @@ function FileInput({
       </span>
 
       {previewUrl ? (
-        <div className="w-full p-3 lg:p-4 rounded-lg text-secondary-800 border border-secondary-300 flex items-center justify-between gap-x-4">
-          <div className="flex items-center lg:items-start gap-x-4 lg:gap-x-6 w-full">
-            <div className="relative aspect-square lg:aspect-video overflow-hidden rounded-lg w-full max-w-32 lg:max-w-60 max-h-32">
+        <div className="w-full p-3 lg:p-5 rounded-lg text-secondary-800 border border-secondary-300 flex items-center justify-between gap-x-4">
+          <div className="flex items-start gap-x-4 lg:gap-x-6 w-full ">
+            <a
+              href={previewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative aspect-square sm:aspect-video overflow-hidden rounded-md w-full min-w-20 max-w-20 sm:min-w-40 sm:max-w-40 lg:min-w-60 lg:max-w-60 max-h-32 cursor-zoom-in "
+            >
               <Image
                 fill
                 alt={label}
                 src={previewUrl}
                 className="object-cover object-center"
               />
-            </div>
-            <div className="flex flex-col gap-y-2 lg:gap-y-3 ">
-              <span className="text-sm lg:text-lg font-medium text-secondary-700 ">
-                {toPersianDigits(fileMeta?.name)}
+            </a>
+
+            <div className="flex flex-col gap-y-2 lg:gap-y-3">
+              <span className="text-sm lg:text-lg font-medium text-secondary-700 text-wrap">
+                {fileMeta?.name}
               </span>
               <span className="text-xs lg:text-base text-secondary-500">
                 {toPersianDigits(fileMeta?.size)}

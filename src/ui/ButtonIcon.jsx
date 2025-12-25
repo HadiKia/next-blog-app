@@ -6,7 +6,7 @@ const btnType = {
   outline:
     "border border-secondary-300 text-secondary-700 hover:bg-secondary-100",
   error:
-    "border border-error-200 text-error-400 hover:bg-error-50",
+    "border border-error-300 text-error-500 hover:bg-error-50",
 };
 
 const ButtonIcon = ({ children, onClick, className, variant, ...rest }) => {
