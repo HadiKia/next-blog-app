@@ -31,7 +31,7 @@ const PostList = async ({ posts }) => {
 
             <Link href={`/blogs/${post.slug}`}>
               <p className="mb-6 text-secondary-400 text-base hover:text-secondary-500 duration-300 ease-out">
-                {post.text}
+                {post.briefText}
               </p>
             </Link>
 

@@ -34,3 +34,7 @@ export async function getPostsByIds(ids) {
     .then(({ data }) => data.data.posts);
   return res;
 }
+
+export async function createPostApi(data) {
+  return http.post(`/post/create`, data).then(({ data }) => data.data);
+}

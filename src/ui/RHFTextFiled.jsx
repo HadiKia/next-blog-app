@@ -10,7 +10,8 @@ const RHFTextField = ({
   dir = "rtl",
   label,
   isRequired,
-  className = "",
+  wrapperClassName,
+  className,
   placeholder,
   name,
   register,
@@ -66,7 +67,7 @@ const RHFTextField = ({
     .join(" ");
 
   return (
-    <div>
+    <div className={wrapperClassName}>
       <label
         htmlFor={name}
         className="text-secondary-600 text-sm inline-block mb-2"

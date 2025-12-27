@@ -9,12 +9,34 @@ import useCategories from "@/hooks/useCategories";
 import { useEffect, useState } from "react";
 import FileInput from "@/ui/FileInput";
 import { formatFileSize } from "@/utils/formatFileSize";
+import Button from "@/ui/Button";
+import SpinnerMini from "@/ui/SpinnerMini";
+import useCreatePost from "./useCreatePost";
+import { useRouter } from "next/navigation";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
 const schema = yup
   .object({
-    title: yup.string().required("وارد کردن عنوان الزامی است."),
+    title: yup
+      .string()
+      .min(5, "حداقل ۵ کاراکتر وارد کنید.")
+      .required("وارد کردن عنوان الزامی است."),
+    briefText: yup
+      .string()
+      .min(10, "حداقل ۱۰ کاراکتر وارد کنید.")
+      .required("وارد کردن متن کوتاه الزامی است."),
+    text: yup
+      .string()
+      .min(100, "حداقل ۱۰۰ کاراکتر وارد کنید.")
+      .required("وارد کردن عنوان الزامی است."),
+    readingTime: yup
+      .number()
+      .positive()
+      .integer()
+      .required("وارد کردن زمان مطالعه الزامی است.")
+      .typeError("یک عدد را وارد کنید."),
+    slug: yup.string().required("وارد کردن اسلاگ الزامی است."),
     category: yup.string().required("وارد کردن دسته بندی الزامی است."),
     coverImage: yup
       .mixed()
@@ -33,6 +55,8 @@ const schema = yup
 const CreatePostForm = () => {
   const { categories } = useCategories();
   const [coverImageUrl, setCoverImageUrl] = useState(null);
+  const { createPost, isCreating } = useCreatePost();
+  const router = useRouter();
 
   const {
     control,
@@ -45,8 +69,15 @@ const CreatePostForm = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+
+    createPost(formData, {
+      onSuccess: () => router.push("/admin/posts"),
+    });
   };
 
   useEffect(() => {
@@ -62,15 +93,10 @@ const CreatePostForm = () => {
       <h2 className="text-primary-900 text-xl lg:text-2xl mb-6 font-bold">
         ایجاد بلاگ جدید
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <RHFTextField
-          name="title"
-          label="عنوان بلاگ"
-          isRequired
-          register={register}
-          errors={errors}
-          placeholder="عنوان بلاگ جدید"
-        />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start"
+      >
         <RHFTextField
           name="title"
           label="عنوان بلاگ"
@@ -104,14 +130,30 @@ const CreatePostForm = () => {
           placeholder="زمان مطالعه بلاگ"
         />
 
-        <RHFSelect
+        <Controller
           name="category"
-          label="دسته بندی"
+          control={control}
+          render={({ field, fieldState }) => (
+            <RHFSelect
+              label="دسته بندی"
+              placeholder="دسته بندی مورد نظر را انتخاب کنید"
+              options={categories}
+              isRequired
+              value={field.value}
+              onChange={field.onChange}
+              error={fieldState.error}
+            />
+          )}
+        />
+
+        <RHFTextField
+          name="text"
+          label="محتوای بلاگ"
           isRequired
           register={register}
           errors={errors}
-          options={categories}
-          placeholder="دسته بندی مورد نظر را انتخاب کنید"
+          type="textarea"
+          placeholder="محتوای بلاگ"
         />
 
         <Controller
@@ -136,6 +178,7 @@ const CreatePostForm = () => {
                 previewUrl={coverImageUrl}
                 fileMeta={fileMeta}
                 {...rest}
+                wrapperClassName={"lg:col-span-2"}
                 onChange={(event) => {
                   const file = event.target.files?.[0];
                   if (!file) return;
@@ -156,12 +199,21 @@ const CreatePostForm = () => {
                 onRemove={() => {
                   if (coverImageUrl) URL.revokeObjectURL(coverImageUrl);
                   setCoverImageUrl(null);
-                  setValue("coverImage", null);
+                  setValue("coverImage", null, { shouldValidate: true });
                 }}
               />
             );
           }}
         />
+
+        <Button
+          type="submit"
+          disabled={!isValid || isCreating}
+          variant="primary"
+          className="mt-4 lg:col-start-2 "
+        >
+          {isCreating ? <SpinnerMini /> : " ایجاد بلاگ"}
+        </Button>
       </form>
     </div>
   );

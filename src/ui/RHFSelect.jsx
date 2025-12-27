@@ -6,20 +6,18 @@ import { useState } from "react";
 
 const RHFSelect = ({
   label,
-  name,
-  register,
+  value,
+  onChange,
   options = [],
   isRequired,
   placeholder,
+  error,
 }) => {
   const [open, setOpen] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState("");
 
-  const field = register(name);
+  const selectedOption = options.find((o) => o.value === value);
 
-  const ref = useOutsideClick(() => {
-    if (open) setOpen(false);
-  });
+  const ref = useOutsideClick(() => open && setOpen(false));
 
   return (
     <div className="relative" ref={ref}>
@@ -28,18 +26,15 @@ const RHFSelect = ({
         {isRequired && <span className="text-error-500 ms-1">*</span>}
       </label>
 
-      <div className="relative flex items-center">
-        <input
-          type="text"
-          className="textField__input pe-10 cursor-pointer"
-          placeholder={placeholder}
-          readOnly
-          defaultValue={selectedLabel}
-          onClick={() => setOpen((prev) => !prev)}
-        />
-
-        <input type="hidden" {...field} />
-
+      <div
+        className="textField__input pe-10 cursor-pointer relative flex items-center"
+        onClick={() => setOpen((p) => !p)}
+      >
+        {selectedOption?.label || (
+          <span className="text-secondary-400 text-sm py-0.5">
+            {placeholder}
+          </span>
+        )}
         <span className="absolute end-4 pointer-events-none">
           <ChevronDownIcon className="w-4 h-4 " />
         </span>
@@ -54,29 +49,24 @@ const RHFSelect = ({
           <li
             key={option.value}
             onClick={() => {
-              setSelectedLabel(option.label);
-              field.onChange({
-                target: {
-                  name: field.name,
-                  value: option.value,
-                },
-              });
-
+              onChange(option.value);
               setOpen(false);
             }}
             className={`px-4 py-2.5 flex items-center justify-between cursor-pointer transition-all duration-300 ease-out text-sm lg:text-base ${
-              selectedLabel === option.label
+              selectedOption?.label === option.label
                 ? "bg-secondary-100 text-primary-800 font-medium "
                 : "text-secondary-500 hover:bg-secondary-100"
             }`}
           >
             {option.label}
-            {selectedLabel === option.label ? (
+            {selectedOption?.label === option.label ? (
               <CheckIcon className="w-5 h-5 text-primary-800" />
             ) : null}
           </li>
         ))}
       </ul>
+
+      {error && <p className="text-error-500 text-sm mt-1">{error.message}</p>}
     </div>
   );
 };

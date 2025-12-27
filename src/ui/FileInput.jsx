@@ -16,6 +16,7 @@ function FileInput({
   errors,
   previewUrl,
   fileMeta,
+  wrapperClassName,
   ...rest
 }) {
   const hasError = !!errors?.[name];
@@ -30,7 +31,7 @@ function FileInput({
     .join(" ");
 
   return (
-    <div>
+    <div className={wrapperClassName}>
       <span className="text-secondary-600 text-sm mb-2 inline-block">
         {label}
         {isRequired && <span className="text-error-500 ms-1">*</span>}
