@@ -38,3 +38,12 @@ export async function getPostsByIds(ids) {
 export async function createPostApi(data) {
   return http.post(`/post/create`, data).then(({ data }) => data.data);
 }
+
+export async function editPostApi({ id, data }) {
+  return http.patch(`/post/update/${id}`, data).then(({ data }) => data.data);
+}
+
+
+export async function getPostById(id) {
+  return http.get(`/post/${id}`).then(({ data }) => data.data);
+}

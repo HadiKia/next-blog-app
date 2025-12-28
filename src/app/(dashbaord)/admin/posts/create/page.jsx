@@ -1,5 +1,5 @@
 import Breadcrumbs from "@/ui/BreadCrumbs";
-import CreatePostForm from "./_/CreatePostForm";
+import CreatePostForm from "../_components/CreatePostForm";
 
 const Page = () => {
   return (

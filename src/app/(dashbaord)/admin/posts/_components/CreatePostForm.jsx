@@ -11,8 +11,10 @@ import FileInput from "@/ui/FileInput";
 import { formatFileSize } from "@/utils/formatFileSize";
 import Button from "@/ui/Button";
 import SpinnerMini from "@/ui/SpinnerMini";
-import useCreatePost from "./useCreatePost";
+import useCreatePost from "../../../../../hooks/useCreatePost";
 import { useRouter } from "next/navigation";
+import useEditPost from "../../../../../hooks/useEditPost";
+import { imageUrlToFile } from "@/utils/fileFormatter";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -52,10 +54,37 @@ const schema = yup
   })
   .required();
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ postToEdit = {} }) => {
+  const { _id: editId } = postToEdit;
+  const isEditSession = Boolean(editId);
+  const {
+    title,
+    briefText,
+    text,
+    readingTime,
+    slug,
+    category,
+    coverImage,
+    coverImageUrl: prevCoverImageUrl,
+  } = postToEdit;
+
+  let editValues = {};
+  if (isEditSession) {
+    editValues = {
+      title,
+      briefText,
+      text,
+      readingTime,
+      slug,
+      category: category._id,
+      coverImage,
+    };
+  }
+
   const { categories } = useCategories();
-  const [coverImageUrl, setCoverImageUrl] = useState(null);
+  const [coverImageUrl, setCoverImageUrl] = useState(prevCoverImageUrl || null);
   const { createPost, isCreating } = useCreatePost();
+  const { editPost, isEditing } = useEditPost();
   const router = useRouter();
 
   const {
@@ -63,11 +92,24 @@ const CreatePostForm = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isLoading, isValid },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onTouched",
+    defaultValues: editValues,
   });
+
+  useEffect(() => {
+    if (prevCoverImageUrl) {
+      // covert prevLink to file
+      async function fetchImage(params) {
+        const file = await imageUrlToFile(prevCoverImageUrl);
+        setValue("coverImage", file, { shouldValidate: true });
+      }
+      fetchImage();
+    }
+  }, [editId]);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -75,9 +117,21 @@ const CreatePostForm = () => {
       formData.append(key, data[key]);
     }
 
-    createPost(formData, {
-      onSuccess: () => router.push("/admin/posts"),
-    });
+    if (isEditSession) {
+      editPost(
+        { id: editId, data: formData },
+        {
+          onSuccess: () => {
+            reset();
+            router.push("/admin/posts");
+          },
+        }
+      );
+    } else {
+      createPost(formData, {
+        onSuccess: () => router.push("/admin/posts"),
+      });
+    }
   };
 
   useEffect(() => {
@@ -88,10 +142,13 @@ const CreatePostForm = () => {
     };
   }, [coverImageUrl]);
 
+  const pageTitle = isEditSession ? "ویرایش بلاگ" : "ایجاد بلاگ جدید";
+  const submitLabel = isEditSession ? "ویرایش بلاگ" : "ایجاد بلاگ";
+
   return (
     <div>
       <h2 className="text-primary-900 text-xl lg:text-2xl mb-6 font-bold">
-        ایجاد بلاگ جدید
+        {pageTitle}
       </h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -103,7 +160,7 @@ const CreatePostForm = () => {
           isRequired
           register={register}
           errors={errors}
-          placeholder="عنوان بلاگ جدید"
+          placeholder="عنوان بلاگ مورد نظر"
         />
         <RHFTextField
           name="briefText"
@@ -212,7 +269,7 @@ const CreatePostForm = () => {
           variant="primary"
           className="mt-4 lg:col-start-2 "
         >
-          {isCreating ? <SpinnerMini /> : " ایجاد بلاگ"}
+          {isCreating ? <SpinnerMini /> : submitLabel}
         </Button>
       </form>
     </div>
