@@ -195,7 +195,7 @@
     @apply border border-secondary-500 text-secondary-600 hover:bg-primary-100;
   }
   .btn--danger {
-    @apply border border-rose-700 text-rose-700;
+    @apply border border-error-300 text-error-500 hover:bg-error-50;
   }
   .badge {
     @apply inline-block whitespace-nowrap rounded-xl px-2 py-0.5;

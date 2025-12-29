@@ -32,7 +32,7 @@ const PostRow = ({ index, post }) => {
       <td>
         <div className="flex items-center gap-x-2">
           <UpdatePost id={post._id} />
-          <DeletePost id={post._id} />
+          <DeletePost post={post} />
         </div>
       </td>
     </Table.Row>
