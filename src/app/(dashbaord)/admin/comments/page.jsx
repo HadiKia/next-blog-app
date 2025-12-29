@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import CommentsTable from "./_components/CommentsTable";
+import CommentsTableSkeleton from "./_components/CommentsTableSkeleton";
 
 const CommentsPage = async () => {
   return (
@@ -8,7 +9,7 @@ const CommentsPage = async () => {
         <h2 className="text-2xl font-bold text-secondary-700">لیست نظرات</h2>
       </div>
 
-      <Suspense fallback={<p>loading</p>}>
+      <Suspense fallback={<CommentsTableSkeleton />}>
         <CommentsTable />
       </Suspense>
     </div>
