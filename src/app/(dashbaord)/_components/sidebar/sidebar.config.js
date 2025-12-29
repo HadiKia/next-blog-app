@@ -9,12 +9,12 @@ export const sidebarConfig = {
     { id: 5, children: "دسته‌بندی ها", path: "/admin/category", Icon: Squares2X2Icon },
     { id: 6, children: "کاربران", path: "/admin/users", Icon: UserGroupIcon },
     { id: 7, children: "مورد علاقه‌ها", path: "/profile/favorites", Icon: HeartIcon },
-    { id: 8, children: "بوکمارک ها", path: "/profile/comments", Icon: BookmarkIcon },
+    { id: 8, children: "بوکمارک ها", path: "/profile/bookmarks", Icon: BookmarkIcon },
 
   ],
   user: [
     { id: 1, children: "پروفایل", path: "/profile", Icon: UserIcon },
     { id: 2, children: "مورد علاقه‌ها", path: "/profile/favorites", Icon: HeartIcon },
-    { id: 3, children: "بوکمارک ها", path: "/profile/comments", Icon: BookmarkIcon },
+    { id: 3, children: "بوکمارک ها", path: "/profile/bookmarks", Icon: BookmarkIcon },
   ],
 };

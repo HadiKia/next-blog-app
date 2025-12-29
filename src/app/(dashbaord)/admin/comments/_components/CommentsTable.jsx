@@ -1,0 +1,49 @@
+import { getAllCommentsApi } from "@/services/commentService";
+import Table from "@/ui/Table";
+import { Fragment } from "react";
+import CommentRow from "./CommentRow";
+
+async function CommentsTable() {
+  const { comments, commentsCount } = await getAllCommentsApi();
+  if (!comments.length) return <p>نظری پیدا نشد.</p>;
+
+  let iterator = 0;
+
+  return (
+    <Table>
+      <Table.Header>
+        <th>#</th>
+        <th>متن</th>
+        <th>نویسنده</th>
+        <th>تاریخ ایجاد</th>
+        <th>وضعیت</th>
+        <th>عملیات</th>
+      </Table.Header>
+      <Table.Body>
+        {comments.map((comment) => {
+          iterator++;
+          return (
+            <Fragment key={comment._id}>
+              <CommentRow
+                key={comment._id}
+                comment={comment}
+                index={iterator}
+              />
+              {comment.answers.map((commentAnswer) => {
+                iterator++;
+                return (
+                  <CommentRow
+                    key={commentAnswer._id}
+                    comment={commentAnswer}
+                    index={iterator}
+                  />
+                );
+              })}
+            </Fragment>
+          );
+        })}
+      </Table.Body>
+    </Table>
+  );
+}
+export default CommentsTable;

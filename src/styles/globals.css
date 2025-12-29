@@ -210,7 +210,7 @@
     @apply bg-success-500 text-secondary-0;
   }
   .badge--danger {
-    @apply bg-red-500 text-white;
+    @apply bg-error-500 text-secondary-0;
   }
 
   .spinner {
