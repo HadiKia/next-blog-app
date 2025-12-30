@@ -1,10 +1,10 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
-import SpinnerMini from "./SpinnerMini";
+import SubmitButton from "./SubmitButton";
 
-const ConfirmDelete = ({ onClose, disabled, onConfirm }) => {
+const ConfirmDelete = ({ onClose, action }) => {
   return (
-    <form onSubmit={onConfirm}>
+    <form action={action}>
       <div className="flex items-center justify-between gap-x-4 md:gap-x-6">
         <Button
           type="button"
@@ -14,22 +14,10 @@ const ConfirmDelete = ({ onClose, disabled, onConfirm }) => {
         >
           لغو
         </Button>
-        <Button
-          type="submit"
-          variant="danger"
-          onClick={onConfirm}
-          disabled={disabled}
-          className="flex-1"
-        >
-          {disabled ? (
-            <SpinnerMini />
-          ) : (
-            <>
-              <TrashIcon className="w-5 h-5 mb-0.5" />
-              <span>حذف</span>
-            </>
-          )}
-        </Button>
+        <SubmitButton variant="danger" className="flex-1">
+          <TrashIcon className="w-5 h-5 mb-0.5" />
+          <span>حذف</span>
+        </SubmitButton>
       </div>
     </form>
   );

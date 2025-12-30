@@ -269,6 +269,7 @@ button:disabled,
 button:disabled:hover {
   cursor: not-allowed;
   background-color: rgb(var(--color-primary-200), 0.5);
+  border-color: rgb(var(--color-primary-200), 0.5);
   color: rgb(var(--color-secondary-700), 0.5);
   pointer-events: none;
   box-shadow: none;

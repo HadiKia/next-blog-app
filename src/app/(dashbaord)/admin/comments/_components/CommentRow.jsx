@@ -1,7 +1,7 @@
-
 import Table from "@/ui/Table";
 import toLocalDateShort from "@/utils/dateFormatter";
 import truncateText from "@/utils/truncateText";
+import DeleteComment from "./Buttons";
 
 const statusStyle = [
   {
@@ -21,6 +21,7 @@ const statusStyle = [
 function CommentRow({ index, comment }) {
   const {
     content: { text },
+    _id,
     user,
     status,
     createdAt,
@@ -38,8 +39,8 @@ function CommentRow({ index, comment }) {
       </td>
       <td>
         <div className="flex items-center gap-x-2">
-            <span>edit</span>
-            <span>delete</span>
+          <span>edit</span>
+          <DeleteComment id={_id}/>
         </div>
       </td>
     </Table.Row>
