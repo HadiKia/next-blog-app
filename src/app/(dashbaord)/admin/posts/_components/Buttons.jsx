@@ -1,23 +1,38 @@
 "use client";
 
-import useDeletePost from "@/hooks/useDeletePost";
 import Button from "@/ui/Button";
 import ButtonIcon from "@/ui/ButtonIcon";
 import ConfirmDelete from "@/ui/ConfirmDelete";
 import Modal from "@/ui/Modal";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useState } from "react";
+import deletePost from "../actions/deletePost";
 import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import toast from "react-hot-toast";
 
-export const DeletePost = ({ post: { _id: id, title } }) => {
-  const [open, setIsOpen] = useState(false);
-  const { isDeleting, deletePost } = useDeletePost();
+export const DeletePost = ({ post: { _id: postId, title } }) => {
   const router = useRouter();
+  const [state, formAction] = useActionState(deletePost, {
+    error: "",
+    message: "",
+  });
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (state?.message) {
+      toast.success(state.message);
+      setIsOpen(false);
+      router.refresh();
+    }
+    if (state?.error) {
+      toast.error(state.error);
+    }
+  }, [state]);
 
   return (
     <>
@@ -25,25 +40,15 @@ export const DeletePost = ({ post: { _id: id, title } }) => {
         <TrashIcon className="w-5 h-5 lg:w-6 lg:h-6" />
       </ButtonIcon>
       <Modal
-        open={open}
+        open={isOpen}
         onClose={() => setIsOpen(false)}
         title={`حذف ${title}`}
         description={`آیا از حذف ${title} مطمئن هستید؟`}
       >
         <ConfirmDelete
-          disabled={isDeleting}
           onClose={() => setIsOpen(false)}
-          onConfirm={(e) => {
-            e.preventDefault();
-            deletePost(
-              { id },
-              {
-                onSuccess: () => {
-                  setIsOpen(false);
-                  router.refresh("/admin/posts");
-                },
-              }
-            );
+          action={(formData) => {
+            formAction({ formData, postId });
           }}
         />
       </Modal>
