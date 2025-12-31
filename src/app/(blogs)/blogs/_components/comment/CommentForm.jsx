@@ -39,7 +39,7 @@ const CommentForm = ({ postId, parentId, onClose }) => {
         error={state.error}
       />
 
-      <SubmitButton>تأیید</SubmitButton>
+      <SubmitButton>تایید</SubmitButton>
     </form>
   );
 };

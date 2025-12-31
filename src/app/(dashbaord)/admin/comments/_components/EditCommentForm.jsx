@@ -18,7 +18,7 @@ const options = [
   },
   {
     id: 3,
-    label: "قبول",
+    label: "تایید شده",
     value: 2,
   },
 ];
