@@ -9,8 +9,13 @@ export async function getAllCommentsApi(options = {}) {
 }
 
 export async function deleteCommentApi(id, options = {}) {
-  await new Promise((res) => setTimeout(() => res(), 5000));
   return http
     .delete(`/comment/remove/${id}`, options)
+    .then(({ data }) => data.data);
+}
+
+export async function updateCommentApi({ id, data }, options = {}) {
+  return http
+    .patch(`/comment/update/${id}`, data, options)
     .then(({ data }) => data.data);
 }

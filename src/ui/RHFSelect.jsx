@@ -2,9 +2,10 @@
 
 import useOutsideClick from "@/hooks/useOutsideClick";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const RHFSelect = ({
+  name,
   label,
   value,
   onChange,
@@ -14,19 +15,37 @@ const RHFSelect = ({
   error,
 }) => {
   const [open, setOpen] = useState(false);
+  const [direction, setDirection] = useState("bottom");
+  const dropdownRef = useRef(null);
 
   const selectedOption = options.find((o) => o.value === value);
 
   const ref = useOutsideClick(() => open && setOpen(false));
 
+  useEffect(() => {
+    if (!open) return;
+
+    const rect = dropdownRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    if (spaceBelow < 200 && spaceAbove > spaceBelow) {
+      setDirection("top");
+    } else {
+      setDirection("bottom");
+    }
+  }, [open]);
+
   return (
     <div className="relative" ref={ref}>
+      {name && <input type="hidden" name={name} value={value ?? ""} />}
       <label className="text-secondary-600 text-sm inline-block mb-2">
         {label}
         {isRequired && <span className="text-error-500 ms-1">*</span>}
       </label>
 
       <div
+        ref={dropdownRef}
         className="textField__input pe-10 cursor-pointer relative flex items-center"
         onClick={() => setOpen((p) => !p)}
       >
@@ -41,8 +60,9 @@ const RHFSelect = ({
       </div>
 
       <ul
-        className={`absolute top-full mt-2 w-full bg-secondary-0 rounded-lg border border-secondary-200 overflow-hidden shadow-lg z-[2] transition-all duration-300 ease-linear overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
+        className={`absolute w-full bg-secondary-0 rounded-lg border border-secondary-200 overflow-hidden shadow-lg z-[2] transition-all duration-300 ease-linear overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
           ${open ? "max-h-56 opacity-100" : "max-h-0 opacity-0 mt-0 py-0"}
+           ${direction === "bottom" ? "top-full mt-2" : "bottom-full -mb-5"}
         `}
       >
         {options.map((option) => (

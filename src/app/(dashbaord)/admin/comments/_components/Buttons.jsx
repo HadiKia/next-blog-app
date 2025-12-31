@@ -6,10 +6,11 @@ import Modal from "@/ui/Modal";
 import deleteComment from "../actions/deleteComment";
 import { useActionState, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import EditCommentForm from "./EditCommentForm";
 
-const DeleteComment = ({ id: commentId }) => {
+export const DeleteComment = ({ id: commentId }) => {
   const router = useRouter();
   const [state, formAction] = useActionState(deleteComment, {
     error: "",
@@ -48,4 +49,24 @@ const DeleteComment = ({ id: commentId }) => {
   );
 };
 
-export default DeleteComment;
+export const UpdateComment = ({ comment }) => {
+  const router = useRouter();
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const onClose = () => setIsEditOpen(false);
+  return (
+    <>
+      <ButtonIcon variant="outline" onClick={() => setIsEditOpen(true)}>
+        <PencilIcon className="w-5 h-5 lg:w-6 lg:h-6" />
+      </ButtonIcon>
+
+      <Modal
+        className="overflow-visible"
+        title={`ویرایش نظر`}
+        open={isEditOpen}
+        onClose={onClose}
+      >
+        <EditCommentForm onClose={onClose} comment={comment} router={router} />
+      </Modal>
+    </>
+  );
+};

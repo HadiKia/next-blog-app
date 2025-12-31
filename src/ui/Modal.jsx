@@ -5,7 +5,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { createPortal } from "react-dom";
 
-const Modal = ({ children, title, description, open, onClose }) => {
+const Modal = ({ children, title, description, open, onClose, className }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -54,12 +54,13 @@ const Modal = ({ children, title, description, open, onClose }) => {
         ref={ref}
         role="dialog"
         aria-modal="true"
-        className={`fixed z-20 inset-x-0 bottom-0 md:mx-auto md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:max-w-xl bg-secondary-0 dark:bg-secondary-50 rounded-t-xl md:rounded-xl px-4 py-6 md:p-6 max-h-[calc(100%-100px)] overflow-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl duration-300 ease-linear
+        className={` fixed z-20 inset-x-0 bottom-0 md:mx-auto md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:max-w-xl bg-secondary-0 dark:bg-secondary-50 rounded-t-xl md:rounded-xl px-4 py-6 md:p-6 max-h-[calc(100%-100px)] overflow-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl duration-300 ease-linear
           ${
             isVisible
               ? "translate-y-0 opacity-100"
               : "translate-y-[100vh] opacity-0"
           }
+          ${className}
         `}
       >
         {/* header */}
