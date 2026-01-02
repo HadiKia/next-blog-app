@@ -25,6 +25,7 @@ function CommentRow({ index, comment }) {
     user,
     status,
     createdAt,
+    updatedAt,
   } = comment;
   return (
     <Table.Row>
@@ -32,6 +33,7 @@ function CommentRow({ index, comment }) {
       <td>{truncateText(text, 30)}</td>
       <td> {user?.name}</td>
       <td>{toLocalDateShort(createdAt)}</td>
+      <td>{toLocalDateShort(updatedAt)}</td>
       <td>
         <span className={`badge ${statusStyle[status].className}`}>
           {statusStyle[status].label}

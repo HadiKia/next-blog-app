@@ -16,6 +16,7 @@ async function CommentsTable() {
         <th>متن</th>
         <th>نویسنده</th>
         <th>تاریخ ایجاد</th>
+        <th>آخرین بروزرسانی</th>
         <th>وضعیت</th>
         <th>عملیات</th>
       </Table.Header>
