@@ -6,7 +6,7 @@ export const sidebarConfig = {
     { id: 2, children: "پنل ادمین", path: "/admin", Icon: RectangleGroupIcon },
     { id: 3, children: "بلاگ ها", path: "/admin/posts", Icon: DocumentTextIcon },
     { id: 4, children: "نظرات", path: "/admin/comments", Icon: ChatBubbleBottomCenterIcon },
-    { id: 5, children: "دسته‌بندی ها", path: "/admin/category", Icon: Squares2X2Icon },
+    { id: 5, children: "دسته‌بندی ها", path: "/admin/categories", Icon: Squares2X2Icon },
     { id: 6, children: "کاربران", path: "/admin/users", Icon: UserGroupIcon },
     { id: 7, children: "مورد علاقه‌ها", path: "/profile/favorites", Icon: HeartIcon },
     { id: 8, children: "بوکمارک ها", path: "/profile/bookmarks", Icon: BookmarkIcon },
