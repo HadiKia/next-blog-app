@@ -2,8 +2,9 @@ import Table from "@/ui/Table";
 import toLocalDateShort from "@/utils/dateFormatter";
 
 const CategoryRow = ({ index, category }) => {
-  const { title, englishTitle, description, slug, createdAt } = category;
-  
+  const { title, englishTitle, description, slug, createdAt, updatedAt } =
+    category;
+
   return (
     <Table.Row>
       <td>{index}</td>
@@ -12,6 +13,7 @@ const CategoryRow = ({ index, category }) => {
       <td>{description}</td>
       <td>{slug}</td>
       <td>{toLocalDateShort(createdAt)}</td>
+      <td>{toLocalDateShort(updatedAt)}</td>
       <td>
         <div className="flex items-center gap-x-2">
           <span>edit</span>

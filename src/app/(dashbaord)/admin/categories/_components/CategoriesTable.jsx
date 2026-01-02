@@ -17,6 +17,7 @@ const CategoriesTable = async () => {
         <th>توضیحات</th>
         <th>اسلاگ</th>
         <th>تاریخ ایجاد</th>
+        <th>آخرین بروزرسانی</th>
         <th>عملیات</th>
       </Table.Header>
       <Table.Body>
