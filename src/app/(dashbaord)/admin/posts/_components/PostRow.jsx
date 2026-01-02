@@ -16,7 +16,7 @@ const typeStyle = {
 };
 
 const PostRow = ({ index, post }) => {
-  const { title, category, author, createdAt, type } = post;
+  const { title, category, author, createdAt, updatedAt, type } = post;
   return (
     <Table.Row>
       <td>{toPersianDigits(index + 1)}</td>
@@ -24,6 +24,7 @@ const PostRow = ({ index, post }) => {
       <td>{category.title}</td>
       <td>{author.name}</td>
       <td>{toLocalDateShort(createdAt)}</td>
+      <td>{toLocalDateShort(updatedAt)}</td>
       <td>
         <span className={`badge ${typeStyle[type].className}`}>
           {typeStyle[type].label}

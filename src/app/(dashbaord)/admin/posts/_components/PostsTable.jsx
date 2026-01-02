@@ -14,6 +14,7 @@ const PostsTable = async ({ query = "" }) => {
         <th>دسته‌بندی</th>
         <th>نویسنده</th>
         <th>تاریخ ایجاد</th>
+        <th>آخرین بروزرسانی</th>
         <th>نوع</th>
         <th>عملیات</th>
       </Table.Header>
