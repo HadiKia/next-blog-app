@@ -1,5 +1,6 @@
 import Table from "@/ui/Table";
 import toLocalDateShort from "@/utils/dateFormatter";
+import truncateText from "@/utils/truncateText";
 
 const CategoryRow = ({ index, category }) => {
   const { title, englishTitle, description, slug, createdAt, updatedAt } =
@@ -10,7 +11,7 @@ const CategoryRow = ({ index, category }) => {
       <td>{index}</td>
       <td>{title}</td>
       <td>{englishTitle}</td>
-      <td>{description}</td>
+      <td>{truncateText(description, 30)}</td>
       <td>{slug}</td>
       <td>{toLocalDateShort(createdAt)}</td>
       <td>{toLocalDateShort(updatedAt)}</td>

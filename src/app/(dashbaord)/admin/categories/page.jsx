@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import CategoriesTable from "./_components/CategoriesTable";
+import CategoriesTableSkeleton from "./_components/CategoriesTableSkeleton";
 
 const Categories = () => {
   return (
@@ -10,7 +11,7 @@ const Categories = () => {
         </h2>
       </div>
 
-      <Suspense fallback={<p>درحال بارگزاری دسته‌بندی ها</p>}>
+      <Suspense fallback={<CategoriesTableSkeleton />}>
         <CategoriesTable />
       </Suspense>
     </div>
