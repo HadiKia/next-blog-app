@@ -1,9 +1,10 @@
 import Table from "@/ui/Table";
 import toLocalDateShort from "@/utils/dateFormatter";
 import truncateText from "@/utils/truncateText";
+import { DeleteCategory } from "./Buttons";
 
 const CategoryRow = ({ index, category }) => {
-  const { title, englishTitle, description, slug, createdAt, updatedAt } =
+  const { _id, title, englishTitle, description, slug, createdAt, updatedAt } =
     category;
 
   return (
@@ -18,7 +19,7 @@ const CategoryRow = ({ index, category }) => {
       <td>
         <div className="flex items-center gap-x-2">
           <span>edit</span>
-          <span>delete</span>
+          <DeleteCategory title={title} id={_id} />
         </div>
       </td>
     </Table.Row>
