@@ -10,6 +10,12 @@ export async function deleteCategoryApi(id, options = {}) {
     .then(({ data }) => data.data);
 }
 
+export async function createCategoryApi(data, options) {
+  return http
+    .post("/category/add", data, options)
+    .then(({ data }) => data.data);
+}
+
 const categoryApi = {
   getCategoryApi,
 };
