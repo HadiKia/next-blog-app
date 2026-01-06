@@ -16,6 +16,16 @@ export async function createCategoryApi(data, options) {
     .then(({ data }) => data.data);
 }
 
+export async function editCategoryApi({ id, data }) {
+  return http
+    .patch(`/category/update/${id}`, data)
+    .then(({ data }) => data.data);
+}
+
+export async function getCategoryById(id) {
+  return http.get(`/category/${id}`).then(({ data }) => data.data);
+}
+
 const categoryApi = {
   getCategoryApi,
 };

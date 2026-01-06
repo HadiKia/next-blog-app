@@ -3,7 +3,7 @@
 import ButtonIcon from "@/ui/ButtonIcon";
 import ConfirmDelete from "@/ui/ConfirmDelete";
 import Modal from "@/ui/Modal";
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -49,6 +49,17 @@ export const DeleteCategory = ({ title, id: categoryId }) => {
     </>
   );
 };
+
+export const UpdateCategory = ({ id }) => {
+  return (
+    <Link href={`/admin/categories/${id}/edit`}>
+      <ButtonIcon variant="outline">
+        <PencilSquareIcon className="w-5 h-5 lg:w-6 lg:h-6" />
+      </ButtonIcon>
+    </Link>
+  );
+};
+
 
 export const CreateCategory = () => {
   return (

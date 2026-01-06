@@ -1,6 +1,7 @@
 "use client";
 
 import useCreateCategory from "@/hooks/useCreateCategory";
+import useEditCategory from "@/hooks/useEditCategory";
 import Button from "@/ui/Button";
 import RHFTextField from "@/ui/RHFTextFiled";
 import SpinnerMini from "@/ui/SpinnerMini";
@@ -40,22 +41,44 @@ const schema = yup
 const CreateCategoryForm = ({ categoryToEdit = {} }) => {
   const { _id: editId } = categoryToEdit;
   const isEditSession = Boolean(editId);
-  const router = useRouter();
+  const { title, englishTitle, description } = categoryToEdit;
+  let editValues = {};
+  if (isEditSession) {
+    editValues = {
+      title,
+      englishTitle,
+      description,
+    };
+  }
 
   const { createCategory, isCreating } = useCreateCategory();
+  const { editCategory, isEditing } = useEditCategory();
+
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     setValue,
     reset,
-    formState: { errors, isLoading, isValid },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onTouched",
+    defaultValues: editValues,
   });
 
   const onSubmit = (data) => {
     if (isEditSession) {
+      editCategory(
+        { id: editId, data },
+        {
+          onSuccess: () => {
+            reset();
+            router.push("/admin/categories");
+          },
+        }
+      );
     } else {
       createCategory(data, {
         onSuccess: () => router.push("/admin/categories"),
@@ -65,6 +88,7 @@ const CreateCategoryForm = ({ categoryToEdit = {} }) => {
 
   const pageTitle = isEditSession ? "ویرایش دسته‌بندی" : "ایجاد دسته‌بندی جدید";
   const submitLabel = isEditSession ? "ویرایش دسته‌بندی" : "ایجاد دسته‌بندی";
+  const isSubmitting = isEditSession ? isEditing : isCreating;
 
   return (
     <div>
@@ -103,11 +127,11 @@ const CreateCategoryForm = ({ categoryToEdit = {} }) => {
 
         <Button
           type="submit"
-          disabled={!isValid || isCreating}
+          disabled={!isValid || isSubmitting}
           variant="primary"
           className="mt-4 lg:col-start-2 "
         >
-          {isCreating ? <SpinnerMini /> : submitLabel}
+          {isSubmitting ? <SpinnerMini /> : submitLabel}
         </Button>
       </form>
     </div>

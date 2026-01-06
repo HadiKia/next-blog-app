@@ -6,8 +6,6 @@ const CategoriesTable = async () => {
   const { categories } = await getCategoryApi();
   if (!categories.length) return <p>دسته‌بندی پیدا نشد.</p>;
 
-  let iterator = 0;
-
   return (
     <Table>
       <Table.Header>
@@ -21,16 +19,9 @@ const CategoriesTable = async () => {
         <th>عملیات</th>
       </Table.Header>
       <Table.Body>
-        {categories.map((category) => {
-          iterator++;
-          return (
-            <CategoryRow
-              key={category._id}
-              category={category}
-              index={iterator}
-            />
-          );
-        })}
+        {categories.map((category, index) => (
+          <CategoryRow key={category._id} category={category} index={index} />
+        ))}
       </Table.Body>
     </Table>
   );
