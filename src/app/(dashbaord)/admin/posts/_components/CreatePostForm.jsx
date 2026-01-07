@@ -144,6 +144,7 @@ const CreatePostForm = ({ postToEdit = {} }) => {
 
   const pageTitle = isEditSession ? "ویرایش بلاگ" : "ایجاد بلاگ جدید";
   const submitLabel = isEditSession ? "ویرایش بلاگ" : "ایجاد بلاگ";
+  const isSubmitting = isEditSession ? isEditing : isCreating;
 
   return (
     <div>
@@ -265,11 +266,11 @@ const CreatePostForm = ({ postToEdit = {} }) => {
 
         <Button
           type="submit"
-          disabled={!isValid || isCreating}
+          disabled={!isValid || isSubmitting}
           variant="primary"
           className="mt-4 lg:col-start-2 "
         >
-          {isCreating ? <SpinnerMini /> : submitLabel}
+          {isSubmitting ? <SpinnerMini /> : submitLabel}
         </Button>
       </form>
     </div>
