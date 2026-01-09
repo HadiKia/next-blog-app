@@ -201,7 +201,7 @@
     @apply inline-block whitespace-nowrap rounded-xl px-2 py-0.5;
   }
   .badge--primary {
-    @apply bg-primary-900 text-white;
+    @apply bg-primary-900 text-secondary-100;
   }
   .badge--secondary {
     @apply bg-secondary-200 text-secondary-600;
