@@ -30,7 +30,7 @@ const SidebarLinks = ({ links }) => {
       />
 
       <div
-        className={` fixed lg:sticky start-0 inset-y-0 lg:inset-auto w-full max-w-xs lg:top-0 bg-secondary-0 lg:bg-secondary-100 flex flex-col px-4 lg:px-6 xl:px-8 transform transition-transform duration-300 ease-linear z-40 lg:translate-x-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
+        className={` fixed lg:sticky start-0 inset-y-0 lg:inset-auto w-full max-w-xs ltr:rounded-tr-xl rtl:rounded-tl-xl lg:top-0 bg-secondary-0 lg:bg-secondary-100 flex flex-col px-4 lg:px-6 xl:px-8 transform transition-transform duration-300 ease-linear z-40 lg:translate-x-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
           ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!open}
       >
