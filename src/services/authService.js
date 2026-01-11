@@ -15,3 +15,9 @@ export async function getUserApi() {
 export async function getAllUsersApi(option) {
   return http.get("/user/list", option).then(({ data }) => data.data);
 }
+
+export async function deleteUserApi(id, options = {}) {
+  return http
+    .delete(`/user/remove/${id}`, options)
+    .then(({ data }) => data.data);
+}

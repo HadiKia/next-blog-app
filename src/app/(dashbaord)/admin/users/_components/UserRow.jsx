@@ -1,5 +1,6 @@
 import Table from "@/ui/Table";
 import toLocalDateShort from "@/utils/dateFormatter";
+import { DeleteUser } from "./Buttons";
 
 const roleStyle = {
   admin: {
@@ -13,7 +14,7 @@ const roleStyle = {
 };
 
 const UserRow = ({ index, user }) => {
-  const { name, email, role, createdAt, updatedAt } = user;
+  const { _id, name, email, role, createdAt, updatedAt } = user;
 
   return (
     <Table.Row>
@@ -29,7 +30,7 @@ const UserRow = ({ index, user }) => {
       <td>{toLocalDateShort(updatedAt)}</td>
       <td>
         <div className="flex items-center gap-x-2">
-          <span>delete</span>
+          <DeleteUser name={name} id={_id} />
         </div>
       </td>
     </Table.Row>
