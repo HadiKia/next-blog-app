@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const CoverImage = ({ coverImageUrl, title, slug }) => {
   return (
-    <div className="relative aspect-video ">
+    <div className="relative aspect-square w-full max-w-32">
       <Link href={`/blogs/${slug}`}>
         <Image
           src={coverImageUrl}
