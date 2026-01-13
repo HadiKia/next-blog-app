@@ -2,6 +2,8 @@ import CategoryList from "../_components/CategoryList";
 import Search from "@/ui/Search";
 import BlogSort from "../_components/BlogSort";
 import MobileFilterMenu from "@/components/category/MobileFilterMenu";
+import { Suspense } from "react";
+import PostListSkeleton from "../_components/PostListSkeleton";
 
 export const metadata = {
   title: "بلاگ‌ها",
@@ -35,7 +37,9 @@ const Layout = async ({ children }) => {
           <CategoryList categories={categories} />
         </div>
 
-        <div className="lg:col-span-9 text-secondary-500">{children}</div>
+        <div className="lg:col-span-9 text-secondary-500">
+          <Suspense fallback={<PostListSkeleton />}>{children}</Suspense>
+        </div>
       </div>
     </div>
   );
