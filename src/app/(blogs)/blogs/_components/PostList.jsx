@@ -1,19 +1,11 @@
 import CoverImage from "./CoverImage";
 import Link from "next/link";
-import {
-  CalendarDateRangeIcon,
-  ClockIcon,
-  TagIcon,
-} from "@heroicons/react/24/outline";
-import Author from "./Author";
-import PostInteraction from "./PostInteraction";
+import { CalendarDateRangeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import truncateText from "@/utils/truncateText";
 import toLocalDateShort from "@/utils/dateFormatter";
 
 const PostList = async ({ posts }) => {
-  // await new Promise((res) => setTimeout(() => res(), 1000));
-
   return posts.length > 0 ? (
     <div className="flex flex-col sm:grid grid-cols-12 md:gap-6 -mx-4 sm:mx-0 ">
       {posts.map((post) => (
@@ -29,10 +21,6 @@ const PostList = async ({ posts }) => {
                   {post.title}
                 </h2>
               </Link>
-              {/* <div className="min-w-fit flex items-center gap-x-1 px-2 py-0.5 text-xs rounded-lg border border-secondary-200 bg-secondary-100 text-secondary-700 ">
-                <TagIcon className="w-4 h-4 stroke-secondary-600 mb-0.5" />
-                <span>{post.category.title}</span>
-              </div> */}
             </div>
 
             <Link href={`/blogs/${post.slug}`}>
@@ -42,8 +30,6 @@ const PostList = async ({ posts }) => {
             </Link>
 
             <div className="flex items-center gap-x-3 mt-auto">
-              {/* <Author {...post.author} /> */}
-              {/* <PostInteraction post={post} /> */}
               <div className="flex items-center gap-x-1 text-xs lg:text-sm text-secondary-500">
                 <CalendarDateRangeIcon className="w-4 h-4 lg:w-5 lg:h-5 mb-0.5" />
                 <span>{toLocalDateShort(post.createdAt)}</span>

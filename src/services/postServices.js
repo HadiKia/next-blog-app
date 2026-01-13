@@ -1,8 +1,9 @@
 import http from "./httpService";
 
-export const getPostBySlug = async (slug) => {
+export const getPostBySlug = async (slug, options) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/post/slug/${slug}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/post/slug/${slug}`,
+    options
   );
   const { data } = await res.json();
   const { post } = data || {};

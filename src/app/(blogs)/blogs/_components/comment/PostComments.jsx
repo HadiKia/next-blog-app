@@ -22,7 +22,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
   };
 
   return (
-    <div className="my-20">
+    <div className="lg:col-span-8 lg:order-4">
       <Modal
         open={open}
         onClose={() => setIsOpen(false)}
@@ -37,7 +37,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
       </Modal>
       <div className="flex flex-col items-center justify-between gap-y-6 ">
         <div className="w-full flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-secondary-800">نظرات</h2>
+          <h2 className="text-2xl font-bold text-secondary-700">نظرات</h2>
           <Button
             variant="outline"
             className="flex items-center gap-x-2 py-2"
