@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CalendarDateRangeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import truncateText from "@/utils/truncateText";
-import toLocalDateShort from "@/utils/dateFormatter";
+import { toLocalDateShort } from "@/utils/dateFormatter";
 
 const PostList = async ({ posts }) => {
   return posts.length > 0 ? (

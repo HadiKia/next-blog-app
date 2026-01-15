@@ -3,12 +3,17 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import RelatedPost from "../_components/RelatedPost";
 import PostComments from "../_components/comment/PostComments";
-import { ClockIcon, TagIcon } from "@heroicons/react/24/outline";
+import {
+  CalendarDateRangeIcon,
+  ClockIcon,
+  TagIcon,
+} from "@heroicons/react/24/outline";
 import PostInteraction from "../_components/PostInteraction";
 import { cookies } from "next/headers";
 import setCookieOnReq from "@/utils/setCookieOnReq";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import Author from "../_components/Author";
+import { toLocalDateShort } from "@/utils/dateFormatter";
 
 export const dynamicParams = false;
 
@@ -49,19 +54,28 @@ const SinglePost = async ({ params }) => {
               />
             </div>
 
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center ">
               <Author {...post.author} />
               <span className="hidden lg:block w-px"></span>
 
-              <div className="flex items-center gap-x-3">
+              <div className="flex items-center flex-wrap gap-2 lg:gap-3">
+                <div className="flex items-center gap-x-1 text-xs lg:text-sm text-secondary-500">
+                  <CalendarDateRangeIcon className="w-4 h-4 lg:w-5 lg:h-5 mb-0.5" />
+                  <span>{toLocalDateShort(post.createdAt)}</span>
+                </div>
+
+                <span className="w-px h-4 bg-secondary-300"></span>
+
+                <div className="flex items-center gap-x-1 text-xs lg:text-sm text-secondary-500">
+                  <ClockIcon className="w-4 h-4 lg:w-5 lg:h-5 mb-0.5" />
+                  <span>{toPersianDigits(post.readingTime)} دقیقه</span>
+                </div>
+
+                <span className="w-px h-4 bg-secondary-300"></span>
+
                 <div className="flex items-center gap-x-1 text-xs lg:text-sm text-secondary-500">
                   <TagIcon className="w-4 h-4 lg:w-5 lg:h-5 mb-0.5" />
                   <span>{post.category.title}</span>
-                </div>
-                <span className="w-px h-4 bg-secondary-300"></span>
-                <div className="flex items-center gap-x-1 text-xs lg:text-sm text-secondary-500">
-                  <ClockIcon className="w-4 h-4 lg:w-5 lg:h-5 mb-0.5" />
-                  <span>مطالعه: {toPersianDigits(post.readingTime)} دقیقه</span>
                 </div>
               </div>
             </div>
