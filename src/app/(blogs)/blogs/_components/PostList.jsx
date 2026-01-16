@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CalendarDateRangeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import truncateText from "@/utils/truncateText";
-import { toLocalDateShort } from "@/utils/dateFormatter";
+import { toLocalDateShort2 } from "@/utils/dateFormatter";
 
 const PostList = async ({ posts }) => {
   return posts.length > 0 ? (
@@ -32,7 +32,7 @@ const PostList = async ({ posts }) => {
             <div className="flex items-center gap-x-3 mt-auto">
               <div className="flex items-center gap-x-1 text-xs lg:text-sm text-secondary-500">
                 <CalendarDateRangeIcon className="w-4 h-4 lg:w-5 lg:h-5 mb-0.5" />
-                <span>{toLocalDateShort(post.createdAt)}</span>
+                <span>{toLocalDateShort2(post.createdAt)}</span>
               </div>
 
               <span className="w-px h-full bg-secondary-300"></span>
