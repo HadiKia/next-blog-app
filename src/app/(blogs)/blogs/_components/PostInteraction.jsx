@@ -13,10 +13,11 @@ import {
   BookmarkIcon as SolidBookmarkIcon,
   HeartIcon as SolidHeartIcon,
 } from "@heroicons/react/24/solid";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const PostInteraction = ({ post }) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const likeHandler = async (postId) => {
     try {
@@ -35,6 +36,17 @@ const PostInteraction = ({ post }) => {
       router.refresh();
     } catch (error) {
       toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const copyHandler = async() => {
+    const url = `${window.location.origin}${pathname}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("آدرس صفحه کپی شد");
+    } catch (err) {
+      toast.error("خطا در کپی کردن آدرس");
     }
   };
 
@@ -65,7 +77,7 @@ const PostInteraction = ({ post }) => {
         {post.isBookmarked ? <SolidBookmarkIcon /> : <BookmarkIcon />}
       </Button>
 
-      <Button variant="transparent">
+      <Button variant="transparent" onClick={() => copyHandler()}>
         <ShareIcon />
       </Button>
     </div>
