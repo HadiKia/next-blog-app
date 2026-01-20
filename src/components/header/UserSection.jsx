@@ -10,7 +10,10 @@ const UserSection = ({ onClick }) => {
 
   if (isLoading)
     return (
-      <div className="w-32 h-10 bg-secondary-100 lg:bg-secondary-200 rounded-md animate-pulse"></div>
+      <div className="flex items-center gap-x-2">
+        <div className="w-6 h-6 rounded-full bg-secondary-200 animate-pulse"></div>
+        <div className="w-20 h-6 rounded bg-secondary-200 animate-pulse"></div>
+      </div>
     );
 
   if (user) {

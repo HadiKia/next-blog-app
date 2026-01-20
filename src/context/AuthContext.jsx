@@ -68,7 +68,7 @@ export default function AuthProvider({ children }) {
   async function getUser() {
     dispatch({ type: "loading" });
     try {
-      await new Promise((res) => setTimeout(() => res(), 500));
+      // await new Promise((res) => setTimeout(() => res(), 500));
       const { user } = await getUserApi();
       dispatch({ type: "user/loaded", payload: user });
     } catch (error) {
