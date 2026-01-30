@@ -1,5 +1,5 @@
 import Table from "@/ui/Table";
-import toLocalDateShort from "@/utils/dateFormatter";
+import { toLocalDateShort } from "@/utils/dateFormatter";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import truncateText from "@/utils/truncateText";
 import { DeletePost, UpdatePost } from "./Buttons";

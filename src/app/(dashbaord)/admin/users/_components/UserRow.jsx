@@ -1,5 +1,5 @@
 import Table from "@/ui/Table";
-import toLocalDateShort from "@/utils/dateFormatter";
+import { toLocalDateShort } from "@/utils/dateFormatter";
 import { DeleteUser } from "./Buttons";
 
 const roleStyle = {

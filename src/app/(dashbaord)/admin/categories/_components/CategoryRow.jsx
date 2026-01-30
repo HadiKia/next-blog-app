@@ -1,5 +1,5 @@
 import Table from "@/ui/Table";
-import toLocalDateShort from "@/utils/dateFormatter";
+import { toLocalDateShort } from "@/utils/dateFormatter";
 import truncateText from "@/utils/truncateText";
 import { DeleteCategory, UpdateCategory } from "./Buttons";
 
