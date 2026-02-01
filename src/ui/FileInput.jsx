@@ -59,7 +59,7 @@ function FileInput({
                 {fileMeta?.name}
               </span>
               <span className="text-xs lg:text-base text-secondary-500">
-                {toPersianDigits(fileMeta?.size)}
+                {fileMeta?.size && toPersianDigits(fileMeta.size)}
               </span>
             </div>
           </div>

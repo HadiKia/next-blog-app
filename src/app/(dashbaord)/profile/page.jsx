@@ -2,13 +2,15 @@
 import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatFileSize } from "@/utils/formatFileSize";
+import { imageUrlToFile } from "@/utils/fileFormatter";
+import { useAuth } from "@/context/AuthContext";
+import useEditProfile from "@/hooks/useEditProfile";
 import RHFTextField from "@/ui/RHFTextFiled";
 import Button from "@/ui/Button";
 import SpinnerMini from "@/ui/SpinnerMini";
 import FileInput from "@/ui/FileInput";
-import useEditProfile from "@/hooks/useEditProfile";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -25,6 +27,7 @@ const schema = yup
       .required("ایمیل الزامی است."),
     avatar: yup
       .mixed()
+      .notRequired()
       .test(
         "fileSize",
         "حجم فایل انتخاب شده باید کمتر از ۲۰ مگابایت باشد",
@@ -37,7 +40,24 @@ const schema = yup
   .required();
 
 const Profile = () => {
-  const [avatarImageUrl, setAvatarImageUrl] = useState(null);
+  const { user, isLoading, getUser } = useAuth();
+  const editId = user?._id;
+
+  const isEditSession = Boolean(editId);
+  const { name, email, avatar, avatarUrl: prevAvatarImageUrl } = user || {};
+
+  let editValues = {};
+  if (isEditSession) {
+    editValues = {
+      name,
+      email,
+      avatar,
+    };
+  }
+
+  const [avatarImageUrl, setAvatarImageUrl] = useState(
+    prevAvatarImageUrl || null,
+  );
   const { editProfile, isEditing } = useEditProfile();
 
   const {
@@ -45,12 +65,64 @@ const Profile = () => {
     register,
     handleSubmit,
     setValue,
-    reset,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onTouched",
+    defaultValues: editValues,
   });
+
+  useEffect(() => {
+    if (prevAvatarImageUrl) {
+      // covert prevLink to file
+      async function fetchImage(params) {
+        const file = await imageUrlToFile(prevAvatarImageUrl);
+        setValue("avatar", file, { shouldValidate: true });
+      }
+      fetchImage();
+    }
+  }, [editId]);
+
+  useEffect(() => {
+    return () => {
+      if (avatarImageUrl) {
+        URL.revokeObjectURL(avatarImageUrl);
+      }
+    };
+  }, [avatarImageUrl]);
+
+  useEffect(() => {
+    if (!user) {
+      getUser();
+    } else {
+      setValue("name", user.name || "");
+      setValue("email", user.email || "");
+      setAvatarImageUrl(user.avatarUrl || null);
+    }
+  }, [user, getUser, setValue]);
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    for (const key in data) {
+      if (key === "avatar" && data.avatar) {
+        if (!(data.avatar instanceof File) && avatarImageUrl) {
+          const blob = await (await fetch(avatarImageUrl)).blob();
+          const fileName = avatarImageUrl.split("/").pop() || "avatar.jpg";
+          formData.append("avatar", new File([blob], fileName));
+        } else {
+          formData.append("avatar", data.avatar);
+        }
+      } else {
+        formData.append(key, data[key]);
+      }
+    }
+
+    if (editId) {
+      editProfile({ id: editId, data: formData });
+    }
+  };
+
+  if (isLoading) return <p className="h-[386px]">isLoading</p>;
 
   return (
     <div className="px-4 py-8 lg:px-8 lg:py-10 ">
@@ -58,7 +130,10 @@ const Profile = () => {
         حساب کاربری
       </h2>
 
-      <form className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start"
+      >
         <RHFTextField
           name="name"
           label="نام و نام خانوادگی"
@@ -81,12 +156,45 @@ const Profile = () => {
           name="avatar"
           control={control}
           render={({ field: { value, onChange, ...rest } }) => {
-            const fileMeta = value
-              ? {
+            const [fileMeta, setFileMeta] = useState(null);
+
+            async function fetchFileSize(url) {
+              try {
+                const res = await fetch(url, { method: "HEAD" });
+                const size = res.headers.get("content-length");
+                return size ? formatFileSize(Number(size)) : null;
+              } catch (err) {
+                console.error("Failed to fetch file size", err);
+                return null;
+              }
+            }
+
+            useEffect(() => {
+              let isCurrent = true;
+
+              if (value instanceof File) {
+                setFileMeta({
                   name: value.name,
                   size: formatFileSize(value.size),
-                }
-              : null;
+                });
+              } else if (avatarImageUrl) {
+                const currentUrl = avatarImageUrl;
+                fetchFileSize(currentUrl).then((size) => {
+                  if (isCurrent) {
+                    setFileMeta({
+                      name: currentUrl.split("/").pop(),
+                      size: size || "-",
+                    });
+                  }
+                });
+              } else {
+                setFileMeta(null);
+              }
+
+              return () => {
+                isCurrent = false;
+              };
+            }, [value, avatarImageUrl]);
 
             return (
               <FileInput
@@ -123,7 +231,10 @@ const Profile = () => {
                 onRemove={() => {
                   if (avatarImageUrl) URL.revokeObjectURL(avatarImageUrl);
                   setAvatarImageUrl(null);
-                  setValue("avatar", null, { shouldValidate: false });
+                  setValue("avatar", "", {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
                 }}
               />
             );
@@ -132,7 +243,7 @@ const Profile = () => {
 
         <Button
           type="submit"
-          disabled={!isValid || isEditing}
+          disabled={!isValid || !isDirty || isEditing}
           variant="primary"
           className="mt-4 lg:col-start-2 "
         >

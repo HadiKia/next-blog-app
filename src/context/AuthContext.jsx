@@ -2,7 +2,7 @@
 
 import { getUserApi, signinApi, signupApi } from "@/services/authService";
 import { useRouter } from "next/navigation";
-import { createContext, useReducer, useContext, useEffect } from "react";
+import { createContext, useReducer, useContext, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
 
 const AuthContext = createContext();
@@ -34,7 +34,7 @@ export default function AuthProvider({ children }) {
 
   const [{ user, isAuthenticated, isLoading, error }, dispatch] = useReducer(
     authReducer,
-    initialState
+    initialState,
   );
 
   async function signin(values) {
@@ -65,18 +65,16 @@ export default function AuthProvider({ children }) {
     }
   }
 
-  async function getUser() {
+  const getUser = useCallback(async () => {
     dispatch({ type: "loading" });
     try {
-      // await new Promise((res) => setTimeout(() => res(), 500));
       const { user } = await getUserApi();
       dispatch({ type: "user/loaded", payload: user });
     } catch (error) {
       const errorMsg = error?.response?.data?.message;
       dispatch({ type: "rejected", payload: errorMsg });
-      // toast.error(errorMsg);
     }
-  }
+  }, [dispatch]);
 
   useEffect(() => {
     async function fetchData() {
@@ -87,7 +85,7 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, isLoading, signin, signup }}
+      value={{ user, isAuthenticated, isLoading, signin, signup, getUser }}
     >
       {children}
     </AuthContext.Provider>

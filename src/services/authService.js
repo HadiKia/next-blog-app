@@ -21,3 +21,7 @@ export async function deleteUserApi(id, options = {}) {
     .delete(`/user/remove/${id}`, options)
     .then(({ data }) => data.data);
 }
+
+export async function editUserApi({ id, data }) {
+  return http.patch(`/user/update/${id}`, data).then(({ data }) => data.data);
+}
