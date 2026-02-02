@@ -11,6 +11,7 @@ import RHFTextField from "@/ui/RHFTextFiled";
 import Button from "@/ui/Button";
 import SpinnerMini from "@/ui/SpinnerMini";
 import FileInput from "@/ui/FileInput";
+import ProfilePageSkeleton from "./_components/ProfilePageSkeleton";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -122,7 +123,7 @@ const Profile = () => {
     }
   };
 
-  if (isLoading) return <p className="h-[386px]">isLoading</p>;
+  if (isLoading) return <ProfilePageSkeleton />;
 
   return (
     <div className="px-4 py-8 lg:px-8 lg:py-10 ">
