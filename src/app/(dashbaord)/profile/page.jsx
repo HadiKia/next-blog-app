@@ -11,7 +11,7 @@ import RHFTextField from "@/ui/RHFTextFiled";
 import Button from "@/ui/Button";
 import SpinnerMini from "@/ui/SpinnerMini";
 import FileInput from "@/ui/FileInput";
-import ProfilePageSkeleton from "./_components/ProfilePageSkeleton";
+import ProfilePageSkeleton from "./loading";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
