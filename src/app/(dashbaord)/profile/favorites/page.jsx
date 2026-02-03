@@ -13,6 +13,7 @@ import truncateText from "@/utils/truncateText";
 import Button from "@/ui/Button";
 import { CalendarDateRangeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import FavoritesSkeleton from "./loading";
 
 const Favorites = () => {
   const { user, getUser, isLoading: isLoadingUser } = useAuth();
@@ -66,7 +67,7 @@ const Favorites = () => {
     }
   };
 
-  if (loading || isLoadingUser) return <p>درحال بارگذاری...</p>;
+  if (loading || isLoadingUser) return <FavoritesSkeleton />;
   if (!posts.length) return <p>هیچ پستی یافت نشد.</p>;
 
   return (
