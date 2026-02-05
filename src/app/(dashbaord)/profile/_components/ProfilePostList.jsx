@@ -13,6 +13,7 @@ import truncateText from "@/utils/truncateText";
 import Button from "@/ui/Button";
 import CoverImage from "app/(blogs)/blogs/_components/CoverImage";
 import ProfilePostListSkeleton from "./ProfilePostListSkeleton";
+import Empty from "@/ui/Empty";
 
 const ProfilePostList = ({
   title,
@@ -64,7 +65,12 @@ const ProfilePostList = ({
   };
 
   if (loading || isLoading) return <ProfilePostListSkeleton />;
-  if (!posts.length) return <p>هیچ پستی یافت نشد.</p>;
+  if (!posts.length)
+    return (
+      <div className="py-20">
+        <Empty message="شما هنوز بلاگی را اضافه نکرده‌اید." />
+      </div>
+    );
 
   return (
     <div className="px-4 py-8 lg:px-8 lg:py-10">
