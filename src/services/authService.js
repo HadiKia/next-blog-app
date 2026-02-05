@@ -25,3 +25,7 @@ export async function deleteUserApi(id, options = {}) {
 export async function editUserApi({ id, data }) {
   return http.patch(`/user/update/${id}`, data).then(({ data }) => data.data);
 }
+
+export function logoutApi() {
+  return http.post(`/user/logout`);
+}

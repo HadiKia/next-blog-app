@@ -8,9 +8,16 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { useAuth } from "@/context/AuthContext";
 
 const SidebarLinks = ({ links }) => {
+  const { logout } = useAuth();
   const [open, setOpen] = useState(false);
+
+  const logoutHandler = async () => {
+    await logout();
+  };
+
   return (
     <>
       <button
@@ -67,7 +74,8 @@ const SidebarLinks = ({ links }) => {
         <div className="border-t border-secondary-200 pt-4 pb-6 mt-auto lg:border-none lg:mt-0 lg:py-0 ">
           <button
             type="button"
-            className="flex items-center gap-x-2 py-2 lg:py-4 text-base lg:text-lg text-secondary-500 hover:text-secondary-700 transition-colors duration-300 ease-linear"
+            onClick={logoutHandler}
+            className="w-full flex items-center gap-x-2 py-2 lg:py-4 text-base lg:text-lg text-secondary-500 hover:text-secondary-700 transition-colors duration-300 ease-linear"
           >
             <ArrowLeftStartOnRectangleIcon className="w-5 h-5 lg:w-6 lg:h-6" />
             خروج
