@@ -11,7 +11,7 @@ const Header = () => {
         وب اپلیکیشن مدیریت بلاگ
       </div>
 
-      <header className="z-[1] sticky top-0 bg-secondary-100 border-b border-secondary-200 duration-300 ease-linear">
+      <header className="z-[2] sticky top-0 bg-secondary-100 border-b border-secondary-200 duration-300 ease-linear">
         <div className="container xl:max-w-screen-xl flex items-center gap-x-2 lg:gap-x-10 text-secondary-400 h-14 lg:h-16 overflow-hidden">
           <MobileMenu />
 
