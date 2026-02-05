@@ -5,6 +5,7 @@ import { getPosts } from "@/services/postServices";
 import queryString from "query-string";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import Pagination from "@/ui/Pagination";
+import Empty from "@/ui/Empty";
 
 const BlogPage = async ({ searchParams }) => {
   const params = await searchParams;
@@ -19,18 +20,21 @@ const BlogPage = async ({ searchParams }) => {
   return (
     <>
       {search ? (
-        <p className="mb-6 text-secondary-700">
-          {posts.length === 0
-            ? "پستی با این مشخصات پیدا نشد."
-            : `${toPersianDigits(posts.length)} نتایج برای `}
-          <span className="font-medium">&quot;{search}&quot;</span>
-        </p>
+        posts.length === 0 ? (
+          <Empty message={`بلاگی با مشخصات "${search}" پیدا نشد.`} />
+        ) : (
+          <p className="text-secondary-500 text-base md:text-lg text-center mb-6 lg:mb-10">
+            {toPersianDigits(posts.length)} نتیجه برای
+          </p>
+        )
       ) : null}
       <PostList posts={posts} />
 
-      <div className="my-8 lg:my-10">
-        <Pagination totalPages={totalPages} />
-      </div>
+      {!!totalPages && (
+        <div className="my-8 lg:my-10">
+          <Pagination totalPages={totalPages} />
+        </div>
+      )}
     </>
   );
 };
