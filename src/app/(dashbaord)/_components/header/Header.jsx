@@ -27,11 +27,11 @@ const Header = () => {
       <div className="flex items-center gap-x-4 lg:gap-x-8">
         {isLoading ? (
           <div className="animate-pulse w-6 h-6 bg-secondary-200 rounded-full"></div>
-        ) : (
+        ) : user ? (
           <Link href="/profile" className="relative w-6 h-6">
             <Avatar fill alt={user?.name || "-"} src={user.avatarUrl} />
           </Link>
-        )}
+        ) : null}
         <ThemeSwitcher />
       </div>
     </div>
