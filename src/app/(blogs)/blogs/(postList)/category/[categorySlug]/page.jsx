@@ -1,4 +1,5 @@
 import { getPosts } from "@/services/postServices";
+import Empty from "@/ui/Empty";
 import setCookieOnReq from "@/utils/setCookieOnReq";
 import PostList from "app/(blogs)/blogs/_components/PostList";
 import { cookies } from "next/headers";
@@ -15,12 +16,12 @@ const Category = async ({ params, searchParams }) => {
   const options = setCookieOnReq(cookieStore);
   const { posts } = await getPosts(queries, options);
 
+  if (!posts) return <Empty message="بلاگی در این دسته‌بندی پیدا نشد." />;
+
   return (
     <div>
       {posts.length === 0 ? (
-        <p className="text-lg lg:text-xl text-secondary-600 text-center mt-20">
-          پستی در این دسته بندی پیدا نشد.
-        </p>
+        <Empty message="بلاگی در این دسته‌بندی پیدا نشد." />
       ) : (
         <PostList posts={posts} />
       )}
