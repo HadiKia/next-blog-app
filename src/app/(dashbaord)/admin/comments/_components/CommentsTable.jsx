@@ -2,10 +2,11 @@ import { getAllCommentsApi } from "@/services/commentService";
 import Table from "@/ui/Table";
 import { Fragment } from "react";
 import CommentRow from "./CommentRow";
+import Empty from "@/ui/Empty";
 
 async function CommentsTable() {
   const { comments, commentsCount } = await getAllCommentsApi();
-  if (!comments.length) return <p>نظری پیدا نشد.</p>;
+  if (!comments.length) return <Empty message={"نظری پیدا نشد."} />;
 
   let iterator = 0;
 
