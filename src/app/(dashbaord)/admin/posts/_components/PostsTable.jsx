@@ -1,11 +1,12 @@
 import { getPosts } from "@/services/postServices";
 import Table from "@/ui/Table";
 import PostRow from "./PostRow";
+import Empty from "@/ui/Empty";
 
 const PostsTable = async ({ query = "" }) => {
   const { posts } = await getPosts(query);
 
-  if (!posts.length) return <p>empty</p>;
+  if (!posts.length) return <Empty message={"بلاگ مرتبط پیدا نشد."} />;
   return (
     <Table>
       <Table.Header>
