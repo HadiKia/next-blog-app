@@ -3,13 +3,14 @@ import { getAllUsersApi } from "@/services/authService";
 import setCookieOnReq from "@/utils/setCookieOnReq";
 import { cookies } from "next/headers";
 import UserRow from "./UserRow";
+import Empty from "@/ui/Empty";
 
 const UsersTable = async () => {
   const cookieStore = await cookies();
   const options = setCookieOnReq(cookieStore);
   const { users } = await getAllUsersApi(options);
-  
-  if (!users.length) return <p>کاربری پیدا نشد.</p>;
+
+  if (!users.length) return <Empty message={"کاربری پیدا نشد."} />;
 
   return (
     <Table>
