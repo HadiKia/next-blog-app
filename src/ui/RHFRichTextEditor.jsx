@@ -11,6 +11,7 @@ import {
   H2Icon,
   H3Icon,
   ItalicIcon,
+  LinkIcon,
   ListBulletIcon,
   NumberedListIcon,
   PaintBrushIcon,
@@ -19,6 +20,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
@@ -42,6 +44,7 @@ const RHFRichTextEditor = ({
       StarterKit,
       Underline,
       Highlight,
+      Link,
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
@@ -54,7 +57,7 @@ const RHFRichTextEditor = ({
     editorProps: {
       attributes: {
         class:
-          "textField__input rounded-t-none min-h-40 prose min-w-full prose-headings:text-secondary-800 prose-p:text-secondary-800 prose-strong:text-secondary-800",
+          "textField__input rounded-t-none min-h-40 prose min-w-full prose-headings:text-secondary-700 prose-p:text-secondary-700 prose-strong:text-secondary-700 prose-a:inline prose-a:text-blue-500 prose-a:pointer-events-none",
       },
     },
     onUpdate: ({ editor }) => {
@@ -174,6 +177,27 @@ const MenuBar = ({ editor }) => {
           className={editor.isActive("orderedList") ? "is-active" : ""}
         >
           <NumberedListIcon />
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            if (editor.isActive("link")) {
+              editor.chain().focus().unsetLink().run();
+            } else {
+              const url = window.prompt("لینک مورد نظر را وارد کنید");
+              if (url) {
+                editor
+                  .chain()
+                  .focus()
+                  .extendMarkRange("link")
+                  .setLink({ href: url })
+                  .run();
+              }
+            }
+          }}
+          className={editor.isActive("link") ? "is-active" : ""}
+        >
+          <LinkIcon />
         </button>
         <button
           type="button"
