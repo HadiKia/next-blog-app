@@ -14,6 +14,7 @@ import setCookieOnReq from "@/utils/setCookieOnReq";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import Author from "../_components/Author";
 import { toLocalDateShort } from "@/utils/dateFormatter";
+import DOMPurify from "isomorphic-dompurify";
 
 export const dynamicParams = false;
 
@@ -90,9 +91,12 @@ const SinglePost = async ({ params }) => {
           </div>
         </div>
 
-        <p className="break-words whitespace-pre-line text-secondary-500 pb-8 lg:pb-10 border-b border-secondary-200">
-          {post.text}
-        </p>
+        <div
+          className="prose min-w-full prose-p:my-0 prose-li:m-0 prose-ol:m-0 prose-headings:mb-4 prose-headings:text-secondary-700 prose-headings:text-2xl prose-p:text-secondary-500 prose-strong:text-secondary-700 prose-blockquote:border-secondary-200 prose-hr:my-10 prose-hr:border-secondary-200 pb-8 lg:pb-10 border-b border-secondary-200 text-secondary-500"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(post.text),
+          }}
+        />
       </div>
 
       <PostComments post={post} />
