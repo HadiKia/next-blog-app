@@ -1,10 +1,11 @@
 import Table from "@/ui/Table";
 import CategoryRow from "./CategoryRow";
 import { getCategoryApi } from "@/services/categoryService";
+import Empty from "@/ui/Empty";
 
 const CategoriesTable = async () => {
   const { categories } = await getCategoryApi();
-  if (!categories.length) return <p>دسته‌بندی پیدا نشد.</p>;
+  if (!categories.length) return <Empty message={"دسته‌بندی پیدا نشد."} />;
 
   return (
     <Table>
