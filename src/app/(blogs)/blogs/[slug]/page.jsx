@@ -92,7 +92,7 @@ const SinglePost = async ({ params }) => {
         </div>
 
         <div
-          className="prose min-w-full prose-p:my-0 prose-li:m-0 prose-ol:m-0 prose-headings:mb-4 prose-headings:text-secondary-700 prose-headings:text-2xl prose-p:text-secondary-500 prose-strong:text-secondary-700 prose-blockquote:border-secondary-200 prose-hr:my-10 prose-hr:border-secondary-200 pb-8 lg:pb-10 border-b border-secondary-200 text-secondary-500"
+          className="prose min-w-full prose-p:my-0 prose-li:m-0 prose-ol:m-0 prose-headings:mb-4 prose-headings:text-secondary-700 prose-headings:text-2xl prose-p:text-secondary-500 prose-strong:text-secondary-700 prose-blockquote:border-secondary-200 prose-hr:my-10 prose-hr:border-secondary-200 prose-a:text-blue-500 prose-a:inline prose-a:no-underline prose-a:font-normal pb-8 lg:pb-10 border-b border-secondary-200 text-secondary-500"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(post.text),
           }}
