@@ -384,3 +384,43 @@ table tr:last-child {
     position: absolute;
   }
 }
+
+.button-group {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 1px solid rgb(var(--color-secondary-300));
+  border-bottom: transparent;
+  padding: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.button-group button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  /* border: 1px solid rgb(var(--color-secondary-200)); */
+  border-radius: 4px;
+  color: rgb(var(--color-secondary-600));
+  font-size: 14px;
+  line-height: 28px;
+}
+.button-group button svg {
+  width: 16px;
+  height: 16px;
+}
+.button-group button.is-active {
+  color: rgb(var(--color-secondary-700));
+  background-color: rgb(var(--color-secondary-100));
+  font-weight: 500;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: rgb(var(--color-secondary-400));
+  font-size: 14px;
+  line-height: 28px;
+}

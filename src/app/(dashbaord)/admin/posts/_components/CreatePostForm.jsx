@@ -15,6 +15,7 @@ import useCreatePost from "../../../../../hooks/useCreatePost";
 import { useRouter } from "next/navigation";
 import useEditPost from "../../../../../hooks/useEditPost";
 import { imageUrlToFile } from "@/utils/fileFormatter";
+import RHFRichTextEditor from "@/ui/RHFEditor";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -49,7 +50,7 @@ const schema = yup
         (value) => {
           if (!value) return false;
           return value instanceof File && value.size <= MAX_FILE_SIZE;
-        }
+        },
       ),
   })
   .required();
@@ -125,7 +126,7 @@ const CreatePostForm = ({ postToEdit = {} }) => {
             reset();
             router.push("/admin/posts");
           },
-        }
+        },
       );
     } else {
       createPost(formData, {
@@ -163,14 +164,7 @@ const CreatePostForm = ({ postToEdit = {} }) => {
           errors={errors}
           placeholder="عنوان بلاگ مورد نظر"
         />
-        <RHFTextField
-          name="briefText"
-          label="متن کوتاه"
-          isRequired
-          register={register}
-          errors={errors}
-          placeholder="توضیحات کوتاه قرار گرفته زیر عنوان"
-        />
+       
         <RHFTextField
           name="slug"
           label="اسلاگ"
@@ -204,7 +198,17 @@ const CreatePostForm = ({ postToEdit = {} }) => {
           )}
         />
 
-        <RHFTextField
+         <RHFTextField
+          name="briefText"
+          label="متن کوتاه"
+          isRequired
+          register={register}
+          errors={errors}
+          placeholder="توضیحات کوتاه قرار گرفته زیر عنوان"
+          wrapperClassName={"lg:col-span-2"}
+        />
+
+        {/* <RHFTextField
           name="text"
           label="محتوای بلاگ"
           isRequired
@@ -212,7 +216,9 @@ const CreatePostForm = ({ postToEdit = {} }) => {
           errors={errors}
           type="textarea"
           placeholder="محتوای بلاگ"
-        />
+        /> */}
+
+        <RHFRichTextEditor label="محتوای بلاگ"  isRequired wrapperClassName={"lg:col-span-2"}  />
 
         <Controller
           name="coverImage"
