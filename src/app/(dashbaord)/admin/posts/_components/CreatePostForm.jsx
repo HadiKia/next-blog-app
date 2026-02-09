@@ -15,7 +15,7 @@ import useCreatePost from "../../../../../hooks/useCreatePost";
 import { useRouter } from "next/navigation";
 import useEditPost from "../../../../../hooks/useEditPost";
 import { imageUrlToFile } from "@/utils/fileFormatter";
-import RHFRichTextEditor from "@/ui/RHFEditor";
+import RHFRichTextEditor from "@/ui/RHFRichTextEditor";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -31,7 +31,11 @@ const schema = yup
       .required("وارد کردن متن کوتاه الزامی است."),
     text: yup
       .string()
-      .min(100, "حداقل ۱۰۰ کاراکتر وارد کنید.")
+      .test(
+        "min-text",
+        "حداقل ۱۰۰ کاراکتر وارد کنید",
+        (value) => value && value.replace(/<[^>]*>/g, "").trim().length >= 100,
+      )
       .required("وارد کردن عنوان الزامی است."),
     readingTime: yup
       .number()
@@ -164,7 +168,7 @@ const CreatePostForm = ({ postToEdit = {} }) => {
           errors={errors}
           placeholder="عنوان بلاگ مورد نظر"
         />
-       
+
         <RHFTextField
           name="slug"
           label="اسلاگ"
@@ -198,7 +202,7 @@ const CreatePostForm = ({ postToEdit = {} }) => {
           )}
         />
 
-         <RHFTextField
+        <RHFTextField
           name="briefText"
           label="متن کوتاه"
           isRequired
@@ -208,17 +212,22 @@ const CreatePostForm = ({ postToEdit = {} }) => {
           wrapperClassName={"lg:col-span-2"}
         />
 
-        {/* <RHFTextField
+        <Controller
           name="text"
-          label="محتوای بلاگ"
-          isRequired
-          register={register}
-          errors={errors}
-          type="textarea"
-          placeholder="محتوای بلاگ"
-        /> */}
-
-        <RHFRichTextEditor label="محتوای بلاگ"  isRequired wrapperClassName={"lg:col-span-2"}  />
+          control={control}
+          render={({ field, fieldState }) => (
+            <RHFRichTextEditor
+              label="محتوای بلاگ"
+              placeholder="محتوای بلاگ"
+              isRequired
+              wrapperClassName="lg:col-span-2"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}   
+              error={fieldState.error}
+            />
+          )}
+        />
 
         <Controller
           name="coverImage"

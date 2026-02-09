@@ -17,32 +17,37 @@ import {
   StrikethroughIcon,
   UnderlineIcon,
 } from "@heroicons/react/24/outline";
+
 import Highlight from "@tiptap/extension-highlight";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { useEffect } from "react";
 
 const RHFRichTextEditor = ({
   label,
   wrapperClassName,
   isRequired,
   placeholder,
+  value,
+  onChange,
+  onBlur,
+  error,
 }) => {
   const editor = useEditor({
-    content: "",
+    content: value || "",
     extensions: [
       StarterKit,
       Underline,
+      Highlight,
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
-      Highlight,
       Placeholder.configure({
         placeholder: placeholder || "متن خود را وارد کنید...",
         emptyEditorClass: "is-editor-empty",
-        showOnlyWhenEditable: true,
       }),
     ],
     immediatelyRender: false,
@@ -53,19 +58,34 @@ const RHFRichTextEditor = ({
       },
     },
     onUpdate: ({ editor }) => {
-      console.log(editor.getHTML());
+      onChange(editor.getHTML());
+    },
+    onBlur: () => {
+      onBlur?.();
     },
   });
 
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value || "");
+    }
+  }, [value, editor]);
+
   return (
     <div className={wrapperClassName}>
-      <span className="text-secondary-600 text-sm inline-block mb-2 ">
+      <span className="text-secondary-600 text-sm mb-2 inline-block">
         {label}
         {isRequired && <span className="text-error-500 ms-1">*</span>}
       </span>
 
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
+
+      {error && (
+        <span className="text-error-500 block text-xs mt-2">
+          {error.message}
+        </span>
+      )}
     </div>
   );
 };
@@ -81,6 +101,7 @@ const MenuBar = ({ editor }) => {
     <div className="control-group">
       <div className="button-group">
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -91,6 +112,7 @@ const MenuBar = ({ editor }) => {
           <H1Icon />
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
@@ -101,6 +123,7 @@ const MenuBar = ({ editor }) => {
           <H2Icon />
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
@@ -110,78 +133,91 @@ const MenuBar = ({ editor }) => {
         >
           <H3Icon />
         </button>
-
         <button
+          type="button"
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={editor.isActive("paragraph") ? "is-active" : ""}
         >
           p
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "is-active" : ""}
         >
           <BoldIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "is-active" : ""}
         >
           <ItalicIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           className={editor.isActive("underline") ? "is-active" : ""}
         >
           <UnderlineIcon />
         </button>
-
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "is-active" : ""}
         >
           <ListBulletIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor.isActive("orderedList") ? "is-active" : ""}
         >
           <NumberedListIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive("codeBlock") ? "is-active" : ""}
         >
           <CodeBracketIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={editor.isActive("blockquote") ? "is-active" : ""}
         >
           quote
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
         >
           Hr
         </button>
-        <button onClick={() => editor.chain().focus().setHardBreak().run()}>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setHardBreak().run()}
+        >
           Br
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           className={editor.isActive("strike") ? "is-active" : ""}
         >
           <StrikethroughIcon />
         </button>
-
         <button
+          type="button"
           onClick={() => editor.chain().focus().setTextAlign("right").run()}
           className={editor.isActive({ textAlign: "right" }) ? "is-active" : ""}
         >
           <Bars3BottomRightIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().setTextAlign("center").run()}
           className={
             editor.isActive({ textAlign: "center" }) ? "is-active" : ""
@@ -190,13 +226,14 @@ const MenuBar = ({ editor }) => {
           <Bars3Icon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().setTextAlign("left").run()}
           className={editor.isActive({ textAlign: "left" }) ? "is-active" : ""}
         >
           <Bars3BottomLeftIcon />
         </button>
-
         <button
+          type="button"
           onClick={() => editor.chain().focus().setTextAlign("justify").run()}
           className={
             editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
@@ -206,6 +243,7 @@ const MenuBar = ({ editor }) => {
         </button>
         <button
           title="highlight"
+          type="button"
           onClick={() => editor.chain().focus().toggleHighlight().run()}
           className={editor.isActive("highlight") ? "is-active" : ""}
         >
