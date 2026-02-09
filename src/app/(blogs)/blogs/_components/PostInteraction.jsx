@@ -39,7 +39,7 @@ const PostInteraction = ({ post }) => {
     }
   };
 
-  const copyHandler = async() => {
+  const copyHandler = async () => {
     const url = `${window.location.origin}${pathname}`;
 
     try {
@@ -56,7 +56,14 @@ const PostInteraction = ({ post }) => {
         <span className="text-xs lg:text-sm text-secondary-500">
           {toPersianDigits(post.commentsCount)}
         </span>
-        <Button variant="transparent">
+        <Button
+          variant="transparent"
+          onClick={() => {
+            document
+              .getElementById("post-comments")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           <ChatBubbleLeftEllipsisIcon />
         </Button>
       </div>

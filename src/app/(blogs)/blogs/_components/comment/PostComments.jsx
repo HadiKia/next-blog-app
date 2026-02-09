@@ -22,7 +22,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
   };
 
   return (
-    <div className="lg:col-span-8 lg:order-4">
+    <div id="post-comments" className="lg:col-span-8 lg:order-4 scroll-mt-20">
       <Modal
         open={open}
         onClose={() => setIsOpen(false)}
