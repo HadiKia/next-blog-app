@@ -16,7 +16,7 @@ import Author from "../_components/Author";
 import { toLocalDateShort } from "@/utils/dateFormatter";
 import DOMPurify from "isomorphic-dompurify";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export const generateStaticParams = async () => {
   const { posts } = await getPosts();
@@ -27,6 +27,8 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({ params }) => {
   const routeParams = await params;
   const post = await getPostBySlug(routeParams.slug);
+
+  if (!post) return { title: "پست یافت نشد" };
 
   return {
     title: `${post.title}`,
