@@ -101,7 +101,7 @@ const SinglePost = async ({ params }) => {
 
       <PostComments post={post} />
 
-      <div className="lg:col-span-4 lg:order-3 lg:mt-[50px]">
+      <div className="lg:col-span-4 lg:order-3">
         {post.related.length > 0 && (
           <>
             <h3 className="text-2xl font-bold text-secondary-700 mb-6 ">

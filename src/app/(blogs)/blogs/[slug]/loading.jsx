@@ -50,7 +50,7 @@ const Loading = () => {
         <div className="w-full h-96 lg:h-40 bg-secondary-200 animate-pulse rounded-md"></div>
       </div>
 
-      <div className="lg:col-span-4 lg:order-3 lg:mt-[50px]">
+      <div className="lg:col-span-4 lg:order-3">
         <div className="w-40 h-8 bg-secondary-200 animate-pulse rounded mb-6 "></div>
         <div className="flex flex-col">
           {[...Array(3)].map((_, index) => (
