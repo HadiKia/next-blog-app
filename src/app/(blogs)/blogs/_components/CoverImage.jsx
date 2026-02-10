@@ -9,7 +9,7 @@ const CoverImage = ({ coverImageUrl, title, slug }) => {
           src={coverImageUrl}
           fill
           alt={title}
-          className="object-cover object-center"
+          className="object-cover object-right"
           quality={80}
         />
       </Link>
