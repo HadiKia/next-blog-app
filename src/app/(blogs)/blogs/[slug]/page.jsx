@@ -82,7 +82,7 @@ const SinglePost = async ({ params }) => {
             </div>
           </div>
 
-          <h1 className="text-secondary-700 text-2xl lg:text-3xl font-bold">
+          <h1 className="text-secondary-700 text-2xl lg:text-3xl font-bold lg:max-w-[480px] xl:max-w-[640px]">
             {post.title}
           </h1>
 
