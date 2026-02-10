@@ -24,7 +24,7 @@ const BlogPage = async ({ searchParams }) => {
           <Empty message={`بلاگی با مشخصات "${search}" پیدا نشد.`} />
         ) : (
           <p className="text-secondary-500 text-base md:text-lg text-center mb-6 lg:mb-10">
-            {toPersianDigits(posts.length)} نتیجه برای
+            {toPersianDigits(posts.length)} نتیجه برای "{search}"
           </p>
         )
       ) : null}
