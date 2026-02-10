@@ -33,11 +33,11 @@ const Layout = async ({ children }) => {
         </div>
       </div>
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8">
-        <div className="hidden lg:block lg:col-span-3 text-secondary-500 space-y-4">
+        <div className="hidden lg:block lg:col-span-2 text-secondary-500 space-y-4">
           <CategoryList categories={categories} />
         </div>
 
-        <div className="lg:col-span-9 text-secondary-500">
+        <div className="lg:col-span-10 text-secondary-500">
           <Suspense fallback={<PostListSkeleton />}>{children}</Suspense>
         </div>
       </div>
