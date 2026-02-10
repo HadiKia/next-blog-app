@@ -29,7 +29,7 @@ export const generateMetadata = async ({ params }) => {
   const post = await getPostBySlug(routeParams.slug);
 
   return {
-    title: `پست ${post.title}`,
+    title: `${post.title}`,
   };
 };
 
