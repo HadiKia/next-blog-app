@@ -5,7 +5,7 @@ import { toPersianDigits } from "@/utils/numberFormatter";
 import truncateText from "@/utils/truncateText";
 import { toLocalDateShort2 } from "@/utils/dateFormatter";
 
-const PostList = async ({ posts }) => {
+const PostList = ({ posts }) => {
   return posts.length > 0 ? (
     <div className="flex flex-col sm:grid grid-cols-12 md:gap-6 -mx-4 sm:mx-0 ">
       {posts.map((post) => (
