@@ -103,10 +103,10 @@ const SinglePost = async ({ params }) => {
 
       <PostComments post={post} />
 
-      <div className="lg:col-span-4 lg:order-3">
+      <div className="lg:col-span-4 lg:order-3 -mx-4 sm:mx-0 overflow-x-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl">
         {post.related.length > 0 && (
           <>
-            <h3 className="text-2xl font-bold text-secondary-700 mb-6 ">
+            <h3 className="text-2xl font-bold text-secondary-700 mb-6 px-4 sm:px-0">
               بلاگ های مرتبط
             </h3>
             <RelatedPost posts={post.related} />
