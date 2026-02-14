@@ -50,23 +50,20 @@ const Loading = () => {
         <div className="w-full h-96 lg:h-40 bg-secondary-200 animate-pulse rounded-md"></div>
       </div>
 
-      <div className="lg:col-span-4 lg:order-3">
-        <div className="w-40 h-8 bg-secondary-200 animate-pulse rounded mb-6 "></div>
-        <div className="flex flex-col">
+      <div className="lg:col-span-4 lg:order-3 -mx-4 sm:mx-0 overflow-x-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl">
+        <div className="w-40 h-8 bg-secondary-200 animate-pulse rounded mb-6 mx-4 sm:mx-0"></div>
+        <div className="flex items-stretch gap-4 px-4 sm:px-0 overflow-x-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl lg:flex-col ">
           {[...Array(3)].map((_, index) => (
             <div
-              className="border-t last-of-type:border-b border-e border-secondary-200 bg-secondary-50 flex last-of-type:rounded-b-lg first-of-type:rounded-t-lg overflow-hidden"
+              className="border border-secondary-200 bg-secondary-50 rounded-xl overflow-hidden flex flex-col lg:flex-row-reverse lg:items-center lg:gap-x-4 lg:rounded-none lg:border-none lg:bg-transparent lg:w-full min-w-full"
               key={index}
             >
-              <div className="relative aspect-square w-full max-w-32 bg-secondary-200 animate-pulse"></div>
-              <div className="p-4 flex flex-col w-full">
-                <div className="w-full h-7 bg-secondary-200 animate-pulse rounded"></div>
+              <div className="relative w-full aspect-video bg-secondary-200 animate-pulse lg:aspect-square lg:max-w-32 lg:rounded-lg lg:overflow-hidden"></div>
+              <div className="p-4 lg:p-0 flex flex-col w-full gap-y-4">
+                <div className="w-2/3 lg:w-full h-6 bg-secondary-200 animate-pulse rounded"></div>
 
                 <div className="mt-auto">
-                  <div className="flex items-center justify-start gap-x-2">
-                    <div className="w-6 h-6 bg-secondary-200 animate-pulse rounded"></div>
-                    <div className="bg-secondary-200 animate-pulse h-6 w-28 rounded"></div>
-                  </div>
+                  <div className="bg-secondary-200 animate-pulse w-full rounded h-5 lg:h-10"></div>
                 </div>
               </div>
             </div>
