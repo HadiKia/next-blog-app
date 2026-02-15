@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="py-10 lg:py-20">
+    <div className="py-10 lg:py-32">
       <HeroSection />
       <OverviewSection />
     </div>

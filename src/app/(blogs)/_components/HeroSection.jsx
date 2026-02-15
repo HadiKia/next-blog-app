@@ -39,15 +39,13 @@ const badges = [
 
 const HeroSection = () => {
   return (
-    <div className="mb-10 lg:mb-20 flex flex-col gap-10 lg:gap-20 lg:flex-row lg:items-center">
+    <div className="mb-16 lg:mb-44 flex flex-col gap-10 lg:gap-20 lg:flex-row lg:items-center">
       <div className="lg:max-w-[500px]">
         <h1 className="font-bold text-3xl lg:text-4xl text-secondary-700 mb-4">
           پلتفرم جامع مدیریت بلاگ
         </h1>
         <p className="text-secondary-500 text-base lg:text-lg mb-4 text-justify">
-          پلتفرم مدیریت بلاگ با احراز هویت نقش‌محور و معماری توکن امن، همراه با
-          پنل ادمین، داشبورد کاربری، جستجو و فیلتر پیشرفته و رابط کاربری
-          ریسپانسیو با تم تاریک.
+         در این پروژه، تمرکز بر پیاده‌سازی یک فرانت‌اند ساختاریافته و مقیاس‌پذیر بوده است. ارتباط با REST API، مدیریت state با React Query، احراز هویت مبتنی بر Access/Refresh Token و کنترل دسترسی نقش‌محور به‌صورت ماژولار پیاده‌سازی شده‌اند تا تجربه‌ای روان، امن و قابل توسعه فراهم شود.
         </p>
         <div className="flex items-center flex-wrap gap-2 mb-10">
           {badges.map((badge) => (
