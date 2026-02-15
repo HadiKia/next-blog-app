@@ -56,7 +56,7 @@ const ArchitecturalSection = () => {
   return (
     <div className="mb-16 lg:mb-44 flex flex-col gap-10 lg:gap-20 lg:flex-row lg:items-center">
       <div className="lg:max-w-[500px]">
-        <h2 className="font-bold text-2xl lg:text-3xl text-secondary-700 mb-4">
+        <h2 className="font-bold text-2xl lg:text-3xl text-secondary-700 mb-3 lg:mb-4">
           معماری و قابلیت‌های کلیدی پروژه
         </h2>
         <p className="text-secondary-500 text-base lg:text-lg mb-4 text-justify">
@@ -84,7 +84,9 @@ const ArchitecturalSection = () => {
               </h6>
             </div>
 
-            <p className="text-secondary-400 text-sm ">{description}</p>
+            <p className="text-secondary-400 text-sm text-justify">
+              {description}
+            </p>
           </div>
         ))}
       </div>
