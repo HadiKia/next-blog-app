@@ -1,6 +1,7 @@
 import HeroSection from "./_components/heroSection";
 import ArchitecturalSection from "./_components/ArchitecturalSection";
 import ShowcaseSection from "./_components/ShowcaseSection";
+import TechStackSection from "./_components/TechStackSection";
 
 export const metadata = {
   title: "خانه - وب اپلیکیشن مدیریت بلاگ",
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroSection />
       <ArchitecturalSection />
       <ShowcaseSection />
+      <TechStackSection />
     </div>
   );
 }

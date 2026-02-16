@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const ShowcaseSection = () => {
   return (
-    <div className="mb-16 lg:mb-44 flex flex-col gap-20 lg:gap-40">
+    <div className="mb-16 lg:mb-40 flex flex-col gap-20 lg:gap-40">
       <div className="flex flex-col-reverse gap-20 lg:flex-row md:items-center lg:items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:flex lg:flex-col lg:gap-10 max-w-[500px]">
           <div>
