@@ -3,6 +3,7 @@ import { useState } from "react";
 import NavLink from "@/components/header/NavLink";
 import {
   ArrowLeftStartOnRectangleIcon,
+  ArrowRightStartOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -77,7 +78,7 @@ const SidebarLinks = ({ links }) => {
             onClick={logoutHandler}
             className="w-full flex items-center gap-x-2 py-2 lg:py-4 text-base lg:text-lg text-secondary-500 hover:text-secondary-700 transition-colors duration-300 ease-linear"
           >
-            <ArrowLeftStartOnRectangleIcon className="w-5 h-5 lg:w-6 lg:h-6" />
+            <ArrowRightStartOnRectangleIcon className="w-5 h-5 lg:w-6 lg:h-6" />
             خروج
           </button>
         </div>
