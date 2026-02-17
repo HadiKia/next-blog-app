@@ -441,3 +441,60 @@ table tr:last-child {
     transform: translateY(0);
   }
 }
+
+.tech-stack-section::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 30px;
+  content: "";
+  background: linear-gradient(
+    to right,
+    rgb(var(--background-app-rgb)),
+    #00000000
+  );
+  z-index: 1;
+}
+.tech-stack-section::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  width: 30px;
+  content: "";
+  background: linear-gradient(
+    to left,
+    rgb(var(--background-app-rgb)),
+    #00000000
+  );
+  z-index: 1;
+}
+
+.slider-wrapper {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  gap: 5em;
+}
+
+.slider-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5em;
+  animation: infiniteScroll 30s infinite linear;
+}
+
+.slider-item {
+  flex: 0 0 5em;
+}
+
+@keyframes infiniteScroll {
+  from {
+    translate: 0;
+  }
+  to {
+    translate: 100%;
+  }
+}
