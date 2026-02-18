@@ -64,12 +64,13 @@ const HeroSection = () => {
             <Link href="/blogs">مطالعه بلاگ‌ها</Link>
           </Button>
           <Button variant="outline" className="w-full">
-            <Link
+            <a
+              href="https://github.com/HadiKia/next-blog-app"
               target="_blank"
-              href="/https://github.com/HadiKia/next-blog-app"
+              rel="noopener noreferrer"
             >
               گیت‌هاب پروژه
-            </Link>
+            </a>
           </Button>
         </div>
       </div>
