@@ -5,6 +5,7 @@ import MobileFilterMenu from "@/components/category/MobileFilterMenu";
 import { Suspense } from "react";
 import PostListSkeleton from "../_components/PostListSkeleton";
 import BlogSortSkeleton from "../_components/BlogSortSkeleton";
+import MobileFilterMenuSkeleton from "@/components/category/MobileFilterMenuSkeleton";
 
 export const metadata = {
   title: "بلاگ‌ها",
@@ -32,7 +33,9 @@ const Layout = async ({ children }) => {
             <Search />
           </div>
 
-          <MobileFilterMenu categories={categories} />
+          <Suspense fallback={<MobileFilterMenuSkeleton />}>
+            <MobileFilterMenu categories={categories} />
+          </Suspense>
         </div>
       </div>
       <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8">
