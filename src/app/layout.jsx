@@ -28,7 +28,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" className="dark-mode">
       <body className={`${vazirFont.variable} font-sans min-h-screen`}>
         <DarkModeProvider>
           <Toaster />
