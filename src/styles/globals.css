@@ -473,28 +473,28 @@ table tr:last-child {
 
 .slider-wrapper {
   width: 100%;
-  display: flex;
-  overflow-x: auto;
-  gap: 5em;
+  overflow: hidden;
 }
 
 .slider-group {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5em;
+  width: max-content;
   animation: infiniteScroll 30s infinite linear;
 }
 
 .slider-item {
-  flex: 0 0 5em;
+  flex: 0 0 auto;
+  width: 180px;
+  display: grid;
+  place-items: center;
+  margin: 0 24px;
 }
 
 @keyframes infiniteScroll {
-  from {
-    translate: 0;
+  0% {
+    transform: translateX(0);
   }
-  to {
-    translate: 100%;
+  100% {
+    transform: translateX(50%);
   }
 }
