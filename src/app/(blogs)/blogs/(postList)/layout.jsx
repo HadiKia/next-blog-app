@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import PostListSkeleton from "../_components/PostListSkeleton";
 import BlogSortSkeleton from "../_components/BlogSortSkeleton";
 import MobileFilterMenuSkeleton from "@/components/category/MobileFilterMenuSkeleton";
+import SearchSkeleton from "@/ui/SearchSkeleton";
 
 export const metadata = {
   title: "بلاگ‌ها",
@@ -30,7 +31,9 @@ const Layout = async ({ children }) => {
           </Suspense>
 
           <div className="hidden lg:block lg:w-full lg:max-w-sm">
-            <Search />
+            <Suspense fallback={<SearchSkeleton />}>
+              <Search />
+            </Suspense>
           </div>
 
           <Suspense fallback={<MobileFilterMenuSkeleton />}>
