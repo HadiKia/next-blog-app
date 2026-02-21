@@ -1,39 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import useOutsideClick from "@/hooks/useOutsideClick";
+import { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { createPortal } from "react-dom";
 
 const Modal = ({ children, title, description, open, onClose, className }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
-  const ref = useOutsideClick(() => {
-    if (open) onClose?.();
-  });
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    let rafId;
-    let timeoutId;
-
     if (open) {
       setIsMounted(true);
-      rafId = requestAnimationFrame(() => {
-        rafId = requestAnimationFrame(() => {
-          setIsVisible(true);
-        });
-      });
     } else {
       setIsVisible(false);
-      timeoutId = setTimeout(() => {
-        setIsMounted(false);
-      }, 300);
     }
+  }, [open]);
+
+  useEffect(() => {
+    if (isMounted && open) {
+      requestAnimationFrame(() => {
+        setIsVisible(true);
+      });
+    }
+  }, [isMounted, open]);
+
+  useEffect(() => {
+    const node = modalRef.current;
+    if (!node) return;
+
+    const handleTransitionEnd = (e) => {
+      if (!open && e.target === node) {
+        setIsMounted(false);
+      }
+    };
+
+    node.addEventListener("transitionend", handleTransitionEnd);
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      if (timeoutId) clearTimeout(timeoutId);
+      node.removeEventListener("transitionend", handleTransitionEnd);
     };
   }, [open]);
 
@@ -43,6 +48,7 @@ const Modal = ({ children, title, description, open, onClose, className }) => {
     <>
       {/* backdrop */}
       <div
+        onClick={onClose}
         aria-hidden
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-10  duration-300 ease-linear
           ${isVisible ? "opacity-100" : "opacity-0"}
@@ -51,7 +57,7 @@ const Modal = ({ children, title, description, open, onClose, className }) => {
 
       {/* modal */}
       <div
-        ref={ref}
+        ref={modalRef}
         role="dialog"
         aria-modal="true"
         className={` fixed z-20 inset-x-0 bottom-0 md:mx-auto md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:max-w-xl bg-secondary-0 dark:bg-secondary-50 rounded-t-xl md:rounded-xl px-4 py-6 md:p-6 max-h-[calc(100%-100px)] overflow-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl duration-300 ease-linear
@@ -87,7 +93,7 @@ const Modal = ({ children, title, description, open, onClose, className }) => {
         <div>{children}</div>
       </div>
     </>,
-    document.body
+    document.body,
   );
 };
 
