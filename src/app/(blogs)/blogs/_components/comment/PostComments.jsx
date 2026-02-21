@@ -47,11 +47,11 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
             <span>ثبت نظر جدید</span>
           </Button>
         </div>
-        <div className="w-full space-y-8 post-comments bg-secondary-0 rounded-xl border border-secondary-100 py-6 px-3 lg:px-6">
+        <div className="w-full space-y-8 post-comments bg-secondary-0 rounded-xl border border-secondary-200 p-4 lg:p-6">
           {comments.length > 0 ? (
             comments.map((comment) => (
               <div key={comment._id}>
-                <div className="bg-secondary-50 border border-secondary-200 rounded-lg p-4 mb-3">
+                <div className="bg-secondary-50 border border-secondary-200 rounded-lg p-4 mb-4">
                   <Comment
                     comment={comment}
                     onAddComment={() => addNewCommentHandler(comment)}
@@ -63,7 +63,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
                       <div
                         className={classNames(
                           "answer-item border border-secondary-200 bg-secondary-50 rounded-lg p-4",
-                          { "last-item": index + 1 === comment.answers.length }
+                          { "last-item": index + 1 === comment.answers.length },
                         )}
                       >
                         <Comment key={item._id} comment={item} />
