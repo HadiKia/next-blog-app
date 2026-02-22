@@ -12,11 +12,11 @@ const Comment = ({ comment, onAddComment }) => {
             alt={comment.user?.name || "-"}
             src={comment.user.avatarUrl}
           />
-          <div className="flex flex-col gap-y-0.5">
-            <span className="text-xs lg:text-sm font-semibold text-secondary-600">
+          <div className="flex flex-col">
+            <span className="text-xs lg:text-sm font-medium text-secondary-600">
               {comment.user.name}
             </span>
-            <span className="text-xs text-secondary-500 ">
+            <span className="text-xs text-secondary-500">
               {comment.createdAt}
             </span>
           </div>
