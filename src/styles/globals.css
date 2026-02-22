@@ -198,19 +198,19 @@
     @apply border border-error-300 text-error-500 hover:bg-error-50;
   }
   .badge {
-    @apply text-xs inline-block whitespace-nowrap rounded-full px-2 py-1;
+    @apply text-xs inline-block whitespace-nowrap rounded-full px-2 py-1 border;
   }
   .badge--primary {
-    @apply bg-primary-900 text-secondary-100;
+    @apply bg-primary-900 text-secondary-100 border-primary-900;
   }
   .badge--secondary {
-    @apply bg-secondary-200 text-secondary-600;
+    @apply bg-secondary-100 text-secondary-600 border-secondary-300;
   }
   .badge--success {
-    @apply bg-success-500 text-secondary-0;
+    @apply bg-success-50 text-success-600 border-success-300;
   }
   .badge--danger {
-    @apply bg-error-500 text-secondary-0;
+    @apply bg-error-50 text-error-600 border-error-300;
   }
 
   .spinner {
