@@ -1,8 +1,11 @@
-export async function middlewareAuth(req) {
+import type { NextRequest } from "next/server";
+import type { User } from "@/types";
+
+export async function middlewareAuth(req: NextRequest): Promise<User | undefined> {
   const accessToken = req.cookies.get("accessToken");
   const refreshToken = req.cookies.get("refreshToken");
 
-  const options = {
+  const options: RequestInit = {
     method: "GET",
     credentials: "include",
     headers: {

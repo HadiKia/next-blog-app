@@ -1,4 +1,6 @@
-export function toLocalDateShort(date) {
+type DateInput = string | number | Date;
+
+export function toLocalDateShort(date: DateInput): string {
   return `${new Date(date)
     .toLocaleDateString("fa-IR", {
       weekday: "long",
@@ -17,7 +19,7 @@ export function toLocalDateShort(date) {
     })}`;
 }
 
-export function toLocalDateShort2(date) {
+export function toLocalDateShort2(date: DateInput): string {
   return `${new Date(date)
     .toLocaleDateString("fa-IR", {
       day: "numeric",

@@ -1,13 +1,13 @@
-const getUrlExtension = (url) => {
-  return url.split(/[#?]/)[0].split(".").pop().trim();
+const getUrlExtension = (url: string): string => {
+  return url.split(/[#?]/)[0].split(".").pop()?.trim() ?? "";
 };
 
-const getFilename = (url) => {
+const getFilename = (url: string): string => {
   // const  filename = url.substr( url.lastIndexOf("/") + 1);
-  return url.split("/").pop();
+  return url.split("/").pop() ?? "image";
 };
 
-export const imageUrlToFile = async (imgUrl) => {
+export const imageUrlToFile = async (imgUrl: string): Promise<File> => {
   // imageUrl: http://localhost:5000/uploads/coverImage/2024/7/19/1724017069375-549767148.png
   // var imgExt = getUrlExtension(imgUrl);
 

@@ -1,4 +1,4 @@
-export const formatFileSize = (sizeInBytes) => {
+export const formatFileSize = (sizeInBytes: number): string => {
   const sizeInKB = sizeInBytes / 1024;
 
   if (sizeInKB < 1024) {
