@@ -1,6 +1,8 @@
 import Header from "./_components/header/Header";
 import Sidebar from "./_components/sidebar/Sidebar";
 
+export const dynamic = "force-dynamic";
+
 export default function DashboardLayout({ children }) {
   return (
     <div className="grid grid-cols-12 lg:bg-secondary-100 ">

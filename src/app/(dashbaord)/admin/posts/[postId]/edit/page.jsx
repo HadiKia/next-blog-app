@@ -1,4 +1,4 @@
-import Breadcrumbs from "@/ui/Breadcrumbs";
+import Breadcrumbs from "@/ui/BreadCrumbs";
 import React from "react";
 import CreatePostForm from "../../_components/CreatePostForm";
 import { getPostById } from "@/services/postServices";

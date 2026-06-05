@@ -16,7 +16,7 @@ app.interceptors.response.use(
     console.log(err);
     const originalConfig = err.config;
     // 401 => NOT AUTHORIZED
-    if (err.response.status === 401 && !originalConfig._retry) {
+    if (err.response?.status === 401 && !originalConfig?._retry) {
       originalConfig._retry = true;
       try {
         const { data } = await axios.get(

@@ -1,4 +1,4 @@
-import Breadcrumbs from "@/ui/Breadcrumbs";
+import Breadcrumbs from "@/ui/BreadCrumbs";
 import CreateCategoryForm from "../_components/CreateCategoryForm";
 
 const Page = () => {

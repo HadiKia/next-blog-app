@@ -1,4 +1,4 @@
-import HeroSection from "./_components/heroSection";
+import HeroSection from "./_components/HeroSection";
 import ArchitecturalSection from "./_components/ArchitecturalSection";
 import ShowcaseSection from "./_components/ShowcaseSection";
 import TechStackSection from "./_components/TechStackSection";

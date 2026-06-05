@@ -10,10 +10,10 @@ import { CalendarDateRangeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import truncateText from "@/utils/truncateText";
 import Button from "@/ui/Button";
-import CoverImage from "app/(blogs)/blogs/_components/CoverImage";
+import CoverImage from "@/app/(blogs)/blogs/_components/CoverImage";
 import ProfilePostListSkeleton from "./ProfilePostListSkeleton";
 import Empty from "@/ui/Empty";
-import Author from "app/(blogs)/blogs/_components/Author";
+import Author from "@/app/(blogs)/blogs/_components/Author";
 
 const ProfilePostList = ({
   title,

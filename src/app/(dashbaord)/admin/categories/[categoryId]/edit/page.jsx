@@ -1,4 +1,4 @@
-import Breadcrumbs from "@/ui/Breadcrumbs";
+import Breadcrumbs from "@/ui/BreadCrumbs";
 import CreateCategoryForm from "../../_components/CreateCategoryForm";
 import { getCategoryById } from "@/services/categoryService";
 import { notFound } from "next/navigation";

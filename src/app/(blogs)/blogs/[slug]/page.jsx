@@ -19,9 +19,12 @@ import DOMPurify from "isomorphic-dompurify";
 export const dynamicParams = true;
 
 export const generateStaticParams = async () => {
-  const { posts } = await getPosts();
-  const slugs = posts.map((post) => ({ slug: post.slug }));
-  return slugs;
+  try {
+    const { posts = [] } = await getPosts();
+    return posts.map((post) => ({ slug: post.slug }));
+  } catch {
+    return [];
+  }
 };
 
 export const generateMetadata = async ({ params }) => {
