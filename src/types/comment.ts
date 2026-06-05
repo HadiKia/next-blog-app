@@ -10,8 +10,11 @@ export type CommentContent = {
 export type Comment = {
   _id: ID;
   content: CommentContent;
-  user?: User;
+  user: User;
   post?: ID;
+  parent?: ID | null;
+  answers: Comment[];
+  openToComment?: boolean;
   status: CommentStatus;
   createdAt: ISODateString;
   updatedAt: ISODateString;
@@ -19,8 +22,12 @@ export type Comment = {
 
 export type CreateCommentInput = {
   postId: ID;
-  parentId?: ID;
+  parentId?: ID | null;
   content: CommentContent;
+};
+
+export type CreateCommentFormValues = {
+  text: string;
 };
 
 export type UpdateCommentInput = {
@@ -28,6 +35,11 @@ export type UpdateCommentInput = {
   data: {
     status: CommentStatus;
   };
+};
+
+export type UpdateCommentActionInput = {
+  commentId: ID;
+  formData: FormData;
 };
 
 export type CommentListResponse = {

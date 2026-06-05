@@ -1,4 +1,5 @@
 import type { User } from "./user";
+import type { ID } from "./api";
 
 export type SigninInput = {
   email: string;
@@ -18,8 +19,6 @@ export type AuthResponse = {
 };
 
 export type EditUserInput = {
-  name?: string;
-  email?: string;
-  biography?: string;
-  avatar?: File | string | null;
+  id: ID;
+  data: FormData;
 };

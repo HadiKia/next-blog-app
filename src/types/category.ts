@@ -16,6 +16,11 @@ export type CategoryInput = {
   description: string;
 };
 
+export type EditCategoryInput = {
+  id: ID;
+  data: CategoryInput;
+};
+
 export type CategoryListResponse = {
   categories: Category[];
 };

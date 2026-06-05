@@ -8,3 +8,8 @@ export type PageSearchParams = {
 
 export type DynamicPageProps<T extends Record<string, string>> = PageParams<T> &
   PageSearchParams;
+
+export type ErrorPageProps = {
+  error: Error & { digest?: string };
+  reset: () => void;
+};

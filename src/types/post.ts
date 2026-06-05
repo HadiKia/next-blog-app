@@ -21,8 +21,11 @@ export type Post = {
   related: Post[];
   likes?: ID[];
   bookmarks?: ID[];
+  commentsCount?: number;
   likesCount?: number;
   bookmarksCount?: number;
+  isLiked?: boolean;
+  isBookmarked?: boolean;
   createdAt: ISODateString;
   updatedAt: ISODateString;
 };
@@ -36,7 +39,7 @@ export type PostFormValues = {
   slug: string;
   briefText: string;
   text: string;
-  readingTime: number;
+  readingTime: number | string;
   category: ID;
   coverImage: File | null;
 };
@@ -55,4 +58,8 @@ export type PostListResponse = {
 
 export type PostResponse = {
   post: Post;
+};
+
+export type PostInteractionResponse = {
+  message: string;
 };

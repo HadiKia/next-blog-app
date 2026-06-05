@@ -16,6 +16,17 @@ export type User = {
   updatedAt: ISODateString;
 };
 
+export type ProfileFormValues = {
+  name: string;
+  email: string;
+  avatar?: File | string | null;
+};
+
+export type EditProfileInput = {
+  id: ID;
+  data: FormData;
+};
+
 export type UserListResponse = {
   users: User[];
 };
