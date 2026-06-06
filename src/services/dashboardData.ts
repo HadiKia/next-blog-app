@@ -3,8 +3,17 @@ import { cookies } from "next/headers";
 import { getAllUsersApi } from "./authService";
 import { getAllCommentsApi } from "./commentService";
 import { getPosts } from "./postServices";
+import type { DashboardCardData } from "@/types";
 
-export async function fetchCardData() {
+type ApiError = {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+};
+
+export async function fetchCardData(): Promise<DashboardCardData> {
   const cookieStore = await cookies();
   const options = setCookieOnReq(cookieStore);
 
@@ -25,7 +34,8 @@ export async function fetchCardData() {
       numberOfPosts,
     };
   } catch (error) {
-    console.log(error.response.data.message);
+    const err = error as ApiError;
+    console.log(err.response?.data?.message);
     throw new Error("خطا در بارگذاری اطلاعات");
   }
 }

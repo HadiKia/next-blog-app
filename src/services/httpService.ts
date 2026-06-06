@@ -1,4 +1,8 @@
-const { default: axios } = require("axios");
+import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
+
+type RetryAxiosRequestConfig = AxiosRequestConfig & {
+  _retry?: boolean;
+};
 
 const app = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -12,9 +16,9 @@ app.interceptors.request.use(
 
 app.interceptors.response.use(
   (res) => res,
-  async (err) => {
+  async (err: AxiosError) => {
     console.log(err);
-    const originalConfig = err.config;
+    const originalConfig = err.config as RetryAxiosRequestConfig | undefined;
     // 401 => NOT AUTHORIZED
     if (err.response?.status === 401 && !originalConfig?._retry) {
       originalConfig._retry = true;
@@ -34,12 +38,4 @@ app.interceptors.response.use(
   }
 );
 
-const http = {
-  get: app.get,
-  patch: app.patch,
-  put: app.put,
-  delete: app.delete,
-  post: app.post,
-};
-
-export default http;
+export default app;
