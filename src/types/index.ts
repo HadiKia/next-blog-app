@@ -7,3 +7,4 @@ export * from "./comment";
 export * from "./dashboard";
 export * from "./form";
 export * from "./next";
+export * from "./service";

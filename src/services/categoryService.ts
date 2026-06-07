@@ -2,15 +2,14 @@ import http from "./httpService";
 import type {
   ApiDataResponse,
   ApiMessageResponse,
+  ApiMutationResponse,
   CategoryInput,
   CategoryListResponse,
   CategoryResponse,
   EditCategoryInput,
   ID,
+  ServiceRequestConfig,
 } from "@/types";
-import type { AxiosRequestConfig } from "axios";
-
-type RequestConfig = RequestInit | AxiosRequestConfig;
 
 export async function getCategoryApi(): Promise<CategoryListResponse> {
   return http
@@ -20,35 +19,34 @@ export async function getCategoryApi(): Promise<CategoryListResponse> {
 
 export async function deleteCategoryApi(
   id: ID,
-  options: RequestConfig = {},
+  options: ServiceRequestConfig = {},
 ): Promise<ApiMessageResponse> {
   return http
-    .delete<ApiDataResponse<ApiMessageResponse>>(
-      `/category/remove/${id}`,
-      options as AxiosRequestConfig,
-    )
+    .delete<
+      ApiDataResponse<ApiMessageResponse>
+    >(`/category/remove/${id}`, options)
     .then(({ data }) => data.data);
 }
 
 export async function createCategoryApi(
   data: CategoryInput,
-  options?: RequestConfig,
-): Promise<CategoryResponse> {
+  options?: ServiceRequestConfig,
+): Promise<ApiMutationResponse<CategoryResponse>> {
   return http
-    .post<ApiDataResponse<CategoryResponse>>(
-      "/category/add",
-      data,
-      options as AxiosRequestConfig,
-    )
+    .post<
+      ApiDataResponse<ApiMutationResponse<CategoryResponse>>
+    >("/category/add", data, options)
     .then(({ data }) => data.data);
 }
 
 export async function editCategoryApi({
   id,
   data,
-}: EditCategoryInput): Promise<CategoryResponse> {
+}: EditCategoryInput): Promise<ApiMutationResponse<CategoryResponse>> {
   return http
-    .patch<ApiDataResponse<CategoryResponse>>(`/category/update/${id}`, data)
+    .patch<
+      ApiDataResponse<ApiMutationResponse<CategoryResponse>>
+    >(`/category/update/${id}`, data)
     .then(({ data }) => data.data);
 }
 

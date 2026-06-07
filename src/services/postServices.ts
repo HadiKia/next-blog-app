@@ -2,16 +2,23 @@ import http from "./httpService";
 import type {
   ApiDataResponse,
   ApiMessageResponse,
+  ApiMutationResponse,
   EditPostInput,
   ID,
   Post,
   PostInteractionResponse,
   PostListResponse,
   PostResponse,
+  ServiceRequestConfig,
 } from "@/types";
-import type { AxiosRequestConfig } from "axios";
 
-type RequestConfig = RequestInit | AxiosRequestConfig;
+
+// ─────────────────────────────────────────────
+// SSR / SSG endpoints
+// از native fetch استفاده می‌کنند تا از قابلیت‌های
+// کش‌گذاری Next.js (revalidate, cache tags) پشتیبانی شود.
+// این توابع فقط در Server Components یا generateStaticParams فراخوانی شوند.
+// ─────────────────────────────────────────────
 
 export const getPostBySlug = async (
   slug: string,
@@ -40,6 +47,14 @@ export const getPosts = async (
   return { posts, totalPages };
 };
 
+
+// ─────────────────────────────────────────────
+// Client-side endpoints
+// از axios استفاده می‌کنند — interceptor های auth و
+// refresh token خودکار اعمال می‌شوند.
+// این توابع فقط در Client Components یا Server Actions فراخوانی شوند.
+// ─────────────────────────────────────────────
+
 export async function likePostApi(
   postId: ID,
 ): Promise<PostInteractionResponse> {
@@ -64,18 +79,24 @@ export async function getPostsByIds(ids?: ID[]): Promise<Post[]> {
   return res;
 }
 
-export async function createPostApi(data: FormData): Promise<PostResponse> {
+export async function createPostApi(
+  data: FormData,
+): Promise<ApiMutationResponse<PostResponse>> {
   return http
-    .post<ApiDataResponse<PostResponse>>(`/post/create`, data)
+    .post<
+      ApiDataResponse<ApiMutationResponse<PostResponse>>
+    >(`/post/create`, data)
     .then(({ data }) => data.data);
 }
 
 export async function editPostApi({
   id,
   data,
-}: EditPostInput): Promise<PostResponse> {
+}: EditPostInput): Promise<ApiMutationResponse<PostResponse>> {
   return http
-    .patch<ApiDataResponse<PostResponse>>(`/post/update/${id}`, data)
+    .patch<
+      ApiDataResponse<ApiMutationResponse<PostResponse>>
+    >(`/post/update/${id}`, data)
     .then(({ data }) => data.data);
 }
 
@@ -87,12 +108,9 @@ export async function getPostById(id: ID): Promise<PostResponse> {
 
 export async function deletePostApi(
   id: ID,
-  options?: RequestConfig,
+  options?: ServiceRequestConfig,
 ): Promise<ApiMessageResponse> {
   return http
-    .delete<ApiDataResponse<ApiMessageResponse>>(
-      `/post/remove/${id}`,
-      options as AxiosRequestConfig,
-    )
+    .delete<ApiDataResponse<ApiMessageResponse>>(`/post/remove/${id}`, options)
     .then(({ data }) => data.data);
 }
