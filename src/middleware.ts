@@ -1,7 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { middlewareAuth } from "./utils/middlewareAuth";
+import type { UserRole } from "@/types";
 
-const accessControl = [
+type AccessControlRoute = {
+  path: string;
+  authRequired?: boolean;
+  redirectIfAuthed?: string;
+  role?: UserRole;
+  redirectIfUnauthorizedRole?: string;
+};
+
+const accessControl: AccessControlRoute[] = [
   {
     path: "/signin",
     authRequired: false,
@@ -24,11 +33,11 @@ const accessControl = [
   },
 ];
 
-export async function middleware(req) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const matchedRoute = accessControl.find(
-    (route) => pathname === route.path || pathname.startsWith(route.path + "/")
+    (route) => pathname === route.path || pathname.startsWith(route.path + "/"),
   );
 
   if (!matchedRoute) {
@@ -42,7 +51,7 @@ export async function middleware(req) {
 
   if (matchedRoute.redirectIfAuthed && user) {
     return NextResponse.redirect(
-      new URL(matchedRoute.redirectIfAuthed, req.nextUrl)
+      new URL(matchedRoute.redirectIfAuthed, req.nextUrl),
     );
   }
 
@@ -50,9 +59,9 @@ export async function middleware(req) {
     return NextResponse.redirect(new URL("/signin", req.nextUrl));
   }
 
-  if (matchedRoute.role && user.role !== matchedRoute.role) {
+  if (matchedRoute.role && user?.role !== matchedRoute.role) {
     return NextResponse.redirect(
-      new URL(matchedRoute.redirectIfUnauthorizedRole || "/", req.nextUrl)
+      new URL(matchedRoute.redirectIfUnauthorizedRole || "/", req.nextUrl),
     );
   }
 
