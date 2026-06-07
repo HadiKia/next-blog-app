@@ -1,5 +1,6 @@
 import { getCategoryApi } from "@/services/categoryService";
 import { useQuery } from "@tanstack/react-query";
+import type { SelectOption } from "@/types";
 
 export default function useCategories() {
   const { data, isLoading } = useQuery({
@@ -11,13 +12,13 @@ export default function useCategories() {
   const { categories: rawCategories = [] } = data || {};
 
   // {value, label}
-  const categories = rawCategories.map((item) => ({
+  const categories: SelectOption[] = rawCategories.map((item) => ({
     label: item.title,
     value: item._id,
   }));
 
   // {title, enTitle}
-  const transformedCategories = rawCategories.map((item) => ({
+  const transformedCategories: SelectOption[] = rawCategories.map((item) => ({
     label: item.title,
     value: item.englishTitle,
   }));

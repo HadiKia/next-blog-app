@@ -1,4 +1,4 @@
-const { useRouter } = require("next/navigation");
+import { useRouter } from "next/navigation";
 
 export default function useMoveBack() {
   const router = useRouter();

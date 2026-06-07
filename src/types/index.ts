@@ -8,3 +8,4 @@ export * from "./dashboard";
 export * from "./form";
 export * from "./next";
 export * from "./service";
+export * from "./query";

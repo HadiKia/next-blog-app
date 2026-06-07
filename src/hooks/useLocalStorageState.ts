@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export default function useLocalStorageState(key, initialState) {
+export default function useLocalStorageState<T>(
+  key: string,
+  initialState: T,
+): [T, Dispatch<SetStateAction<T>>] {
   const [value, setValue] = useState(() => {
     const storedValue =
       typeof window !== "undefined" ? localStorage.getItem(key) : null;
-    return storedValue ? JSON.parse(storedValue) : initialState;
+    return storedValue ? (JSON.parse(storedValue) as T) : initialState;
   });
 
   useEffect(() => {

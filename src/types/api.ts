@@ -18,6 +18,16 @@ export type ApiErrorResponse = {
   statusCode?: number;
 };
 
+export type ApiMutationResponse<T = Record<string, unknown>> = T & {
+  message: string;
+};
+
+export type ApiClientError = {
+  response?: {
+    data?: ApiErrorResponse;
+  };
+};
+
 export type SelectOption<TValue = string> = {
   id?: string | number;
   label: string;

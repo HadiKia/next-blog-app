@@ -8,10 +8,8 @@ export default function useCreateCategory() {
   const { isPending: isCreating, mutate: createCategory } = useMutation({
     mutationFn: createCategoryApi,
     onSuccess: (data) => {
-      toast.success(data.message),
-        queryClient.invalidateQueries({
-          queryKey: ["categories"],
-        });
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: (err) => toast.error(err?.response?.data?.message),
   });

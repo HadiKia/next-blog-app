@@ -8,10 +8,8 @@ export default function useEditCategory() {
   const { isPending: isEditing, mutate: editCategory } = useMutation({
     mutationFn: editCategoryApi,
     onSuccess: (data) => {
-      toast.success(data.message),
-        queryClient.invalidateQueries({
-          queryKey: ["categories"],
-        });
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: (err) => toast.error(err?.response?.data?.message),
   });
