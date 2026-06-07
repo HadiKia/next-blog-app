@@ -1,12 +1,23 @@
 "use client";
 
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
 import useLocalStorageState from "@/hooks/useLocalStorageState";
 
-const DarkModeContext = createContext();
+type DarkModeContextType = {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+};
 
-export function DarkModeProvider({ children }) {
-  const [isDarkMode, setIsDarkMode] = useLocalStorageState(
+type DarkModeProviderProps = {
+  children: ReactNode;
+};
+
+const DarkModeContext = createContext<DarkModeContextType | undefined>(
+  undefined,
+);
+
+export function DarkModeProvider({ children }: DarkModeProviderProps) {
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState<boolean>(
     "isDarkMode",
     typeof window !== "undefined"
       ? window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -34,11 +45,9 @@ export function DarkModeProvider({ children }) {
   );
 }
 
-export function useDarkMode() {
+export function useDarkMode(): DarkModeContextType {
   const context = useContext(DarkModeContext);
-
   if (context === undefined)
     throw new Error("DarkModeContext was used outside of DarkModeProvider");
-
   return context;
 }
