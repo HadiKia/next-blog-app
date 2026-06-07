@@ -5,57 +5,50 @@ import type {
   CommentListResponse,
   CreateCommentInput,
   ID,
+  ServiceRequestConfig,
   UpdateCommentInput,
 } from "@/types";
 import type { AxiosRequestConfig } from "axios";
 
-type RequestConfig = RequestInit | AxiosRequestConfig;
-
 export async function createCommentApi(
   data: CreateCommentInput | FormData,
-  options?: RequestConfig,
+  options?: ServiceRequestConfig,
 ): Promise<ApiMessageResponse> {
   return http
-    .post<ApiDataResponse<ApiMessageResponse>>(
-      "/comment/add",
-      data,
-      options as AxiosRequestConfig,
-    )
+    .post<
+      ApiDataResponse<ApiMessageResponse>
+    >("/comment/add", data, options as AxiosRequestConfig)
     .then(({ data }) => data.data);
 }
 
 export async function getAllCommentsApi(
-  options: RequestConfig = {},
+  options: ServiceRequestConfig = {},
 ): Promise<CommentListResponse> {
   return http
-    .get<ApiDataResponse<CommentListResponse>>(
-      "/comment/list",
-      options as AxiosRequestConfig,
-    )
+    .get<
+      ApiDataResponse<CommentListResponse>
+    >("/comment/list", options as AxiosRequestConfig)
     .then(({ data }) => data.data);
 }
 
 export async function deleteCommentApi(
   id: ID,
-  options: RequestConfig = {},
+  options: ServiceRequestConfig = {},
 ): Promise<ApiMessageResponse> {
   return http
-    .delete<ApiDataResponse<ApiMessageResponse>>(
-      `/comment/remove/${id}`,
-      options as AxiosRequestConfig,
-    )
+    .delete<
+      ApiDataResponse<ApiMessageResponse>
+    >(`/comment/remove/${id}`, options as AxiosRequestConfig)
     .then(({ data }) => data.data);
 }
 
 export async function updateCommentApi(
   { id, data }: UpdateCommentInput,
-  options: RequestConfig = {},
+  options: ServiceRequestConfig = {},
 ): Promise<ApiMessageResponse> {
   return http
-    .patch<ApiDataResponse<ApiMessageResponse>>(
-      `/comment/update/${id}`,
-      data,
-      options as AxiosRequestConfig,
-    )
+    .patch<
+      ApiDataResponse<ApiMessageResponse>
+    >(`/comment/update/${id}`, data, options as AxiosRequestConfig)
     .then(({ data }) => data.data);
 }
