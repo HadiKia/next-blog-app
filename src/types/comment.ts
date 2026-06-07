@@ -23,7 +23,7 @@ export type Comment = {
 export type CreateCommentInput = {
   postId: ID;
   parentId?: ID | null;
-  content: CommentContent;
+  text: string;
 };
 
 export type CreateCommentFormValues = {
