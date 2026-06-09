@@ -1,7 +1,17 @@
 import { SlashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-const Breadcrumbs = ({ breadcrumbs }) => {
+type Breadcrumb = {
+  href: string;
+  label: string;
+  active?: boolean;
+};
+
+type BreadcrumbsProps = {
+  breadcrumbs: Breadcrumb[];
+};
+
+const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
   return (
     <nav aria-label="Breadcrumb" className="mb-8">
       <ol className="flex items-center gap-x-1">

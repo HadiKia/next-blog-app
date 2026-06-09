@@ -2,6 +2,31 @@ import { ArrowUpTrayIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import ButtonIcon from "./ButtonIcon";
 import { toPersianDigits } from "@/utils/numberFormatter";
+import type { FieldErrors, FieldValues } from "react-hook-form";
+import type { ChangeEvent, InputHTMLAttributes } from "react";
+
+type FileMeta = {
+  name?: string;
+  size?: string;
+};
+
+type FileInputProps = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "name"
+> & {
+  label: string;
+  name: string;
+  placeholder?: string;
+  dir?: "rtl" | "ltr";
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onRemove?: () => void;
+  isRequired?: boolean;
+  className?: string;
+  wrapperClassName?: string;
+  errors?: FieldErrors<FieldValues>;
+  previewUrl?: string | null;
+  fileMeta?: FileMeta;
+};
 
 function FileInput({
   accept,
@@ -18,7 +43,7 @@ function FileInput({
   fileMeta,
   wrapperClassName,
   ...rest
-}) {
+}: FileInputProps) {
   const hasError = !!errors?.[name];
 
   const inputClasses = [
@@ -39,12 +64,12 @@ function FileInput({
 
       {previewUrl ? (
         <div className="w-full p-3 lg:p-5 rounded-lg text-secondary-800 border border-secondary-300 flex items-center justify-between gap-x-4">
-          <div className="flex items-start gap-x-4 lg:gap-x-6 w-full ">
+          <div className="flex items-start gap-x-4 lg:gap-x-6 w-full">
             <a
               href={previewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative aspect-square sm:aspect-video overflow-hidden rounded-md w-full min-w-20 max-w-20 sm:min-w-40 sm:max-w-40 lg:min-w-60 lg:max-w-60 max-h-32 cursor-zoom-in "
+              className="relative aspect-square sm:aspect-video overflow-hidden rounded-md w-full min-w-20 max-w-20 sm:min-w-40 sm:max-w-40 lg:min-w-60 lg:max-w-60 max-h-32 cursor-zoom-in"
             >
               <Image
                 fill
@@ -68,7 +93,7 @@ function FileInput({
               type="button"
               variant="error"
               onClick={onRemove}
-              className="w-8 h-8 "
+              className="w-8 h-8"
             >
               <TrashIcon />
             </ButtonIcon>
@@ -94,7 +119,7 @@ function FileInput({
 
       {hasError && (
         <span className="text-error-500 block text-xs mt-2">
-          {errors[name]?.message}
+          {errors?.[name]?.message as string}
         </span>
       )}
     </div>

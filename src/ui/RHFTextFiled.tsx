@@ -4,6 +4,42 @@ import {
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import type {
+  UseFormRegister,
+  FieldValues,
+  FieldErrors,
+  RegisterOptions,
+  UseFormWatch,
+} from "react-hook-form";
+
+type PasswordCheck = {
+  label: string;
+  check: (value: string) => boolean;
+};
+
+type RHFTextFieldProps = {
+  type?: string;
+  dir?: "rtl" | "ltr";
+  label: string;
+  isRequired?: boolean;
+  wrapperClassName?: string;
+  className?: string;
+  placeholder?: string;
+  name: string;
+  register: UseFormRegister<FieldValues>;
+  errors?: FieldErrors<FieldValues>;
+  watch?: UseFormWatch<FieldValues>;
+  validationSchema?: RegisterOptions;
+  showPasswordChecks?: boolean;
+};
+
+const passwordChecks: PasswordCheck[] = [
+  { label: "حداقل ۸ کاراکتر", check: (value) => value.length >= 8 },
+  { label: "شامل یک حرف بزرگ A تا Z", check: (value) => /[A-Z]/.test(value) },
+  { label: "شامل یک حرف کوچک a تا z", check: (value) => /[a-z]/.test(value) },
+  { label: "شامل یک عدد ۰ تا ۹", check: (value) => /\d/.test(value) },
+  { label: "شامل یک سیمبل (@#$!%?)", check: (value) => /[@#$!%?]/.test(value) },
+];
 
 const RHFTextField = ({
   type = "text",
@@ -19,41 +55,14 @@ const RHFTextField = ({
   watch,
   validationSchema = {},
   showPasswordChecks = false,
-  ...rest
-}) => {
+}: RHFTextFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPasswordField = type === "password";
   const currentType = isPasswordField && showPassword ? "text" : type;
-
   const hasError = !!errors?.[name];
-
   const togglePassword = () => setShowPassword((prev) => !prev);
-
-  const passwordValue = watch?.(name) || "";
-
-  const passwordChecks = [
-    {
-      label: "حداقل ۸ کاراکتر",
-      check: (value) => value.length >= 8,
-    },
-    {
-      label: "شامل یک حرف بزرگ A تا Z",
-      check: (value) => /[A-Z]/.test(value),
-    },
-    {
-      label: "شامل یک حرف کوچک a تا z",
-      check: (value) => /[a-z]/.test(value),
-    },
-    {
-      label: "شامل یک عدد ۰ تا ۹",
-      check: (value) => /\d/.test(value),
-    },
-    {
-      label: "شامل یک سیمبل (@#$!%?)",
-      check: (value) => /[@#$!%?]/.test(value),
-    },
-  ];
+  const passwordValue = (watch?.(name) as string) || "";
 
   const inputClasses = [
     "textField__input",
@@ -85,7 +94,6 @@ const RHFTextField = ({
           className={inputClasses}
           placeholder={placeholder}
           {...register(name, validationSchema)}
-          {...rest}
         />
 
         {isPasswordField && (
@@ -104,7 +112,7 @@ const RHFTextField = ({
 
       {hasError && (
         <span className="text-error-500 block text-xs mt-2">
-          {errors[name]?.message}
+          {errors?.[name]?.message as string}
         </span>
       )}
 

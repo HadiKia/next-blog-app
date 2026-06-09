@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-const Empty = ({ message }) => {
+type EmptyProps = {
+  message: string;
+};
+
+const Empty = ({ message }: EmptyProps) => {
   return (
     <div className="grid place-items-center">
       <div className="relative aspect-square w-60 md:w-96">

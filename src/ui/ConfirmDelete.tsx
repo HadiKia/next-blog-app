@@ -2,7 +2,12 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
 import SubmitButton from "./SubmitButton";
 
-const ConfirmDelete = ({ onClose, action }) => {
+type ConfirmDeleteProps = {
+  onClose: () => void;
+  action: (formData: FormData) => Promise<void>;
+};
+
+const ConfirmDelete = ({ onClose, action }: ConfirmDeleteProps) => {
   return (
     <form action={action}>
       <div className="flex items-center justify-between gap-x-4 md:gap-x-6">

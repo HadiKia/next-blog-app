@@ -5,17 +5,34 @@ import { toPersianDigits } from "@/utils/numberFormatter";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
-
 import { usePathname, useSearchParams } from "next/navigation";
 
-export default function Pagination({ totalPages }) {
-  // const totalPages = Math.ceil(Number(length) / itemsPerPage);
+type PaginationProps = {
+  totalPages: number;
+};
+
+type PaginationPosition = "first" | "last" | "single" | "middle" | undefined;
+
+type PaginationNumberProps = {
+  page: number | string;
+  href: string;
+  isActive: boolean;
+  position: PaginationPosition;
+};
+
+type PaginationArrowProps = {
+  href: string;
+  direction: "left" | "right";
+  isDisabled: boolean;
+};
+
+export default function Pagination({ totalPages }: PaginationProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
   const itemsPerPage = Number(searchParams.get("limit")) || 6;
 
-  const createPageURL = (pageNumber) => {
+  const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     params.set("limit", itemsPerPage.toString());
@@ -36,8 +53,7 @@ export default function Pagination({ totalPages }) {
 
       <div className="flex items-center gap-x-1">
         {allPages.map((page, index) => {
-          // let position: "first" | "last" | "single" | "middle" | undefined;
-          let position;
+          let position: PaginationPosition;
           if (index === 0) position = "first";
           if (index === allPages.length - 1) position = "last";
           if (allPages.length === 1) position = "single";
@@ -66,15 +82,14 @@ export default function Pagination({ totalPages }) {
   );
 }
 
-// position?: "first" | "last" | "middle" | "single",
-function PaginationNumber({ page, href, isActive, position }) {
+function PaginationNumber({ page, href, isActive, position }: PaginationNumberProps) {
   const className = classNames(
     "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 text-sm lg:text-base duration-300 ease-linear rounded-full pt-0.5 lg:pt-1",
     {
       "z-10 bg-primary-900 text-secondary-100 font-medium": isActive,
       "!text-secondary-700": !isActive && position !== "middle",
       "text-secondary-700": position === "middle",
-    }
+    },
   );
 
   return isActive || position === "middle" ? (
@@ -86,13 +101,13 @@ function PaginationNumber({ page, href, isActive, position }) {
   );
 }
 
-function PaginationArrow({ href, direction, isDisabled }) {
+function PaginationArrow({ href, direction, isDisabled }: PaginationArrowProps) {
   const className = classNames(
     "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 rounded-full duration-300 ease-linear text-secondary-700",
     {
       "pointer-events-none opacity-40": isDisabled,
-      "hover:bg-secondary-200 text-secondary-100 ": !isDisabled,
-    }
+      "hover:bg-secondary-200 text-secondary-100": !isDisabled,
+    },
   );
 
   const icon =

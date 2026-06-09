@@ -1,3 +1,17 @@
+import type { ChangeEvent, TextareaHTMLAttributes } from "react";
+
+type TextAreaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> & {
+  label: string;
+  name: string;
+  value?: string;
+  dir?: "rtl" | "ltr";
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  isRequired?: boolean;
+  className?: string;
+  placeholder?: string;
+  error?: string;
+};
+
 const TextArea = ({
   label,
   name,
@@ -7,14 +21,11 @@ const TextArea = ({
   isRequired = false,
   className,
   placeholder,
-  error
-}) => {
+  error,
+}: TextAreaProps) => {
   return (
     <div className="textField">
-      <label
-        htmlFor={name}
-        className="text-secondary-600 text-sm inline-block mb-1"
-      >
+      <label htmlFor={name} className="text-secondary-600 text-sm inline-block mb-1">
         {label}
         {isRequired && <span className="text-error-500 ms-1">*</span>}
       </label>
@@ -24,11 +35,11 @@ const TextArea = ({
         dir={dir}
         className={`textField__input scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl resize-none h-32 ${
           dir === "ltr" ? "text-left" : "text-right"
-        } ${className}`}
+        } ${className ?? ""}`}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-      ></textarea>
+      />
       {error && <span className="text-error-500 text-xs">{error}</span>}
     </div>
   );

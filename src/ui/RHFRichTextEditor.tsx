@@ -20,13 +20,29 @@ import {
 } from "@heroicons/react/24/outline";
 
 import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
+import TiptapLink from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
-import Underline from "@tiptap/extension-underline";
-import { useEditor, EditorContent } from "@tiptap/react";
+import TiptapUnderline from "@tiptap/extension-underline";
+import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
+import type { FieldError } from "react-hook-form";
+
+type RHFRichTextEditorProps = {
+  label: string;
+  wrapperClassName?: string;
+  isRequired?: boolean;
+  placeholder?: string;
+  value?: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+  error?: FieldError;
+};
+
+type MenuBarProps = {
+  editor: Editor | null;
+};
 
 const RHFRichTextEditor = ({
   label,
@@ -37,14 +53,14 @@ const RHFRichTextEditor = ({
   onChange,
   onBlur,
   error,
-}) => {
+}: RHFRichTextEditorProps) => {
   const editor = useEditor({
     content: value || "",
     extensions: [
       StarterKit,
-      Underline,
+      TiptapUnderline,
       Highlight,
-      Link,
+      TiptapLink,
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
@@ -95,44 +111,30 @@ const RHFRichTextEditor = ({
 
 export default RHFRichTextEditor;
 
-const MenuBar = ({ editor }) => {
-  if (!editor) {
-    return null;
-  }
+const MenuBar = ({ editor }: MenuBarProps) => {
+  if (!editor) return null;
 
   return (
     <div className="control-group">
       <div className="button-group">
         <button
           type="button"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 1 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          className={editor.isActive("heading", { level: 1 }) ? "is-active" : ""}
         >
           <H1Icon />
         </button>
         <button
           type="button"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          className={editor.isActive("heading", { level: 2 }) ? "is-active" : ""}
         >
           <H2Icon />
         </button>
         <button
           type="button"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 3 }) ? "is-active" : ""
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
         >
           <H3Icon />
         </button>
@@ -186,12 +188,7 @@ const MenuBar = ({ editor }) => {
             } else {
               const url = window.prompt("لینک مورد نظر را وارد کنید");
               if (url) {
-                editor
-                  .chain()
-                  .focus()
-                  .extendMarkRange("link")
-                  .setLink({ href: url })
-                  .run();
+                editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
               }
             }
           }}
@@ -219,7 +216,6 @@ const MenuBar = ({ editor }) => {
         >
           Hr
         </button>
-
         <button
           type="button"
           onClick={() => editor.chain().focus().setHardBreak().run()}
@@ -243,9 +239,7 @@ const MenuBar = ({ editor }) => {
         <button
           type="button"
           onClick={() => editor.chain().focus().setTextAlign("center").run()}
-          className={
-            editor.isActive({ textAlign: "center" }) ? "is-active" : ""
-          }
+          className={editor.isActive({ textAlign: "center" }) ? "is-active" : ""}
         >
           <Bars3Icon />
         </button>
@@ -259,9 +253,7 @@ const MenuBar = ({ editor }) => {
         <button
           type="button"
           onClick={() => editor.chain().focus().setTextAlign("justify").run()}
-          className={
-            editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
-          }
+          className={editor.isActive({ textAlign: "justify" }) ? "is-active" : ""}
         >
           <Bars4Icon />
         </button>

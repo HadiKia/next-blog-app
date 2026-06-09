@@ -1,9 +1,10 @@
 import { useFormStatus } from "react-dom";
 import Button from "./Button";
 import SpinnerMini from "./SpinnerMini";
+import type { ButtonProps } from "./Button";
 
-const SubmitButton = ({ children, className, ...rest }) => {
-    const { pending } = useFormStatus();
+const SubmitButton = ({ children, className, ...rest }: ButtonProps) => {
+  const { pending } = useFormStatus();
 
   return (
     <Button disabled={pending} {...rest} className={className}>

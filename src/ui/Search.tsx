@@ -2,9 +2,13 @@
 
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 
-const Search = ({ onSubmitComplete }) => {
+type SearchProps = {
+  onSubmitComplete?: () => void;
+};
+
+const Search = ({ onSubmitComplete }: SearchProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -16,7 +20,7 @@ const Search = ({ onSubmitComplete }) => {
     setSearchValue(currentSearch);
   }, [currentSearch]);
 
-  const updateSearchParam = (value) => {
+  const updateSearchParam = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (value) {
@@ -28,14 +32,11 @@ const Search = ({ onSubmitComplete }) => {
       params.delete("search");
     }
 
-    router.push(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
     onSubmitComplete?.();
   };
 
-  const formSubmit = (e) => {
+  const formSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateSearchParam(searchValue);
   };
@@ -59,7 +60,6 @@ const Search = ({ onSubmitComplete }) => {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-
       {currentSearch ? (
         <button
           type="button"
