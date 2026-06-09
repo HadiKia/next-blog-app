@@ -1,16 +1,17 @@
 import { navLinks } from "../../constants/navLinksData";
 import Link from "next/link";
+import type { Category } from "@/types";
 
 const Footer = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/list`);
   const {
     data: { categories },
-  } = await res.json();
+  } = (await res.json()) as { data: { categories: Category[] } };
 
   return (
     <div className="bg-secondary-100 border-t border-secondary-200">
       <footer className="container xl:max-w-screen-xl">
-        <div className="relative fill-primary-700 w-24 lg:w-28 mt-8 mb-10 lg:mt-10 ">
+        <div className="relative fill-primary-700 w-24 lg:w-28 mt-8 mb-10 lg:mt-10">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 394 79">
             <path d="M261.919.033h68.628V12.7h-27.224v66.639H289.71V12.7h-27.791zM149.052.033V12.7h-55.01v20.377h44.239v12.667H94.042v20.928h55.01V79.34H80.43V12.7h-.006V.033zM183.32.066h-17.814l63.806 79.306h17.866l-31.907-39.626L247.127.126l-17.815.028-22.96 28.516zM201.6 56.715l-8.921-11.092-27.224 33.81h17.865z" />
             <path
@@ -66,7 +67,8 @@ const Footer = async () => {
             </ul>
           </div>
         </div>
-        <div className="flex items-center justify-between py-4 border-t border-secondary-200 mt-4 lg:mt-8 text-xs lg:text-sm text-secondary-500">
+
+        <div className="flex items-center justify-between py-4 border-t border-secondary-200 mt-6 lg:mt-8 text-xs lg:text-sm text-secondary-500">
           <div className="flex items-center gap-x-3 lg:gap-x-5">
             <Link
               href="https://www.instagram.com/ihadikia/"

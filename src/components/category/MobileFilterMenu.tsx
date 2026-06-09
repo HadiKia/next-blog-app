@@ -4,8 +4,13 @@ import { useState } from "react";
 import { FunnelIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Search from "@/ui/Search";
 import CategoryList from "@/app/(blogs)/blogs/_components/CategoryList";
+import type { Category } from "@/types";
 
-const MobileFilterMenu = ({ categories }) => {
+type MobileFilterMenuProps = {
+  categories: Category[];
+};
+
+const MobileFilterMenu = ({ categories }: MobileFilterMenuProps) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -21,7 +26,6 @@ const MobileFilterMenu = ({ categories }) => {
         <FunnelIcon className="w-6 h-6" />
       </button>
 
-      {/* Backdrop */}
       <div
         onClick={handleClose}
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm duration-300 ease-linear lg:hidden ${
@@ -31,7 +35,6 @@ const MobileFilterMenu = ({ categories }) => {
         }`}
       />
 
-      {/* Drawer */}
       <div
         className={`fixed end-0 inset-y-0 w-full max-w-xs bg-secondary-0 flex flex-col px-4 shadow-xl rounded-tr-xl transform transition-transform duration-300 ease-linear z-40 lg:hidden overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
           ${open ? "translate-x-0" : "-translate-x-full"}`}
@@ -41,7 +44,7 @@ const MobileFilterMenu = ({ categories }) => {
           <h6 className="text-secondary-700 font-semibold text-lg">فیلتر ها</h6>
           <button
             onClick={handleClose}
-            className=" flex cursor-pointer items-center justify-center rounded-md p-2 text-secondary-500"
+            className="flex cursor-pointer items-center justify-center rounded-md p-2 text-secondary-500"
             aria-label="closeMenu"
           >
             <XMarkIcon className="w-6 h-6" />

@@ -2,16 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ComponentType, ReactNode } from "react";
 
-const normalizePath = (url) => {
+type NavLinkProps = {
+  path: string;
+  icon?: ComponentType<{ className?: string }>;
+  children: ReactNode;
+  onClick?: () => void;
+  className?: string;
+};
+
+const normalizePath = (url: string): string => {
   const segments = url.split("/").filter(Boolean);
-
   return segments.length > 1
     ? segments.slice(1).join("/")
     : (segments[0] ?? "");
 };
 
-const NavLink = ({ path, icon: Icon, children, onClick, className }) => {
+const NavLink = ({ path, icon: Icon, children, onClick, className }: NavLinkProps) => {
   const pathname = usePathname();
 
   const currentPath = normalizePath(pathname);
@@ -31,7 +39,7 @@ const NavLink = ({ path, icon: Icon, children, onClick, className }) => {
     <Link
       href={path}
       onClick={onClick}
-      className={`${baseClass} ${activeClass}`}
+      className={`${baseClass} ${activeClass} ${className ?? ""}`}
     >
       {Icon && <Icon className="w-5 h-5 lg:w-6 lg:h-6" />}
       {children}
