@@ -4,8 +4,11 @@ import { DarkModeProvider } from "@/context/DarkModeContext";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import "@/styles/globals.css";
 import { Toaster } from "react-hot-toast";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
-export const metadata = {
+
+export const metadata: Metadata = {
   title: {
     template: "%s | بلاگ اپ",
     default: "بلاگ اپ",
@@ -13,20 +16,18 @@ export const metadata = {
   description: "وب اپلیکیشن مدیریت بلاگ",
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: [
-    {
-      media: "(prefers-color-scheme: light)",
-      color: "rgb(240, 241, 243)",
-    },
-    {
-      media: "(prefers-color-scheme: dark)",
-      color: "rgb(30, 32, 35)",
-    },
+    { media: "(prefers-color-scheme: light)", color: "rgb(240, 241, 243)" },
+    { media: "(prefers-color-scheme: dark)", color: "rgb(30, 32, 35)" },
   ],
 };
 
-export default function RootLayout({ children }) {
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="fa" dir="rtl" className="dark-mode">
       <body className={`${vazirFont.variable} font-sans min-h-screen`}>

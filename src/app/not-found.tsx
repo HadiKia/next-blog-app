@@ -4,8 +4,9 @@ import Button from "@/ui/Button";
 import Empty from "@/ui/Empty";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     absolute: "صفحه پیدا نشد.",
   },
@@ -17,7 +18,7 @@ const NotFound = () => {
     <>
       <Header />
       <div className="container xl:max-w-screen-xl flex flex-col gap-y-10 items-center justify-center mt-10 mb-40">
-       <Empty message={" صفحه ای که به دنبال آن بودید پیدا نشد."}/>
+        <Empty message="صفحه ای که به دنبال آن بودید پیدا نشد." />
         <Link href="/">
           <Button variant="primary">
             <ArrowRightIcon className="w-5 h-5 mb-0.5" />
