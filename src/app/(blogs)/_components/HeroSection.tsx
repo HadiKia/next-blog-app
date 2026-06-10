@@ -2,7 +2,12 @@ import Button from "@/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
 
-const badges = [
+type Badge = {
+  id: number;
+  title: string;
+};
+
+const badges: Badge[] = [
   {
     id: 1,
     title: "Next.js 15",
@@ -13,26 +18,30 @@ const badges = [
   },
   {
     id: 3,
-    title: "React Query",
+    title: "Type Script",
   },
   {
     id: 4,
-    title: "REST API Integration",
+    title: "React Query",
   },
   {
     id: 5,
-    title: "Access / Refresh Token",
+    title: "REST API Integration",
   },
   {
     id: 6,
-    title: "Role-Based Routing",
+    title: "Access / Refresh Token",
   },
   {
     id: 7,
-    title: "Tailwind CSS",
+    title: "Role-Based Routing",
   },
   {
     id: 8,
+    title: "Tailwind CSS",
+  },
+  {
+    id: 9,
     title: "Dark Mode",
   },
 ];

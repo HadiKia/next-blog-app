@@ -6,8 +6,16 @@ import {
   SparklesIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import { ComponentType } from "react";
 
-const features = [
+type Feature = {
+  id: number;
+  title: string;
+  description: string;
+  Icon: ComponentType<{ className?: string }>;
+};
+
+const features: Feature[] = [
   {
     id: 1,
     title: "جریان احراز هویت مبتنی بر توکن",
