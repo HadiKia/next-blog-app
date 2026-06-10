@@ -10,7 +10,6 @@ export type SignupInput = {
   name: string;
   email: string;
   password: string;
-  confirmPassword?: string;
 };
 
 export type AuthResponse = {
