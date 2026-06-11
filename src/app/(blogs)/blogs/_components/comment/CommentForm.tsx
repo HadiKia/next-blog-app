@@ -5,15 +5,21 @@ import SubmitButton from "@/ui/SubmitButton";
 import TextArea from "@/ui/TextArea";
 import { useActionState, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import type { ServerActionState, ID } from "@/types";
 
-const initialState = {
+type CommentFormProps = {
+  postId: ID;
+  parentId?: ID | null;
+  onClose: () => void;
+};
+
+const initialState: ServerActionState = {
   error: "",
   message: "",
 };
 
-const CommentForm = ({ postId, parentId, onClose }) => {
+const CommentForm = ({ postId, parentId, onClose }: CommentFormProps) => {
   const [text, setText] = useState("");
-
   const [state, formAction] = useActionState(createComment, initialState);
 
   useEffect(() => {
@@ -25,7 +31,6 @@ const CommentForm = ({ postId, parentId, onClose }) => {
 
   return (
     <form
-      // action={createComment.bind(null, postId, parentId)}
       action={async (formData) => {
         await formAction({ formData, postId, parentId });
       }}
@@ -38,7 +43,6 @@ const CommentForm = ({ postId, parentId, onClose }) => {
         onChange={(e) => setText(e.target.value)}
         error={state.error}
       />
-
       <SubmitButton>تایید</SubmitButton>
     </form>
   );

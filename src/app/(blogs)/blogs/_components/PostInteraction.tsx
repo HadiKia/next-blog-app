@@ -14,91 +14,31 @@ import {
   HeartIcon as SolidHeartIcon,
 } from "@heroicons/react/24/solid";
 import { usePathname, useRouter } from "next/navigation";
+import type { Post } from "@/types";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-const PostInteraction = ({ post }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const likeHandler = async (postId) => {
-    try {
-      const { message } = await likePostApi(postId);
-      toast.success(message);
-      router.refresh();
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
-  };
-
-  const bookmarkHandler = async (postId) => {
-    try {
-      const { message } = await bookmarkPostApi(postId);
-      toast.success(message);
-      router.refresh();
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
-  };
-
-  const copyHandler = async () => {
-    const url = `${window.location.origin}${pathname}`;
-
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success("آدرس صفحه کپی شد");
-    } catch (err) {
-      toast.error("خطا در کپی کردن آدرس");
-    }
-  };
-
-  return (
-    <div className="w-full lg:w-fit flex items-start justify-evenly gap-3">
-      <div className="flex lg:flex-col-reverse items-center">
-        <span className="text-xs lg:text-sm text-secondary-500">
-          {toPersianDigits(post.commentsCount)}
-        </span>
-        <Button
-          variant="transparent"
-          onClick={() => {
-            document
-              .getElementById("post-comments")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          <ChatBubbleLeftEllipsisIcon />
-        </Button>
-      </div>
-
-      <div className="flex lg:flex-col-reverse items-center">
-        <span className="text-xs lg:text-sm text-secondary-500">
-          {toPersianDigits(post.likesCount)}
-        </span>
-        <Button
-          variant="transparentError"
-          onClick={() => likeHandler(post._id)}
-        >
-          {post.isLiked ? <SolidHeartIcon /> : <HeartIcon />}
-        </Button>
-      </div>
-
-      <Button variant="transparent" onClick={() => bookmarkHandler(post._id)}>
-        {post.isBookmarked ? <SolidBookmarkIcon /> : <BookmarkIcon />}
-      </Button>
-
-      <Button variant="transparent" onClick={() => copyHandler()}>
-        <ShareIcon />
-      </Button>
-    </div>
-  );
+type PostInteractionProps = {
+  post: Post;
 };
 
-export default PostInteraction;
+type ButtonVariant = "transparent" | "transparentError";
 
-const btnType = {
+type LocalButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode;
+  variant?: ButtonVariant;
+};
+
+const btnType: Record<ButtonVariant, string> = {
   transparent: "text-secondary-700",
   transparentError: "text-error-500",
 };
 
-const Button = ({ children, onClick, variant = "transparent", ...rest }) => {
+const LocalButton = ({
+  children,
+  onClick,
+  variant = "transparent",
+  ...rest
+}: LocalButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -109,3 +49,89 @@ const Button = ({ children, onClick, variant = "transparent", ...rest }) => {
     </button>
   );
 };
+
+const PostInteraction = ({ post }: PostInteractionProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const likeHandler = async (postId: string) => {
+    try {
+      const { message } = await likePostApi(postId);
+      toast.success(message);
+      router.refresh();
+    } catch (error) {
+      toast.error(
+        (error as { response?: { data?: { message?: string } } })?.response
+          ?.data?.message ?? "خطایی رخ داد",
+      );
+    }
+  };
+
+  const bookmarkHandler = async (postId: string) => {
+    try {
+      const { message } = await bookmarkPostApi(postId);
+      toast.success(message);
+      router.refresh();
+    } catch (error) {
+      toast.error(
+        (error as { response?: { data?: { message?: string } } })?.response
+          ?.data?.message ?? "خطایی رخ داد",
+      );
+    }
+  };
+
+  const copyHandler = async () => {
+    const url = `${window.location.origin}${pathname}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("آدرس صفحه کپی شد");
+    } catch {
+      toast.error("خطا در کپی کردن آدرس");
+    }
+  };
+
+  return (
+    <div className="w-full lg:w-fit flex items-start justify-evenly gap-3">
+      <div className="flex lg:flex-col-reverse items-center">
+        <span className="text-xs lg:text-sm text-secondary-500">
+          {toPersianDigits(post.commentsCount)}
+        </span>
+        <LocalButton
+          variant="transparent"
+          onClick={() => {
+            document
+              .getElementById("post-comments")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <ChatBubbleLeftEllipsisIcon />
+        </LocalButton>
+      </div>
+
+      <div className="flex lg:flex-col-reverse items-center">
+        <span className="text-xs lg:text-sm text-secondary-500">
+          {toPersianDigits(post.likesCount)}
+        </span>
+        <LocalButton
+          variant="transparentError"
+          onClick={() => likeHandler(post._id)}
+        >
+          {post.isLiked ? <SolidHeartIcon /> : <HeartIcon />}
+        </LocalButton>
+      </div>
+
+      <LocalButton
+        variant="transparent"
+        onClick={() => bookmarkHandler(post._id)}
+      >
+        {post.isBookmarked ? <SolidBookmarkIcon /> : <BookmarkIcon />}
+      </LocalButton>
+
+      <LocalButton variant="transparent" onClick={copyHandler}>
+        <ShareIcon />
+      </LocalButton>
+    </div>
+  );
+};
+
+export default PostInteraction;

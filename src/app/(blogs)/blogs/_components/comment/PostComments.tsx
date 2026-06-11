@@ -9,14 +9,19 @@ import { useState } from "react";
 import CommentForm from "./CommentForm";
 import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";
+import type { Post, Comment as CommentType } from "@/types";
 
-const PostComments = ({ post: { comments, _id: postId } }) => {
+type PostCommentsProps = {
+  post: Pick<Post, "comments" | "_id">;
+};
+
+const PostComments = ({ post: { comments = [], _id: postId } }: PostCommentsProps) => {
   const [open, setIsOpen] = useState(false);
-  const [parent, setParent] = useState(null);
+  const [parent, setParent] = useState<CommentType | null>(null);
   const { user } = useAuth();
-  const addNewCommentHandler = (parent) => {
-    if (!user) return toast.error("برای ثبت نظر وارد حساب کاربری خود شوید.");
 
+  const addNewCommentHandler = (parent: CommentType | null) => {
+    if (!user) return toast.error("برای ثبت نظر وارد حساب کاربری خود شوید.");
     setParent(parent);
     setIsOpen(true);
   };
@@ -35,7 +40,7 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
           onClose={() => setIsOpen(false)}
         />
       </Modal>
-      <div className="flex flex-col items-center justify-between gap-y-6 ">
+      <div className="flex flex-col items-center justify-between gap-y-6">
         <div className="w-full flex items-center justify-between">
           <h2 className="text-2xl font-bold text-secondary-700">نظرات</h2>
           <Button

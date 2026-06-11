@@ -1,8 +1,15 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { Category } from "@/types";
 
-const CategoryList = ({ categories, onClose }) => {
+type CategoryListProps = {
+  categories: Category[];
+  onClose?: () => void;
+};
+
+const CategoryList = ({ categories, onClose }: CategoryListProps) => {
   const pathname = usePathname();
 
   return (

@@ -1,6 +1,11 @@
 import Avatar from "@/ui/Avatar";
 
-const Author = ({ name, avatarUrl }) => {
+type AuthorProps = {
+  name: string;
+  avatarUrl?: string;
+};
+
+const Author = ({ name, avatarUrl }: AuthorProps) => {
   const validAvatarUrl =
     !avatarUrl || avatarUrl.endsWith("/null") ? undefined : avatarUrl;
 
