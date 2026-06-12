@@ -1,7 +1,12 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import type { ReactNode } from "react";
 
-const Layout = ({ children }) => {
+type BlogsLayoutProps = {
+  children: ReactNode;
+};
+
+const Layout = ({ children }: BlogsLayoutProps) => {
   return (
     <div>
       <Header />

@@ -2,8 +2,9 @@ import HeroSection from "./_components/HeroSection";
 import ArchitecturalSection from "./_components/ArchitecturalSection";
 import ShowcaseSection from "./_components/ShowcaseSection";
 import TechStackSection from "./_components/TechStackSection";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "خانه - وب اپلیکیشن مدیریت بلاگ",
 };
 
