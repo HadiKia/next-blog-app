@@ -4,12 +4,13 @@ import setCookieOnReq from "@/utils/setCookieOnReq";
 import PostList from "@/app/(blogs)/blogs/_components/PostList";
 import { cookies } from "next/headers";
 import queryString from "query-string";
+import type { DynamicPageProps } from "@/types";
 
-const Category = async ({ params, searchParams }) => {
+type CategoryPageProps = DynamicPageProps<{ categorySlug: string }>;
+
+const Category = async ({ params, searchParams }: CategoryPageProps) => {
   const { categorySlug } = await params;
-
   const sp = await searchParams;
-
   const queries = `${queryString.stringify(sp)}&categorySlug=${categorySlug}`;
 
   const cookieStore = await cookies();

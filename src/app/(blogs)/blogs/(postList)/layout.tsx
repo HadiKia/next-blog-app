@@ -2,40 +2,41 @@ import CategoryList from "../_components/CategoryList";
 import Search from "@/ui/Search";
 import BlogSort from "../_components/BlogSort";
 import MobileFilterMenu from "@/components/category/MobileFilterMenu";
-import { Suspense } from "react";
+import { Suspense, type ReactNode } from "react";
 import PostListSkeleton from "../_components/PostListSkeleton";
 import BlogSortSkeleton from "../_components/BlogSortSkeleton";
 import MobileFilterMenuSkeleton from "@/components/category/MobileFilterMenuSkeleton";
 import SearchSkeleton from "@/ui/SearchSkeleton";
+import type { Metadata } from "next";
+import type { Category } from "@/types";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "بلاگ‌ها",
 };
 
-const Layout = async ({ children }) => {
+type PostListLayoutProps = {
+  children: ReactNode;
+};
+
+const Layout = async ({ children }: PostListLayoutProps) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/category/list`);
-  const {
-    data: { categories },
-  } = await res.json();
+  const { data: { categories } } = await res.json() as { data: { categories: Category[] } };
 
   return (
     <div className="py-6 lg:py-10">
       <div className="flex items-center justify-between border-b border-secondary-200 pb-6 mb-10">
-        <h1 className="text-2xl font-bold  text-secondary-700 lg:col-span-4 xl:col-span-3 ">
+        <h1 className="text-2xl font-bold text-secondary-700 lg:col-span-4 xl:col-span-3">
           لیست بلاگ‌ها
         </h1>
-
         <div className="flex items-center gap-x-2 lg:gap-x-8 lg:flex-1 lg:justify-end">
           <Suspense fallback={<BlogSortSkeleton />}>
             <BlogSort />
           </Suspense>
-
           <div className="hidden lg:block lg:w-full lg:max-w-sm">
             <Suspense fallback={<SearchSkeleton />}>
               <Search />
             </Suspense>
           </div>
-
           <Suspense fallback={<MobileFilterMenuSkeleton />}>
             <MobileFilterMenu categories={categories} />
           </Suspense>
@@ -45,7 +46,6 @@ const Layout = async ({ children }) => {
         <div className="hidden lg:block lg:col-span-2 text-secondary-500 space-y-4">
           <CategoryList categories={categories} />
         </div>
-
         <div className="lg:col-span-10 text-secondary-500">
           <Suspense fallback={<PostListSkeleton />}>{children}</Suspense>
         </div>

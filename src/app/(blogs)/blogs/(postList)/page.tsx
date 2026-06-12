@@ -6,16 +6,17 @@ import queryString from "query-string";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import Pagination from "@/ui/Pagination";
 import Empty from "@/ui/Empty";
+import type { PageSearchParams } from "@/types";
 
-const BlogPage = async ({ searchParams }) => {
+const BlogPage = async ({ searchParams }: PageSearchParams) => {
   const params = await searchParams;
-  const queries = queryString.stringify(params);
+  const queries = queryString.stringify(params ?? {});
 
   const cookieStore = await cookies();
   const options = setCookieOnReq(cookieStore);
   const { posts, totalPages } = await getPosts(queries, options);
 
-  const { search } = params;
+  const search = params?.["search"] as string | undefined;
 
   return (
     <>
@@ -29,7 +30,6 @@ const BlogPage = async ({ searchParams }) => {
         )
       ) : null}
       <PostList posts={posts} />
-
       {!!totalPages && (
         <div className="my-8 lg:my-10">
           <Pagination totalPages={totalPages} />
