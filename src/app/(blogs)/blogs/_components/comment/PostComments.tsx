@@ -5,7 +5,7 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import Comment from "./Comment";
 import classNames from "classnames";
 import Modal from "@/ui/Modal";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useAuth } from "@/context/AuthContext";
 import toast from "react-hot-toast";
@@ -15,7 +15,9 @@ type PostCommentsProps = {
   post: Pick<Post, "comments" | "_id">;
 };
 
-const PostComments = ({ post: { comments = [], _id: postId } }: PostCommentsProps) => {
+const PostComments = ({
+  post: { comments = [], _id: postId },
+}: PostCommentsProps) => {
   const [open, setIsOpen] = useState(false);
   const [parent, setParent] = useState<CommentType | null>(null);
   const { user } = useAuth();
@@ -26,18 +28,22 @@ const PostComments = ({ post: { comments = [], _id: postId } }: PostCommentsProp
     setIsOpen(true);
   };
 
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <div id="post-comments" className="lg:col-span-8 lg:order-4 scroll-mt-20">
       <Modal
         open={open}
-        onClose={() => setIsOpen(false)}
+        onClose={handleClose}
         title={parent ? "پاسخ به نظر" : "نظر جدید"}
         description={parent ? parent.user.name : "نظر خود را وارد کنید."}
       >
         <CommentForm
           parentId={parent ? parent._id : null}
           postId={postId}
-          onClose={() => setIsOpen(false)}
+          onClose={handleClose}
         />
       </Modal>
       <div className="flex flex-col items-center justify-between gap-y-6">

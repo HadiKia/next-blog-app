@@ -22,10 +22,13 @@ const BlogPage = async ({ searchParams }: PageSearchParams) => {
     <>
       {search ? (
         posts.length === 0 ? (
-          <Empty message={`بلاگی با مشخصات "${search}" پیدا نشد.`} />
+          <Empty message={`بلاگی با مشخصات «${search}» پیدا نشد.`} />
         ) : (
           <p className="text-secondary-500 text-base md:text-lg text-center -mt-4 lg:mt-0 mb-6 lg:mb-10">
-            {toPersianDigits(posts.length)} نتیجه برای "{search}"
+            {toPersianDigits(posts.length)} نتیجه برای{" "}
+            <span className="font-semibold text-secondary-700">
+              {search}
+            </span>{" "}
           </p>
         )
       ) : null}

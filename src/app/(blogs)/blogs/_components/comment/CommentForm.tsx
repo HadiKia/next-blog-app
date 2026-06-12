@@ -27,7 +27,7 @@ const CommentForm = ({ postId, parentId, onClose }: CommentFormProps) => {
       toast.success(state.message);
       onClose();
     }
-  }, [state]);
+  }, [state, onClose]);
 
   return (
     <form
