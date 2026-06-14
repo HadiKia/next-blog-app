@@ -7,20 +7,31 @@ import Modal from "@/ui/Modal";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
-import deletePost from "../actions/deletePost";
 import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import toast from "react-hot-toast";
+import deletePost from "../_actions/deletePost";
+import type { ID, Post, ServerActionState } from "@/types";
 
-export const DeletePost = ({ post: { _id: postId, title } }) => {
+type DeletePostProps = {
+  post: Pick<Post, "_id" | "title">;
+};
+
+type UpdatePostProps = {
+  id: ID;
+};
+
+const initialState: ServerActionState = {
+  error: "",
+  message: "",
+};
+
+export const DeletePost = ({ post: { _id: postId, title } }: DeletePostProps) => {
   const router = useRouter();
-  const [state, formAction] = useActionState(deletePost, {
-    error: "",
-    message: "",
-  });
+  const [state, formAction] = useActionState(deletePost, initialState);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -29,9 +40,7 @@ export const DeletePost = ({ post: { _id: postId, title } }) => {
       setIsOpen(false);
       router.refresh();
     }
-    if (state?.error) {
-      toast.error(state.error);
-    }
+    if (state?.error) toast.error(state.error);
   }, [state]);
 
   return (
@@ -47,16 +56,14 @@ export const DeletePost = ({ post: { _id: postId, title } }) => {
       >
         <ConfirmDelete
           onClose={() => setIsOpen(false)}
-          action={(formData) => {
-            formAction({ formData, postId });
-          }}
+          action={async (formData) => await formAction({ formData, postId })}
         />
       </Modal>
     </>
   );
 };
 
-export const UpdatePost = ({ id }) => {
+export const UpdatePost = ({ id }: UpdatePostProps) => {
   return (
     <Link href={`/admin/posts/${id}/edit`}>
       <ButtonIcon variant="outline">

@@ -3,20 +3,21 @@ import { toLocalDateShort } from "@/utils/dateFormatter";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import truncateText from "@/utils/truncateText";
 import { DeletePost, UpdatePost } from "./Buttons";
+import type { BadgeStyle, PostListItem, PostType } from "@/types";
 
-const typeStyle = {
-  free: {
-    label: "رایگان",
-    className: "badge--success",
-  },
-  premium: {
-    label: "پولی",
-    className: "badge--secondary",
-  },
+type PostRowProps = {
+  index: number;
+  post: PostListItem;
 };
 
-const PostRow = ({ index, post }) => {
+const typeStyle: Record<PostType, BadgeStyle> = {
+  free: { label: "رایگان", className: "badge--success" },
+  premium: { label: "پولی", className: "badge--secondary" },
+};
+
+const PostRow = ({ index, post }: PostRowProps) => {
   const { title, category, author, createdAt, updatedAt, type } = post;
+
   return (
     <Table.Row>
       <td>{toPersianDigits(index + 1)}</td>

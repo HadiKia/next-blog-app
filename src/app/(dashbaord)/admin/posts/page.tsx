@@ -6,10 +6,11 @@ import { CreatePost } from "./_components/Buttons";
 import queryString from "query-string";
 import { getPosts } from "@/services/postServices";
 import Pagination from "@/ui/Pagination";
+import type { PageSearchParams } from "@/types";
 
-const Posts = async ({ searchParams }) => {
+const Posts = async ({ searchParams }: PageSearchParams) => {
   const params = await searchParams;
-  const query = queryString.stringify(params);
+  const query = queryString.stringify(params ?? {});
   const { totalPages } = await getPosts(query);
 
   return (
@@ -24,8 +25,7 @@ const Posts = async ({ searchParams }) => {
       <Suspense fallback={<PostTableSkeleton />} key={query}>
         <PostsTable query={query} />
       </Suspense>
-
-      <div className="mt-10 ">
+      <div className="mt-10">
         <Pagination totalPages={totalPages} />
       </div>
     </div>

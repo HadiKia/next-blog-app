@@ -1,10 +1,10 @@
 import Breadcrumbs from "@/ui/BreadCrumbs";
-import React from "react";
 import CreatePostForm from "../../_components/CreatePostForm";
 import { getPostById } from "@/services/postServices";
 import { notFound } from "next/navigation";
+import type { DynamicPageProps } from "@/types";
 
-const EditPage = async ({ params }) => {
+const EditPage = async ({ params }: DynamicPageProps<{ postId: string }>) => {
   const { postId } = await params;
   const { post } = await getPostById(postId);
 
@@ -14,10 +14,7 @@ const EditPage = async ({ params }) => {
     <div className="px-4 py-8 lg:px-8 lg:py-10">
       <Breadcrumbs
         breadcrumbs={[
-          {
-            label: "بلاگ ها",
-            href: "/admin/posts",
-          },
+          { label: "بلاگ ها", href: "/admin/posts" },
           {
             label: "ویرایش بلاگ",
             href: `/admin/posts/${postId}/edit`,
@@ -25,7 +22,6 @@ const EditPage = async ({ params }) => {
           },
         ]}
       />
-
       <CreatePostForm postToEdit={post} />
     </div>
   );
