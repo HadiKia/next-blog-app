@@ -26,8 +26,10 @@ import TextAlign from "@tiptap/extension-text-align";
 import TiptapUnderline from "@tiptap/extension-underline";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { FieldError } from "react-hook-form";
+import Modal from "./Modal";
+import Button from "./Button";
 
 type RHFRichTextEditorProps = {
   label: string;
@@ -112,10 +114,57 @@ const RHFRichTextEditor = ({
 export default RHFRichTextEditor;
 
 const MenuBar = ({ editor }: MenuBarProps) => {
+  const [showLinkInput, setShowLinkInput] = useState(false);
+  const [linkUrl, setLinkUrl] = useState("");
+
   if (!editor) return null;
+
+  const handleLinkSubmit = () => {
+    if (linkUrl) {
+      editor.chain().focus().extendMarkRange("link").setLink({ href: linkUrl }).run();
+    }
+    setLinkUrl("");
+    setShowLinkInput(false);
+  };
+
+  const handleLinkToggle = () => {
+    if (editor.isActive("link")) {
+      editor.chain().focus().unsetLink().run();
+    } else {
+      setShowLinkInput(true);
+    }
+  };
 
   return (
     <div className="control-group">
+      <Modal
+        open={showLinkInput}
+        onClose={() => {
+          setShowLinkInput(false);
+          setLinkUrl("");
+        }}
+        title="آدرس لینک"
+      >
+        <input
+          type="url"
+          value={linkUrl}
+          onChange={(e) => setLinkUrl(e.target.value)}
+          placeholder="آدرس لینک را وارد کنید"
+          className="textField__input mb-4"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleLinkSubmit();
+            if (e.key === "Escape") {
+              setShowLinkInput(false);
+              setLinkUrl("");
+            }
+          }}
+          autoFocus
+        />
+        
+        <Button variant="secondary" onClick={handleLinkSubmit} className="w-full">
+          تایید
+        </Button>
+      </Modal>
       <div className="button-group">
         <button
           type="button"
@@ -182,16 +231,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
         </button>
         <button
           type="button"
-          onClick={() => {
-            if (editor.isActive("link")) {
-              editor.chain().focus().unsetLink().run();
-            } else {
-              const url = window.prompt("لینک مورد نظر را وارد کنید");
-              if (url) {
-                editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
-              }
-            }
-          }}
+          onClick={handleLinkToggle}
           className={editor.isActive("link") ? "is-active" : ""}
         >
           <LinkIcon />
