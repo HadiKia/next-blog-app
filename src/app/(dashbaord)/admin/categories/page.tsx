@@ -12,7 +12,6 @@ const Categories = () => {
         </h2>
         <CreateCategory />
       </div>
-
       <Suspense fallback={<CategoriesTableSkeleton />}>
         <CategoriesTable />
       </Suspense>

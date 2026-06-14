@@ -7,69 +7,59 @@ import RHFTextField from "@/ui/RHFTextFiled";
 import SpinnerMini from "@/ui/SpinnerMini";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import * as yup from "yup";
+import type { Category, CategoryInput } from "@/types";
 
 const PERSIAN_TEXT_REGEX = /^(?!.*\s{2})[\u0600-\u06FF۰-۹\u200C\s-_]+$/;
 const ENGLISH_TEXT_REGEX = /^(?!.*\s{2})[A-Za-z0-9\s-_]+$/;
 
-const schema = yup
-  .object({
-    title: yup
-      .string()
-      .matches(
-        PERSIAN_TEXT_REGEX,
-        "فقط از حروف فارسی، اعداد و کاراکترهای مجاز استفاده کنید."
-      )
-      .min(5, "حداقل ۵ کاراکتر وارد کنید.")
-      .required("وارد کردن عنوان الزامی است."),
-    englishTitle: yup
-      .string()
-      .matches(
-        ENGLISH_TEXT_REGEX,
-        "فقط از حروف انگلیسی، اعداد و کاراکترهای مجاز استفاده کنید."
-      )
-      .min(5, "حداقل ۵ کاراکتر وارد کنید.")
-      .required("وارد کردن عنوان انگلیسی الزامی است."),
-    description: yup
-      .string()
-      .min(5, "حداقل ۵ کاراکتر وارد کنید.")
-      .required("وارد کردن توضیحات الزامی است."),
-  })
-  .required();
+const schema = yup.object({
+  title: yup
+    .string()
+    .matches(PERSIAN_TEXT_REGEX, "فقط از حروف فارسی، اعداد و کاراکترهای مجاز استفاده کنید.")
+    .min(5, "حداقل ۵ کاراکتر وارد کنید.")
+    .required("وارد کردن عنوان الزامی است."),
+  englishTitle: yup
+    .string()
+    .matches(ENGLISH_TEXT_REGEX, "فقط از حروف انگلیسی، اعداد و کاراکترهای مجاز استفاده کنید.")
+    .min(5, "حداقل ۵ کاراکتر وارد کنید.")
+    .required("وارد کردن عنوان انگلیسی الزامی است."),
+  description: yup
+    .string()
+    .min(5, "حداقل ۵ کاراکتر وارد کنید.")
+    .required("وارد کردن توضیحات الزامی است."),
+}).required();
 
-const CreateCategoryForm = ({ categoryToEdit = {} }) => {
-  const { _id: editId } = categoryToEdit;
+type CreateCategoryFormProps = {
+  categoryToEdit?: Partial<Category>;
+};
+
+const CreateCategoryForm = ({ categoryToEdit = {} }: CreateCategoryFormProps) => {
+  const { _id: editId, title, englishTitle, description } = categoryToEdit;
   const isEditSession = Boolean(editId);
-  const { title, englishTitle, description } = categoryToEdit;
-  let editValues = {};
-  if (isEditSession) {
-    editValues = {
-      title,
-      englishTitle,
-      description,
-    };
-  }
+
+  const editValues: Partial<CategoryInput> = isEditSession
+    ? { title, englishTitle, description }
+    : {};
 
   const { createCategory, isCreating } = useCreateCategory();
   const { editCategory, isEditing } = useEditCategory();
-
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
     formState: { errors, isValid },
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm<CategoryInput>({
+    resolver: yupResolver(schema) as unknown as Resolver<CategoryInput>,
     mode: "onTouched",
     defaultValues: editValues,
   });
 
-  const onSubmit = (data) => {
-    if (isEditSession) {
+  const onSubmit = (data: CategoryInput) => {
+    if (isEditSession && editId) {
       editCategory(
         { id: editId, data },
         {
@@ -77,7 +67,7 @@ const CreateCategoryForm = ({ categoryToEdit = {} }) => {
             reset();
             router.push("/admin/categories");
           },
-        }
+        },
       );
     } else {
       createCategory(data, {
@@ -124,12 +114,11 @@ const CreateCategoryForm = ({ categoryToEdit = {} }) => {
           placeholder="توضیحات دسته‌بندی"
           wrapperClassName="lg:col-span-2"
         />
-
         <Button
           type="submit"
           disabled={!isValid || isSubmitting}
           variant="primary"
-          className="mt-4 lg:col-start-2 "
+          className="mt-4 lg:col-start-2"
         >
           {isSubmitting ? <SpinnerMini /> : submitLabel}
         </Button>

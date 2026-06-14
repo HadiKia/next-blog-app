@@ -3,20 +3,39 @@
 import ButtonIcon from "@/ui/ButtonIcon";
 import ConfirmDelete from "@/ui/ConfirmDelete";
 import Modal from "@/ui/Modal";
-import { PencilSquareIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  PlusIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import deleteCategory from "../_actions/deleteCategory";
 import Link from "next/link";
 import Button from "@/ui/Button";
+import type { ID, ServerActionState } from "@/types";
 
-export const DeleteCategory = ({ title, id: categoryId }) => {
+type DeleteCategoryProps = {
+  title: string;
+  id: ID;
+};
+
+type UpdateCategoryProps = {
+  id: ID;
+};
+
+const initialState: ServerActionState = {
+  error: "",
+  message: "",
+};
+
+export const DeleteCategory = ({
+  title,
+  id: categoryId,
+}: DeleteCategoryProps) => {
   const router = useRouter();
-  const [state, formAction] = useActionState(deleteCategory, {
-    error: "",
-    message: "",
-  });
+  const [state, formAction] = useActionState(deleteCategory, initialState);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -43,14 +62,16 @@ export const DeleteCategory = ({ title, id: categoryId }) => {
       >
         <ConfirmDelete
           onClose={() => setIsOpen(false)}
-          action={(formData) => formAction({ formData, categoryId })}
+          action={async (formData) =>
+            await formAction({ formData, categoryId })
+          }
         />
       </Modal>
     </>
   );
 };
 
-export const UpdateCategory = ({ id }) => {
+export const UpdateCategory = ({ id }: UpdateCategoryProps) => {
   return (
     <Link href={`/admin/categories/${id}/edit`}>
       <ButtonIcon variant="outline">
@@ -59,7 +80,6 @@ export const UpdateCategory = ({ id }) => {
     </Link>
   );
 };
-
 
 export const CreateCategory = () => {
   return (

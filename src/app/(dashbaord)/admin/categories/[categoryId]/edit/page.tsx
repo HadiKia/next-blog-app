@@ -2,8 +2,9 @@ import Breadcrumbs from "@/ui/BreadCrumbs";
 import CreateCategoryForm from "../../_components/CreateCategoryForm";
 import { getCategoryById } from "@/services/categoryService";
 import { notFound } from "next/navigation";
+import type { DynamicPageProps } from "@/types";
 
-const EditPage = async ({ params }) => {
+const EditPage = async ({ params }: DynamicPageProps<{ categoryId: string }>) => {
   const { categoryId } = await params;
   const { category } = await getCategoryById(categoryId);
 
@@ -13,10 +14,7 @@ const EditPage = async ({ params }) => {
     <div className="px-4 py-8 lg:px-8 lg:py-10">
       <Breadcrumbs
         breadcrumbs={[
-          {
-            label: "دسته‌بندی ها",
-            href: "/admin/categories",
-          },
+          { label: "دسته‌بندی ها", href: "/admin/categories" },
           {
             label: "ویرایش دسته‌بندی",
             href: `/admin/categories/${categoryId}/edit`,
@@ -24,7 +22,6 @@ const EditPage = async ({ params }) => {
           },
         ]}
       />
-
       <CreateCategoryForm categoryToEdit={category} />
     </div>
   );

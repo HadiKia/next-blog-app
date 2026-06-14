@@ -2,8 +2,14 @@ import Table from "@/ui/Table";
 import { toLocalDateShort } from "@/utils/dateFormatter";
 import truncateText from "@/utils/truncateText";
 import { DeleteCategory, UpdateCategory } from "./Buttons";
+import type { Category } from "@/types";
 
-const CategoryRow = ({ index, category }) => {
+type CategoryRowProps = {
+  category: Category;
+  index: number;
+};
+
+const CategoryRow = ({ index, category }: CategoryRowProps) => {
   const { _id, title, englishTitle, description, slug, createdAt, updatedAt } =
     category;
 

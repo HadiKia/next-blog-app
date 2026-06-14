@@ -5,7 +5,8 @@ import Empty from "@/ui/Empty";
 
 const CategoriesTable = async () => {
   const { categories } = await getCategoryApi();
-  if (!categories.length) return <Empty message={"دسته‌بندی پیدا نشد."} />;
+
+  if (!categories.length) return <Empty message="دسته‌بندی پیدا نشد." />;
 
   return (
     <Table>

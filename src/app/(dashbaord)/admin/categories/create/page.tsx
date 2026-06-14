@@ -6,10 +6,7 @@ const Page = () => {
     <div className="px-4 py-8 lg:px-8 lg:py-10">
       <Breadcrumbs
         breadcrumbs={[
-          {
-            label: "دسته‌بندی ها",
-            href: "/admin/categories",
-          },
+          { label: "دسته‌بندی ها", href: "/admin/categories" },
           {
             label: "ایجاد دسته‌بندی",
             href: "/admin/categories/create",
@@ -17,7 +14,6 @@ const Page = () => {
           },
         ]}
       />
-
       <CreateCategoryForm />
     </div>
   );

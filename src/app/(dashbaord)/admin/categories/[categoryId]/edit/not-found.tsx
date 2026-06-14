@@ -1,11 +1,10 @@
 import Button from "@/ui/Button";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: {
-    absolute: "صفحه پیدا نشد.",
-  },
+export const metadata: Metadata = {
+  title: { absolute: "صفحه پیدا نشد." },
   description: "صفحه ای که به دنبال آن بودید پیدا نشد.",
 };
 
