@@ -1,17 +1,22 @@
 "use client";
+
 import { useState } from "react";
 import NavLink from "@/components/header/NavLink";
 import {
-  ArrowLeftStartOnRectangleIcon,
-  ArrowRightStartOnRectangleIcon,
   Bars3Icon,
+  ArrowRightStartOnRectangleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "@/context/AuthContext";
+import type { SidebarLinkItem } from "./sidebar.config";
 
-const SidebarLinks = ({ links }) => {
+type SidebarLinksProps = {
+  links: SidebarLinkItem[];
+};
+
+const SidebarLinks = ({ links }: SidebarLinksProps) => {
   const { logout } = useAuth();
   const [open, setOpen] = useState(false);
 
@@ -24,12 +29,11 @@ const SidebarLinks = ({ links }) => {
       <button
         aria-label="openMenu"
         onClick={() => setOpen(true)}
-        className="-ms-2 p-2 cursor-pointer text-secondary-500 lg:hidden absolute start-4 top-3 "
+        className="-ms-2 p-2 cursor-pointer text-secondary-500 lg:hidden absolute start-4 top-3"
       >
         <Bars3Icon className="w-6 h-6" />
       </button>
 
-      {/* Backdrop */}
       <div
         onClick={() => setOpen(false)}
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm duration-300 ease-linear lg:hidden ${
@@ -38,7 +42,7 @@ const SidebarLinks = ({ links }) => {
       />
 
       <div
-        className={` fixed lg:sticky start-0 inset-y-0 lg:inset-auto w-full max-w-xs ltr:rounded-tr-xl rtl:rounded-tl-xl lg:top-0 bg-secondary-0 lg:bg-secondary-100 flex flex-col px-4 lg:px-6 xl:px-8 transform transition-transform duration-300 ease-linear z-40 lg:translate-x-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
+        className={`fixed lg:sticky start-0 inset-y-0 lg:inset-auto w-full max-w-xs ltr:rounded-tr-xl rtl:rounded-tl-xl lg:top-0 bg-secondary-0 lg:bg-secondary-100 flex flex-col px-4 lg:px-6 xl:px-8 transform transition-transform duration-300 ease-linear z-40 lg:translate-x-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-200 scrollbar-track-transparent scrollbar-thumb-rounded-xl
           ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!open}
       >
@@ -52,7 +56,7 @@ const SidebarLinks = ({ links }) => {
           </Link>
           <button
             onClick={() => setOpen(false)}
-            className=" flex cursor-pointer items-center justify-center rounded-md p-2 text-secondary-500 lg:hidden"
+            className="flex cursor-pointer items-center justify-center rounded-md p-2 text-secondary-500 lg:hidden"
             aria-label="closeMenu"
           >
             <XMarkIcon className="w-6 h-6" />
@@ -72,7 +76,7 @@ const SidebarLinks = ({ links }) => {
           ))}
         </div>
 
-        <div className="border-t border-secondary-200 pt-4 pb-6 mt-auto lg:border-none lg:mt-0 lg:py-0 ">
+        <div className="border-t border-secondary-200 pt-4 pb-6 mt-auto lg:border-none lg:mt-0 lg:py-0">
           <button
             type="button"
             onClick={logoutHandler}

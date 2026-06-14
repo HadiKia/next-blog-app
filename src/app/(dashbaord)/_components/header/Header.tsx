@@ -7,6 +7,7 @@ import Link from "next/link";
 
 const Header = () => {
   const { user, isLoading } = useAuth();
+
   return (
     <div className="sticky top-0 z-[1] pe-4 ps-14 lg:px-8 flex items-center justify-between h-16 lg:h-20 bg-secondary-100 border-b border-secondary-200 duration-300 ease-linear lg:border-none">
       {isLoading ? (
@@ -29,7 +30,7 @@ const Header = () => {
           <div className="animate-pulse w-6 h-6 bg-secondary-200 rounded-full"></div>
         ) : user ? (
           <Link href="/profile" className="relative w-6 h-6">
-            <Avatar fill alt={user?.name || "-"} src={user.avatarUrl} />
+            <Avatar fill src={user.avatarUrl} />
           </Link>
         ) : null}
         <ThemeSwitcher />

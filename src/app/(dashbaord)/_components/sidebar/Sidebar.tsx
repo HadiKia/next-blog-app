@@ -9,7 +9,6 @@ export default function Sidebar() {
   const { user, isLoading } = useAuth();
 
   if (isLoading) return <SidebarSkeleton />;
-
   if (!user) return null;
 
   const links = sidebarConfig[user.role];
