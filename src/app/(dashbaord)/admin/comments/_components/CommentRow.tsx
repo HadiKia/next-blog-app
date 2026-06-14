@@ -2,23 +2,20 @@ import Table from "@/ui/Table";
 import { toLocalDateShort } from "@/utils/dateFormatter";
 import truncateText from "@/utils/truncateText";
 import { DeleteComment, UpdateComment } from "./Buttons";
+import type { Comment, BadgeStyle, CommentStatus } from "@/types";
 
-const statusStyle = [
-  {
-    label: "رد شده",
-    className: "badge--danger",
-  },
-  {
-    label: "در انتظار تایید",
-    className: "badge--secondary",
-  },
-  {
-    label: "تایید شده",
-    className: "badge--success",
-  },
-];
+type CommentRowProps = {
+  index: number;
+  comment: Comment;
+};
 
-function CommentRow({ index, comment }) {
+const statusStyle: Record<CommentStatus, BadgeStyle> = {
+  0: { label: "رد شده", className: "badge--danger" },
+  1: { label: "در انتظار تایید", className: "badge--secondary" },
+  2: { label: "تایید شده", className: "badge--success" },
+};
+
+function CommentRow({ index, comment }: CommentRowProps) {
   const {
     content: { text },
     _id,
@@ -27,11 +24,12 @@ function CommentRow({ index, comment }) {
     createdAt,
     updatedAt,
   } = comment;
+
   return (
     <Table.Row>
       <td>{index}</td>
       <td>{truncateText(text, 30)}</td>
-      <td> {user?.name}</td>
+      <td>{user?.name}</td>
       <td>{toLocalDateShort(createdAt)}</td>
       <td>{toLocalDateShort(updatedAt)}</td>
       <td>
@@ -48,4 +46,5 @@ function CommentRow({ index, comment }) {
     </Table.Row>
   );
 }
+
 export default CommentRow;

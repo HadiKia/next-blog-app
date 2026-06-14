@@ -2,35 +2,41 @@ import RHFSelect from "@/ui/RHFSelect";
 import SubmitButton from "@/ui/SubmitButton";
 import { useActionState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import updateComment from "../actions/updateComment";
+import updateComment from "../_actions/updateComment";
 import toast from "react-hot-toast";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { Comment, SelectOption, ServerActionState } from "@/types";
 
-const options = [
-  {
-    id: 1,
-    label: "رد شده",
-    value: 0,
-  },
-  {
-    id: 2,
-    label: "در انتظار تایید",
-    value: 1,
-  },
-  {
-    id: 3,
-    label: "تایید شده",
-    value: 2,
-  },
+type EditCommentFormProps = {
+  comment: Comment;
+  onClose: () => void;
+  router: AppRouterInstance;
+};
+
+type StatusFormValues = {
+  status: string;
+};
+
+const options: SelectOption[] = [
+  { id: 1, label: "رد شده", value: "0" },
+  { id: 2, label: "در انتظار تایید", value: "1" },
+  { id: 3, label: "تایید شده", value: "2" },
 ];
 
-const EditCommentForm = ({ comment, onClose, router }) => {
-  const [state, formAction] = useActionState(updateComment, {
-    error: "",
-    message: "",
-  });
+const initialState: ServerActionState = {
+  error: "",
+  message: "",
+};
 
-  const { control } = useForm({
-    defaultValues: { status: comment.status },
+const EditCommentForm = ({
+  comment,
+  onClose,
+  router,
+}: EditCommentFormProps) => {
+  const [state, formAction] = useActionState(updateComment, initialState);
+
+  const { control } = useForm<StatusFormValues>({
+    defaultValues: { status: String(comment.status) },
   });
 
   useEffect(() => {
@@ -39,9 +45,7 @@ const EditCommentForm = ({ comment, onClose, router }) => {
       router.refresh();
       onClose();
     }
-    if (state?.error) {
-      toast.error(state.error);
-    }
+    if (state?.error) toast.error(state.error);
   }, [state]);
 
   return (
@@ -65,7 +69,6 @@ const EditCommentForm = ({ comment, onClose, router }) => {
           />
         )}
       />
-
       <SubmitButton variant="primary">تایید</SubmitButton>
     </form>
   );
