@@ -10,7 +10,7 @@ const UsersTable = async () => {
   const options = setCookieOnReq(cookieStore);
   const { users } = await getAllUsersApi(options);
 
-  if (!users.length) return <Empty message={"کاربری پیدا نشد."} />;
+  if (!users.length) return <Empty message="کاربری پیدا نشد." />;
 
   return (
     <Table>

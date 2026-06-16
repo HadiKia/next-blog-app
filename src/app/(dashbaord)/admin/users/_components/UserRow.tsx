@@ -1,19 +1,19 @@
 import Table from "@/ui/Table";
 import { toLocalDateShort } from "@/utils/dateFormatter";
 import { DeleteUser } from "./Buttons";
+import type { BadgeStyle, User, UserRole } from "@/types";
 
-const roleStyle = {
-  admin: {
-    label: "ادمین",
-    className: "badge--primary",
-  },
-  user: {
-    label: "عادی",
-    className: "badge--secondary",
-  },
+type UserRowProps = {
+  index: number;
+  user: User;
 };
 
-const UserRow = ({ index, user }) => {
+const roleStyle: Record<UserRole, BadgeStyle> = {
+  admin: { label: "ادمین", className: "badge--primary" },
+  user: { label: "عادی", className: "badge--secondary" },
+};
+
+const UserRow = ({ index, user }: UserRowProps) => {
   const { _id, name, email, role, createdAt, updatedAt } = user;
 
   return (

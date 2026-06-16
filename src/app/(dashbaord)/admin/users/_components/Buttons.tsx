@@ -8,13 +8,21 @@ import { useActionState, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import type { ID, ServerActionState } from "@/types";
 
-export const DeleteUser = ({ name, id: userId }) => {
+type DeleteUserProps = {
+  name: string;
+  id: ID;
+};
+
+const initialState: ServerActionState = {
+  error: "",
+  message: "",
+};
+
+export const DeleteUser = ({ name, id: userId }: DeleteUserProps) => {
   const router = useRouter();
-  const [state, formAction] = useActionState(deleteUser, {
-    error: "",
-    message: "",
-  });
+  const [state, formAction] = useActionState(deleteUser, initialState);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -23,9 +31,7 @@ export const DeleteUser = ({ name, id: userId }) => {
       setIsOpen(false);
       router.refresh();
     }
-    if (state?.error) {
-      toast.error(state.error);
-    }
+    if (state?.error) toast.error(state.error);
   }, [state]);
 
   return (
@@ -41,7 +47,7 @@ export const DeleteUser = ({ name, id: userId }) => {
       >
         <ConfirmDelete
           onClose={() => setIsOpen(false)}
-          action={(formData) => formAction({ formData, userId })}
+          action={async (formData) => await formAction({ formData, userId })}
         />
       </Modal>
     </>
