@@ -1,11 +1,16 @@
 import Header from "./_components/header/Header";
 import Sidebar from "./_components/sidebar/Sidebar";
+import type { ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardLayout({ children }) {
+type DashboardLayoutProps = {
+  children: ReactNode;
+};
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <div className="grid grid-cols-12 lg:bg-secondary-100 ">
+    <div className="grid grid-cols-12 lg:bg-secondary-100">
       <aside className="lg:col-span-3 xl:col-span-2 sticky top-0 z-[2] lg:bg-secondary-100">
         <Sidebar />
       </aside>
