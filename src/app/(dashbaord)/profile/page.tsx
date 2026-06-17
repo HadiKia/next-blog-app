@@ -99,15 +99,18 @@ const Profile = () => {
 
     for (const key in data) {
       const typedKey = key as keyof ProfileFormValues;
-      if (typedKey === "avatar" && data.avatar) {
-        if (!(data.avatar instanceof File) && avatarImageUrl) {
+
+      if (typedKey === "avatar") {
+        if (data.avatar instanceof File) {
+          formData.append("avatar", data.avatar);
+        } else if (data.avatar === "" || data.avatar === null) {
+          formData.append("avatar", "");
+        } else if (typeof data.avatar === "string" && avatarImageUrl) {
           const blob = await (await fetch(avatarImageUrl)).blob();
           const fileName = avatarImageUrl.split("/").pop() || "avatar.jpg";
           formData.append("avatar", new File([blob], fileName));
-        } else if (data.avatar instanceof File) {
-          formData.append("avatar", data.avatar);
         }
-      } else if (typedKey !== "avatar") {
+      } else {
         formData.append(key, data[typedKey] as string);
       }
     }
