@@ -36,7 +36,7 @@ export const DeleteComment = ({ id: commentId }: DeleteCommentProps) => {
       router.refresh();
     }
     if (state?.error) toast.error(state.error);
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>

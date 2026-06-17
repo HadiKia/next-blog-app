@@ -32,7 +32,7 @@ export const DeleteUser = ({ name, id: userId }: DeleteUserProps) => {
       router.refresh();
     }
     if (state?.error) toast.error(state.error);
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>

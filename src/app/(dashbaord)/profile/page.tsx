@@ -42,6 +42,8 @@ type FileMeta = {
 };
 
 const Profile = () => {
+  const [fileMeta, setFileMeta] = useState<FileMeta | null>(null);
+  
   const { user, isLoading, getUser } = useAuth();
   const editId = user?._id;
   const isEditSession = Boolean(editId);
@@ -61,12 +63,15 @@ const Profile = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors, isValid, isDirty },
   } = useForm<ProfileFormValues>({
     resolver: yupResolver(schema) as unknown as Resolver<ProfileFormValues>,
     mode: "onTouched",
     defaultValues: editValues,
   });
+
+  const avatarValue = watch("avatar");
 
   useEffect(() => {
     if (prevAvatarImageUrl) {
@@ -76,7 +81,7 @@ const Profile = () => {
       }
       fetchImage();
     }
-  }, [editId]);
+  }, [editId, prevAvatarImageUrl, setValue]);
 
   useEffect(() => {
     return () => {
@@ -93,6 +98,38 @@ const Profile = () => {
       setAvatarImageUrl(user.avatarUrl || null);
     }
   }, [user, getUser, setValue]);
+
+  useEffect(() => {
+  let isCurrent = true;
+
+  async function fetchFileSize(url: string): Promise<string | null> {
+    try {
+      const res = await fetch(url, { method: "HEAD" });
+      const size = res.headers.get("content-length");
+      return size ? formatFileSize(Number(size)) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  if (avatarValue instanceof File) {
+    setFileMeta({ name: avatarValue.name, size: formatFileSize(avatarValue.size) });
+  } else if (avatarImageUrl) {
+    const currentUrl = avatarImageUrl;
+    fetchFileSize(currentUrl).then((size) => {
+      if (isCurrent) {
+        setFileMeta({
+          name: currentUrl.split("/").pop(),
+          size: size || "-",
+        });
+      }
+    });
+  } else {
+    setFileMeta(null);
+  }
+
+  return () => { isCurrent = false; };
+}, [avatarValue, avatarImageUrl]);
 
   const onSubmit = async (data: ProfileFormValues) => {
     const formData = new FormData();
@@ -149,80 +186,44 @@ const Profile = () => {
           dir="ltr"
         />
 
-        <Controller
+       <Controller
           name="avatar"
           control={control}
-          render={({ field: { value, onChange, ...rest } }) => {
-            const [fileMeta, setFileMeta] = useState<FileMeta | null>(null);
-
-            async function fetchFileSize(url: string): Promise<string | null> {
-              try {
-                const res = await fetch(url, { method: "HEAD" });
-                const size = res.headers.get("content-length");
-                return size ? formatFileSize(Number(size)) : null;
-              } catch {
-                return null;
-              }
-            }
-
-            useEffect(() => {
-              let isCurrent = true;
-
-              if (value instanceof File) {
-                setFileMeta({ name: value.name, size: formatFileSize(value.size) });
-              } else if (avatarImageUrl) {
-                const currentUrl = avatarImageUrl;
-                fetchFileSize(currentUrl).then((size) => {
-                  if (isCurrent) {
-                    setFileMeta({
-                      name: currentUrl.split("/").pop(),
-                      size: size || "-",
-                    });
-                  }
-                });
-              } else {
-                setFileMeta(null);
-              }
-
-              return () => { isCurrent = false; };
-            }, [value, avatarImageUrl]);
-
-            return (
-              <FileInput
-                accept="image/*"
-                name="avatar"
-                label="عکس پروفایل"
-                placeholder="عکس خود را آپلود کنید"
-                errors={errors}
-                previewUrl={avatarImageUrl}
-                fileMeta={fileMeta ?? undefined}
-                {...rest}
-                wrapperClassName="lg:col-span-2"
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  if (!file) {
-                    setValue("avatar", null, { shouldValidate: false });
-                    event.target.value = "";
-                    return;
-                  }
-                  if (file.size > MAX_FILE_SIZE) {
-                    setValue("avatar", file, { shouldValidate: true });
-                    event.target.value = "";
-                    return;
-                  }
-                  onChange(file);
-                  if (avatarImageUrl) URL.revokeObjectURL(avatarImageUrl);
-                  setAvatarImageUrl(URL.createObjectURL(file));
+          render={({ field: { value, onChange, ...rest } }) => (
+            <FileInput
+              accept="image/*"
+              name="avatar"
+              label="عکس پروفایل"
+              placeholder="عکس خود را آپلود کنید"
+              errors={errors}
+              previewUrl={avatarImageUrl}
+              fileMeta={fileMeta ?? undefined}
+              {...rest}
+              wrapperClassName="lg:col-span-2"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (!file) {
+                  setValue("avatar", null, { shouldValidate: false });
                   event.target.value = "";
-                }}
-                onRemove={() => {
-                  if (avatarImageUrl) URL.revokeObjectURL(avatarImageUrl);
-                  setAvatarImageUrl(null);
-                  setValue("avatar", "", { shouldValidate: true, shouldDirty: true });
-                }}
-              />
-            );
-          }}
+                  return;
+                }
+                if (file.size > MAX_FILE_SIZE) {
+                  setValue("avatar", file, { shouldValidate: true });
+                  event.target.value = "";
+                  return;
+                }
+                onChange(file);
+                if (avatarImageUrl) URL.revokeObjectURL(avatarImageUrl);
+                setAvatarImageUrl(URL.createObjectURL(file));
+                event.target.value = "";
+              }}
+              onRemove={() => {
+                if (avatarImageUrl) URL.revokeObjectURL(avatarImageUrl);
+                setAvatarImageUrl(null);
+                setValue("avatar", "", { shouldValidate: true, shouldDirty: true });
+              }}
+            />
+          )}
         />
 
         <Button

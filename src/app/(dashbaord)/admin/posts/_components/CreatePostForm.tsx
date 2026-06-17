@@ -103,7 +103,7 @@ const CreatePostForm = ({ postToEdit = {} }: CreatePostFormProps) => {
       }
       fetchImage();
     }
-  }, [editId]);
+  }, [editId, prevCoverImageUrl, setValue]);
 
   const onSubmit = (data: PostFormValues) => {
     const formData = new FormData();

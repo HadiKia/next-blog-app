@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { getPostsByIds } from "@/services/postServices";
 import { toast } from "react-hot-toast";
@@ -37,7 +37,7 @@ const ProfilePostList = ({
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
-  const fetchPosts = async () => {
+ const fetchPosts = useCallback(async () => {
     try {
       setLoading(true);
       if (!postIds?.length) {
@@ -51,16 +51,16 @@ const ProfilePostList = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [postIds]);
 
   useEffect(() => {
     if (!user) return;
     fetchPosts();
-  }, [user, pathname]);
+  }, [user, pathname, fetchPosts]);
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
 
   const actionHandler = async (postId: ID) => {
     try {

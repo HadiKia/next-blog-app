@@ -46,7 +46,7 @@ const EditCommentForm = ({
       onClose();
     }
     if (state?.error) toast.error(state.error);
-  }, [state]);
+  }, [state, router, onClose]);
 
   return (
     <form

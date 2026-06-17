@@ -41,7 +41,7 @@ export const DeletePost = ({ post: { _id: postId, title } }: DeletePostProps) =>
       router.refresh();
     }
     if (state?.error) toast.error(state.error);
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>
