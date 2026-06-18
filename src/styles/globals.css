@@ -343,21 +343,21 @@ table tr:last-child {
   height: 100%;
   position: absolute;
   right: -15px;
-  top: -13px;
-  width: 3px;
+  top: -16px;
+  width: 1px;
   background-color: rgb(var(--color-secondary-200));
 }
 
 .post-comments .post-comments__answer .answer-item::before {
   content: "";
   display: block;
-  height: 3px;
+  height: 1px;
   position: relative;
-  right: -31px;
-  top: 57px;
-  width: 15px;
+  right: -32px;
+  top: 49px;
+  
+  width: 16px;
   background-color: rgb(var(--color-secondary-200));
-  z-index: 10;
 }
 
 .post-comments .post-comments__answer .last-item:after {
@@ -377,10 +377,10 @@ table tr:last-child {
     display: none;
   }
   .post-comments .post-comments__answer .answer-item::before {
-    width: 3px;
-    height: 14px;
-    right: 11px;
-    top: -13px;
+    width: 1px;
+    height: 16px;
+    right: 16px;
+    top: -16px;
     position: absolute;
   }
 }

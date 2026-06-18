@@ -68,7 +68,7 @@ const PostComments = ({
                     onAddComment={() => addNewCommentHandler(comment)}
                   />
                 </div>
-                <div className="post-comments__answer ms-auto w-[95%] space-y-3">
+                <div className="post-comments__answer ms-auto w-[95%] space-y-4">
                   {comment.answers.map((item, index) => (
                     <div key={item._id} className="relative">
                       <div

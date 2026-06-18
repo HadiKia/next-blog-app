@@ -86,7 +86,7 @@ function PaginationNumber({ page, href, isActive, position }: PaginationNumberPr
   const className = classNames(
     "grid place-items-center w-9 h-9 lg:w-10 lg:h-10 text-sm lg:text-base duration-300 ease-linear rounded-full pt-0.5 lg:pt-1",
     {
-      "z-10 bg-primary-900 text-secondary-100 font-medium": isActive,
+      "z-[1] bg-primary-900 text-secondary-100 font-medium": isActive,
       "!text-secondary-700": !isActive && position !== "middle",
       "text-secondary-700": position === "middle",
     },

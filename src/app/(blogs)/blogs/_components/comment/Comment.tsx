@@ -39,7 +39,7 @@ const Comment = ({ comment, onAddComment }: CommentProps) => {
           )}
         </div>
       </div>
-      <p className="text-secondary-700 text-sm lg:text-base">
+      <p className="text-secondary-700 text-sm lg:text-base break-all">
         {comment.content.text}
       </p>
     </>
